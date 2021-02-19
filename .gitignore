@@ -5,6 +5,9 @@
 !*.*
 # Unignore all dirs
 !*/
+# Unignore all Makefiles (**/ for subdirectories)
+!**/Makefile
+!**/makefile
 
 ### Ignore all files with the below extensions ###
 *.exe

@@ -44,8 +44,9 @@ void qrGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 			gsl_blas_ddot(&col.vector, &colJ.vector, &dotProduct);
 			gsl_matrix_set(R, i, j, dotProduct);
 			// Set A_j to be A_j - q_i * R_{ij}
-			gsl_vector_scale(&col.vector, gsl_matrix_get(R, i, j)); // Updates &col.vector
-			gsl_vector_sub(&colJ.vector, &col.vector); // Updates &colJ.vector <(write more here, like that in the i for-loop)>
+			gsl_blas_daxpy(-gsl_matrix_get(R, i, j), &col.vector, &colJ.vector);
+			//gsl_vector_scale(&col.vector, gsl_matrix_get(R, i, j)); // Updates &col.vector
+			//gsl_vector_sub(&colJ.vector, &col.vector); // Updates &colJ.vector <(write more here, like that in the i for-loop)>
 			//gsl_matrix_set_col(A, j, colJ.vector); // Same as for same line in i for-loop ???
 		}
 	}

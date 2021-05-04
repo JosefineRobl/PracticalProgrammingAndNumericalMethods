@@ -1,0 +1,14 @@
+----------
+∫01 dx √(x)
+              Q = 0.668808
+          exact = 0.666667
+          calls = 8
+estimated error = 0.00166881
+   actual error = 0.00214085
+----------
+∫01 dx 4√(1-x²) = π
+              Q = 3.14228
+          exact = 3.14159
+          calls = 20
+estimated error = 0.00414228
+   actual error = 0.00068299

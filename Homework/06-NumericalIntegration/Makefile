@@ -3,7 +3,7 @@ CFLAGS = -Wall -std=gnu11 -O
 LDLIBS = -lm
 
 default: out.txt
-	cat $<
+	cat ./$<
 
 out.txt: adaptiveIntegration
 	./$< > $@

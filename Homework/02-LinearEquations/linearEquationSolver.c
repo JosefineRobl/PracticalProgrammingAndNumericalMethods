@@ -52,12 +52,6 @@ void qrGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 	}
 }
 
-// Solve given Ax = QRx = b
-//     static public vector qr_gs_solve(matrix Q, matrix R, vector b){
-//             vector x = Q.T*b;
-//             return backsub(R, x);
-//     }
-
 /*
  * Prints the matrix and takes into acoount if only some of the matrix is stored due to it being symmetric or antisymmetric.
  *
@@ -171,13 +165,29 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 
 /*
  * ...
+ */
+void backSubstitution(gsl_matrix* M, gsl_vector* v){
+	for (int i = v->size - 1; i >= 0; i--) {
+		double sum = gsl_vector_get(v, i);
+		for (int j = i + 1; j < v->size; j++) {
+			sum -= gsl_matrix_get(M, i, j)*gsl_vector_get(v, j);
+		}
+		gsl_vector_set(v, i, sum/gsl_matrix_get(M, i, i));
+	}
+}
+
+/*
+ * ...
  *
  * Q:
  * R:
  * b:
  * x:
  */
-void qrGramSchmidtSolve(gsl_matrix* Q, gsl_matrix* R, gsl_vector* b, gsl_vector* x);
+void qrGramSchmidtSolve(gsl_matrix* Q, gsl_matrix* R, gsl_vector* b, gsl_vector* x){
+	gsl_blas_dgemv(CblasTrans, 1, Q, b, 0, x);
+	backSubstitution(R, x);
+}
 
 /*
  * Printing the exercise number, letter or name as "== Exercise <exercise> ==".

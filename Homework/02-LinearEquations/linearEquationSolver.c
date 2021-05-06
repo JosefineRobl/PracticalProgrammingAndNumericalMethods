@@ -35,10 +35,37 @@ double randomBetweenPlusMinus1(){
 }
 
 /*
- * ...
+ * Tests if two matrices are equal and prints if they are equal or not.
+ * 
+ * M1: Pointer to gsl_matrix containing the first of two matrices to be compared.
+ * M1Name: String containing the name of the first matrix to be compared.
+ * M2: Pointer to gsl_matrix containing the second of two matrices to be compared.
+ * M2Name: String containing the name of the second matrix to be compared.
+ * tolerance: Double containing the tolerance for the equality, with a default being 1e-3.
  */
-void isMatricesEqual(gsl_matrix* M1, gsl_matrix* M2){
-	
+void isMatricesEqual(gsl_matrix* M1, char* M1Name, gsl_matrix* M2, char* M2Name, double tolerance = 1e-3){
+	// For the two matrices to be equal they must have the same dimensions
+	if ((M1->size1 == M2->size1) && (M1->size2 == M2->size2)){
+		// Comparing each element of M1 with the corresponding element of M2
+		for (int col = 0; col < M1->size2; col++) {
+			for (int row = 0; row < M1->size1; row++) {
+				// If the elements differ by more than the tolerance the loops are broken an the faliure is printed
+				if (fabs(gsl_matrix_get(M1, row, col) - gsl_matrix_get(M2, row, col)) > tolerance) {
+					printf("%s is not equal to %s with a tolerance of %g.\n", M1Name, M2Name, tolerance);
+					// Invalidates the 'col' loop thus breaking the outer loop before next iteration
+					col = M1->size2;
+					// The 'row' loop is broken if a non-diagonal element is non-zero taking into acount the tolerance
+					break;
+				}
+				// Write out the succes if not stopped when last element is processed
+				if ((row == M1->size1 - 1) && (col == M1->size2 - 1)) {
+					printf("%s is equal to %s with a tolerance of %g.\n", M1Name, M2Name, tolerance);
+				}
+			}
+		}
+	} else {
+		printf("The two matrices have different dimensions and thus are not equal.\n");
+	}
 }
 
 /*
@@ -51,13 +78,16 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 	// Copy A before QR-decomposition for comparison
 	gsl_matrix* ABeforeQRDecomposition = gsl_matrix_alloc(A->size1, A->size2); // Allocating space for the copied matrix.
 	gsl_matrix_memcpy(ABeforeQRDecomposition, A); // Copy the matrix A before QR-decomposition.
+	
 	// Performing the QR-decomposition
 	qrGramSchmidtDecomposition(A, R);
+	
 	// Printing the matrices A (in the theory called Q) and R after the QR-decomposition.
 	printf("----- Matrix A after QR-decomposition -----\n");
 	printMatrix(A, "normal");
 	printf("----- Matrix R after QR-decomposition -----\n");
 	printMatrix(R, "normal");
+	
 	// Check that R is upper triangular (everything below diagonal shall be zero)
 	double tolerance = 1e-4;
 	for (int col = 1; col < R->size2 - 1; col++) {
@@ -73,15 +103,16 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 		}
 	}
 	printf("R is upper triangular with a tolerance of %g.\n", tolerance);
+	
 	// Check that Q^TQ = 1
 	gsl_matrix* resultOfQTransposedTimesQ = gsl_matrix_alloc(A->size2, A->size2);
 	gsl_blas_dsyrk(CblasUpper, CblasTrans, 1, A, 0, resultOfQTransposedTimesQ);
-		// For filling out lower part of result-matrix, since it only stores either upper (CblasUpper) og lower (CblasLower) part of the matrix due to it being symmetric.
-	
+		// Only stores either upper (CblasUpper) og lower (CblasLower) part of the matrix due to it being symmetric.
 	printf("----- Calculation of Q^TQ -----\n");
 	printMatrix(resultOfQTransposedTimesQ, "symmetric upper");
+	/*
 	bool conditionDiagonal, conditionNonDiagonal;
-	for (int col = 0; col < R -> size2; col++) {
+	for (int col = 0; col < R->size2; col++) {
 		for (int row = 0; row < R->size1; row++) {
 			// If a diagonal element is different from 1 (more than the tolerance) or a non-diagonal element is non-zero (more than the tolerance) the loops are broken an the faliure is printed
 			conditionDiagonal = ((row == col) && (fabs(gsl_matrix_get(resultOfQTransposedTimesQ, row, col) - 1) > tolerance));
@@ -95,13 +126,23 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 			}
 		}
 	}
+	*/
+	gsl_matrix* identityMatrix = gsl_matrix_alloc(resultOfQTransposedTimesQ->size1, resultOfQTransposedTimesQ->size2); // Allocates for the identity matrix for comparison
+	gsl_matrix_set_identity(identityMatrix); // Sets the matrix equal to the identity matrix
+	isMatricesEqual(resultOfQTransposedTimesQ, "Q^TQ", identityMatrix, "the identity matrix", 1e-3);
 	gsl_matrix_free(resultOfQTransposedTimesQ);
-	printf("Q^TQ is the indentity matrix with a tolerance of %g.\n", tolerance);
+	gsl_matrix_free(identityMatrix);
+	// printf("Q^TQ is the indentity matrix with a tolerance of %g.\n", tolerance);
+	
 	// Check that QR = A
 	gsl_matrix* resultOfQTimesR = gsl_matrix_alloc(A->size1, R->size2);
-	gsl_blas_dgemm(CblasNoTrans, CblasNoTrans, 1, A, R, 0, resultOfQTimesR);
+	gsl_blas_dgemm(CblasNoTrans, CblasNoTrans, 1, A, R, 0, resultOfQTimesR); // Multiplying Q (in the code called A) and R, while resultsOfQTimesR holds the result
+	printf("QR = \n");
 	printMatrix(resultOfQTimesR, "normal");
+	printf("A = \n");
 	printMatrix(ABeforeQRDecomposition, "normal");
+	isMatricesEqual(resultOfQTimesR, "QR", ABeforeQRDecomposition, "A", 1e-3);
+	
 	// Freeing all left matrices
 	gsl_matrix_free(ABeforeQRDecomposition);
 	gsl_matrix_free(resultOfQTimesR);

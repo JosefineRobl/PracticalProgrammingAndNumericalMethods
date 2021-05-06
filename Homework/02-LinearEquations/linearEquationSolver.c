@@ -19,6 +19,15 @@ void printExercise(char* exercise){
 }
 
 /*
+ * Printing the exercise subtitle as "----- <subtitle> -----".
+ *
+ * subtitle: String containing the subtitle of the exercise.
+ */
+void printExerciseSubtitle(char* subtitle){
+	printf("----- %s -----\n", subtitle);
+}
+
+/*
  * To get a random double between -1 and +1.
  *
  * returns a random double in the interval [1, +1].
@@ -41,9 +50,9 @@ double randomBetweenPlusMinus1(){
  * M1Name: String containing the name of the first matrix to be compared.
  * M2: Pointer to gsl_matrix containing the second of two matrices to be compared.
  * M2Name: String containing the name of the second matrix to be compared.
- * tolerance: Double containing the tolerance for the equality, with a default being 1e-3.
+ * tolerance: Double containing the tolerance for the equality..
  */
-void isMatricesEqual(gsl_matrix* M1, char* M1Name, gsl_matrix* M2, char* M2Name, double tolerance = 1e-3){
+void isMatricesEqual(gsl_matrix* M1, char* M1Name, gsl_matrix* M2, char* M2Name, double tolerance){
 	// For the two matrices to be equal they must have the same dimensions
 	if ((M1->size1 == M2->size1) && (M1->size2 == M2->size2)){
 		// Comparing each element of M1 with the corresponding element of M2
@@ -83,9 +92,9 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 	qrGramSchmidtDecomposition(A, R);
 	
 	// Printing the matrices A (in the theory called Q) and R after the QR-decomposition.
-	printf("----- Matrix A after QR-decomposition -----\n");
+	printExerciseSubtitle("Matrix A after QR-decomposition");
 	printMatrix(A, "normal");
-	printf("----- Matrix R after QR-decomposition -----\n");
+	printExerciseSubtitle("Matrix R after QR-decomposition");
 	printMatrix(R, "normal");
 	
 	// Check that R is upper triangular (everything below diagonal shall be zero)
@@ -108,7 +117,7 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 	gsl_matrix* resultOfQTransposedTimesQ = gsl_matrix_alloc(A->size2, A->size2);
 	gsl_blas_dsyrk(CblasUpper, CblasTrans, 1, A, 0, resultOfQTransposedTimesQ);
 		// Only stores either upper (CblasUpper) og lower (CblasLower) part of the matrix due to it being symmetric.
-	printf("----- Calculation of Q^TQ -----\n");
+	printExerciseSubtitle("Checking for Q^TQ = 1");
 	printMatrix(resultOfQTransposedTimesQ, "symmetric upper");
 	/*
 	bool conditionDiagonal, conditionNonDiagonal;
@@ -132,11 +141,12 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 	isMatricesEqual(resultOfQTransposedTimesQ, "Q^TQ", identityMatrix, "the identity matrix", 1e-3);
 	gsl_matrix_free(resultOfQTransposedTimesQ);
 	gsl_matrix_free(identityMatrix);
-	// printf("Q^TQ is the indentity matrix with a tolerance of %g.\n", tolerance);
+	/* printf("Q^TQ is the indentity matrix with a tolerance of %g.\n", tolerance); */
 	
 	// Check that QR = A
 	gsl_matrix* resultOfQTimesR = gsl_matrix_alloc(A->size1, R->size2);
 	gsl_blas_dgemm(CblasNoTrans, CblasNoTrans, 1, A, R, 0, resultOfQTimesR); // Multiplying Q (in the code called A) and R, while resultsOfQTimesR holds the result
+	printExerciseSubtitle("Checking for QR = A");
 	printf("QR = \n");
 	printMatrix(resultOfQTimesR, "normal");
 	printf("A = \n");
@@ -169,7 +179,7 @@ int main(void){
 	// Generating the R matrix
 	gsl_matrix* R = gsl_matrix_alloc(m, m);
 	// Printing the 
-	printf("----- Matrix A before QR-decomposition -----\n");
+	printExerciseSubtitle("Matrix A before QR-decomposition");
 	printMatrix(A, "normal");
 	// Performing the QR-decomposition and checks that it is correct.
 	performAndTestQRGramSchmidtDecomposition(A, R);

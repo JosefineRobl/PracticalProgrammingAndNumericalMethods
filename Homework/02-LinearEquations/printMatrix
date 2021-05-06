@@ -14,7 +14,7 @@
 #endif
 
 /*
- * Prints the matrix and takes into acoount if only some of the matrix is stored due to it being symmetric or antisymmetric.
+ * Prints the matrix and takes into acount if only some of the matrix is stored due to it being symmetric or antisymmetric.
  *
  * M: Pointer to gsl_matrix containing the matrix, which shall be printed.
  * matrixType: Pointer to string containing either "symmetric upper" for an upper symmetric matrix, "symmetric lower" for a lower symmetric matrix, "antisymmetric upper" for an upper antisymmetric matrix, "antisymmetric lower" for a lower antisymmetric matrix, and another string, i.e. "normal" for a matrix matching none of the above.

@@ -1,118 +1,18 @@
 #include <stdio.h> // Standard Input/Output, contains printf()
 #include <stdlib.h> // Contains rand()
-#include <string.h> // Contains string comparison
-#include <gsl/gsl_vector.h> // Enables Gnu Scientific Library vectors and some of their functions to be used
+// #include <string.h> // Contains string comparison
+// #include <gsl/gsl_vector.h> // Enables Gnu Scientific Library vectors and some of their functions to be used
 #include <gsl/gsl_matrix.h> // Enables Gnu Scientific Library matrices and some of their functions to be used
 #include <gsl/gsl_blas.h> // Enables Gnu Scientific Library functions for calculations with gsl vectors and matrices.
+#include "qrGramSchmidt.h" // File containing the heads of the functions for the QR-decomposition, the solver and likewise.
 
 /*
- * Switch cases with string comparison
- */
-#ifndef SWITCH_CASE_INIT
-#define SWITCH_CASE_INIT
-	#define SWITCH(X) for (char* __switch_p__ = X, __switch_next__= 1 ; __switch_p__ ; __switch_p__= 0, __switch_next__= 1) {{
-	#define CASE(X)	} if (!__switch_next__ || !(__switch_next__ = strcmp(__switch_p__, X))) {
-	#define DEFAULT } {
-	#define END }}
-#endif
-
-/*
- * ...
+ * Printing the exercise number, letter or name as "== Exercise <exercise> ==".
  *
- * A:
- * R:
+ * exercise: String containing the number, letter or name of the exercise
  */
-void qrGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
-	// Initializing m, the size of matrix R is (m, m)
-	int m = A->size2;
-	// Defining a double for later use for the dot product value
-	double dotProduct;
-	// Gram-Schmidt decomposition
-	for (int i = 0; i < m; i++) {
-		// Create a view of the i-th column of the matrix
-		gsl_vector_view col = gsl_matrix_column(A, i);
-		// Compute the norm of this column (sum of entries)
-		gsl_matrix_set(R, i, i, gsl_blas_dnrm2(&col.vector));
-		// Divide all entries of this column by its norm
-		gsl_vector_scale(&col.vector, 1 / gsl_matrix_get(R, i, i)); // Updates &col.vector which in turn updates the i'th column of A, since gsl_vector_view points to the location of the column in the matrix
-		// gsl_matrix_set_col(A, i, &col.vector); // Not needed due to above comment ???
-		//
-		for (int j = i + 1; j < m; j++) {
-			// Create a view of the j-th colum of the matrix
-			gsl_vector_view colJ = gsl_matrix_column(A, j);
-			// Compute the dot product between A_i and A_j
-			gsl_blas_ddot(&col.vector, &colJ.vector, &dotProduct);
-			gsl_matrix_set(R, i, j, dotProduct);
-			// Set A_j to be A_j - q_i * R_{ij}
-			gsl_blas_daxpy(-gsl_matrix_get(R, i, j), &col.vector, &colJ.vector);
-			//gsl_vector_scale(&col.vector, gsl_matrix_get(R, i, j)); // Updates &col.vector
-			//gsl_vector_sub(&colJ.vector, &col.vector); // Updates &colJ.vector <(write more here, like that in the i for-loop)>
-			//gsl_matrix_set_col(A, j, colJ.vector); // Same as for same line in i for-loop ???
-		}
-	}
-}
-
-/*
- * Prints the matrix and takes into acoount if only some of the matrix is stored due to it being symmetric or antisymmetric.
- *
- * M: Pointer to gsl_matrix containing the matrix, which shall be printed.
- * matrixType: Pointer to string containing either "symmetric upper" for an upper symmetric matrix, "symmetric lower" for a lower symmetric matrix, "antisymmetric upper" for an upper antisymmetric matrix, "antisymmetric lower" for a lower antisymmetric matrix, and another string, i.e. "normal" for a matrix matching none of the above.
- */
-void printMatrix(gsl_matrix* M, char* matrixType){
-	// Initializing a double for the matrix element to be kept in.
-	double matrixElement;
-	// Printing the start bracket of the matrix.
-	printf("[");
-	// Running through the rows of the matrix.
-	for (int i = 0; i < M->size1; i++) {
-		// Running through the columns of the matrix.
-		for (int j = 0; j < M->size2; j++) {
-			/*
-			// The following cases ensures to print the entire matrix since some functions may only store the upper or lower part of the matrix if it is symmetric or antisymmetric.
-			SWITCH (matrixType)
-				CASE ("symmetric upper")
-					if (i > j) {
-						matrixElement = gsl_matrix_get(M, j, i);
-					}
-					// Otherwise go to DEFAULT. This is done by giving no break for this case, thus it rolls over to subsequent CASEs through DEFAULT, but no other cases than DEFAULT will apply.
-				CASE ("symmetric lower")
-					if (i < j) {
-						matrixElement = gsl_matrix_get(M, j, i);
-					}
-					// Otherwise go to DEFAULT. This is done by giving no break for this case, thus it rolls over to subsequent CASEs through DEFAULT, but no other cases than DEFAULT will apply.
-				CASE ("antisymmetric upper")
-					if (i > j) {
-						matrixElement = - gsl_matrix_get(M, j, i);
-					}
-					// Otherwise go to DEFAULT. This is done by giving no break for this case, thus it rolls over to subsequent CASEs through DEFAULT, but no other cases than DEFAULT will apply.
-				CASE ("antisymmetric lower")
-					if (i < j) {
-						matrixElement = - gsl_matrix_get(M, j, i);
-					// Otherwise go to DEFAULT. This is done by giving no break for this case, thus it rolls over to subsequent CASEs through DEFAULT, but no other cases than DEFAULT will apply.
-				DEFAULT
-					// Just print all matrix elements as they are writting in the matrix.
-					matrixElement = gsl_matrix_get(M, i, j);
-			END
-			*/
-			matrixElement = gsl_matrix_get(M, i, j);
-			// Adding an extra horizontal space before first element (j == 0) of every row but the first (i > 0) for aligment of the matrix elements when printed.
-			if ((j == 0) && (i > 0)) {
-				printf(" ");
-			}
-			// Printing the actual matrix element with 10 digits. Space added in the beginning for space between the matrix elements.
-			printf(" %10f", matrixElement);
-			// Comma added only in-between matrix elements, thus giving better distinguishability.
-			if (j < M->size2 - 1) {
-				printf(",");
-			}
-		}
-		// After each row but the last (i < M->size - 1) a newline is printed for the new line of the matrix to start on a new line.
-		if (i < M->size1 - 1) {
-			printf("\n");
-		}
-	}
-	// Printing the end bracket one horizontal space from the last matrix element.
-	printf(" ]\n");
+void printExercise(char* exercise){
+	printf("========== Exercise %s ==========\n", exercise);
 }
 
 /*
@@ -161,41 +61,6 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 	// Check that QR = A
 	// ...
 	// Freeing all left 
-}
-
-/*
- * ...
- */
-void backSubstitution(gsl_matrix* M, gsl_vector* v){
-	for (int i = v->size - 1; i >= 0; i--) {
-		double sum = gsl_vector_get(v, i);
-		for (int j = i + 1; j < v->size; j++) {
-			sum -= gsl_matrix_get(M, i, j)*gsl_vector_get(v, j);
-		}
-		gsl_vector_set(v, i, sum/gsl_matrix_get(M, i, i));
-	}
-}
-
-/*
- * ...
- *
- * Q:
- * R:
- * b:
- * x:
- */
-void qrGramSchmidtSolve(gsl_matrix* Q, gsl_matrix* R, gsl_vector* b, gsl_vector* x){
-	gsl_blas_dgemv(CblasTrans, 1, Q, b, 0, x);
-	backSubstitution(R, x);
-}
-
-/*
- * Printing the exercise number, letter or name as "== Exercise <exercise> ==".
- *
- * exercise: String containing the number, letter or name of the exercise
- */
-void printExercise(char* exercise){
-	printf("========== Exercise %s ==========\n", exercise);
 }
 
 /*

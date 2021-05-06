@@ -1,5 +1,7 @@
 #include <stdio.h> // Standard Input/Output, contains printf()
 #include <stdlib.h> // Contains rand()
+#include <math.h> // Contains mathematical expressions and functions
+#include <stdbool.h> // Contains the type 'bool'
 // #include <string.h> // Contains string comparison
 // #include <gsl/gsl_vector.h> // Enables Gnu Scientific Library vectors and some of their functions to be used
 #include <gsl/gsl_matrix.h> // Enables Gnu Scientific Library matrices and some of their functions to be used
@@ -33,6 +35,13 @@ double randomBetweenPlusMinus1(){
 }
 
 /*
+ * ...
+ */
+void isMatricesEqual(gsl_matrix* M1, gsl_matrix* M2){
+	
+}
+
+/*
  * Performing the QR-decomposition and testing if the QR-decomposition algorithm using the Gram-Schmidt orthogonality is implemented correct. Here the tests performed are to check that R is upper triangular, that Q^TQ = 1, and that QR = A.
  *
  * A:
@@ -49,19 +58,53 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 	printMatrix(A, "normal");
 	printf("----- Matrix R after QR-decomposition -----\n");
 	printMatrix(R, "normal");
-	// Check that R is upper triangular
-	// ...
+	// Check that R is upper triangular (everything below diagonal shall be zero)
+	double tolerance = 1e-4;
+	for (int col = 1; col < R->size2 - 1; col++) {
+		for (int row = col + 1; row < R->size1; row++) {
+			// If an element below the diagonal is non-zero (more than the tolerance) the loops are broken and the faliure is printed
+			if (fabs(gsl_matrix_get(R, row, col)) > tolerance) {
+				printf("R is not upper triangular with a tolerance of %g.\n", tolerance);
+				// Invalidates the 'col' loop thus breaking the outer loop before next iteration
+				col = R->size2 - 1;
+				// The 'row' loop is broken if en element in the lower triangle of matrix is non-zero taking into account the tolerance
+				break;
+			}
+		}
+	}
+	printf("R is upper triangular with a tolerance of %g.\n", tolerance);
 	// Check that Q^TQ = 1
 	gsl_matrix* resultOfQTransposedTimesQ = gsl_matrix_alloc(A->size2, A->size2);
 	gsl_blas_dsyrk(CblasUpper, CblasTrans, 1, A, 0, resultOfQTransposedTimesQ);
 		// For filling out lower part of result-matrix, since it only stores either upper (CblasUpper) og lower (CblasLower) part of the matrix due to it being symmetric.
 	
-	printf("----- Calculatoin of Q^TQ -----\n");
+	printf("----- Calculation of Q^TQ -----\n");
 	printMatrix(resultOfQTransposedTimesQ, "symmetric upper");
+	bool conditionDiagonal, conditionNonDiagonal;
+	for (int col = 0; col < R -> size2; col++) {
+		for (int row = 0; row < R->size1; row++) {
+			// If a diagonal element is different from 1 (more than the tolerance) or a non-diagonal element is non-zero (more than the tolerance) the loops are broken an the faliure is printed
+			conditionDiagonal = ((row == col) && (fabs(gsl_matrix_get(resultOfQTransposedTimesQ, row, col) - 1) > tolerance));
+			conditionNonDiagonal = ((row != col) && (fabs(gsl_matrix_get(resultOfQTransposedTimesQ, row, col)) > tolerance));
+			if (conditionDiagonal || conditionNonDiagonal) {
+				printf("Q^TQ is not the identity matrix with a tolerance of %g.\n", tolerance);
+				// Invalidates the 'col' loop thus breaking the outer loop before next iteration
+				col = R->size2;
+				// The 'row' loop is broken if a non-diagonal element is non-zero taking into acount the tolerance
+				break;
+			}
+		}
+	}
 	gsl_matrix_free(resultOfQTransposedTimesQ);
+	printf("Q^TQ is the indentity matrix with a tolerance of %g.\n", tolerance);
 	// Check that QR = A
-	// ...
-	// Freeing all left 
+	gsl_matrix* resultOfQTimesR = gsl_matrix_alloc(A->size1, R->size2);
+	gsl_blas_dgemm(CblasNoTrans, CblasNoTrans, 1, A, R, 0, resultOfQTimesR);
+	printMatrix(resultOfQTimesR, "normal");
+	printMatrix(ABeforeQRDecomposition, "normal");
+	// Freeing all left matrices
+	gsl_matrix_free(ABeforeQRDecomposition);
+	gsl_matrix_free(resultOfQTimesR);
 }
 
 /*

@@ -9,11 +9,18 @@ default: out.txt
 out.txt: linearEquationSolver
 	./$< > $@
 
-linearEquationSolver.o: linearEquationSolver.c
+linearEquationSolver.o: linearEquationSolver.c qrGramSchmidt.h printMatrix.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-linearEquationSolver: linearEquationSolver.o
-	$(CC) $(LDFLAGS) linearEquationSolver.o -o linearEquationSolver $(LDLIBS)
+qrGramSchmidt.o: qrGramSchmidt.c qrGramSchmidt.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+printMatrix.o: printMatrix.c printMatrix.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+linearEquationSolver: linearEquationSolver.o qrGramSchmidt.o printMatrix.o
+	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
 clean:
-	$(RM) *.o out* linearEquationSolver
+	find -type f -executable -delete
+	$(RM) *.o [Oo]ut*

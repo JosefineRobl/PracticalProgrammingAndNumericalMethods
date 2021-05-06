@@ -49,6 +49,7 @@ void printMatrix(gsl_matrix* M, char* matrixType){
 				CASE ("antisymmetric lower")
 					if (i < j) {
 						matrixElement = - gsl_matrix_get(M, j, i);
+					}
 					// Otherwise go to DEFAULT. This is done by giving no break for this case, thus it rolls over to subsequent CASEs through DEFAULT, but no other cases than DEFAULT will apply.
 				DEFAULT
 					// Just print all matrix elements as they are writting in the matrix.

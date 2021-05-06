@@ -5,6 +5,7 @@
 #include <gsl/gsl_matrix.h> // Enables Gnu Scientific Library matrices and some of their functions to be used
 #include <gsl/gsl_blas.h> // Enables Gnu Scientific Library functions for calculations with gsl vectors and matrices.
 #include "qrGramSchmidt.h" // File containing the heads of the functions for the QR-decomposition, the solver and likewise.
+#include "printMatrix.h" // File containing the heads of the function for printing a matrix.
 
 /*
  * Printing the exercise number, letter or name as "== Exercise <exercise> ==".

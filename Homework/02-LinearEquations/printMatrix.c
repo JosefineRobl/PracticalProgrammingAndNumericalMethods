@@ -18,11 +18,14 @@
  * Prints the matrix and takes into acount if only some of the matrix is stored due to it being symmetric or antisymmetric.
  *
  * M: Pointer to gsl_matrix containing the matrix, which shall be printed.
+ * matrixName: Pointer to string containing the name of the matrix, which shall be printed before the equality sign.
  * matrixType: Pointer to string containing either "symmetric upper" for an upper symmetric matrix, "symmetric lower" for a lower symmetric matrix, "antisymmetric upper" for an upper antisymmetric matrix, "antisymmetric lower" for a lower antisymmetric matrix, and another string, i.e. "normal" for a matrix matching none of the above.
  */
-void printMatrix(gsl_matrix* M, char* matrixType){
+void printMatrix(gsl_matrix* M, char* matrixName, char* matrixType){
 	// Initializing a double for the matrix element to be kept in.
 	double matrixElement;
+	// Printing the matrix name before equality sign
+	prinf("%s =\n", matrixName)
 	// Printing the start bracket of the matrix.
 	printf("[");
 	// Running through the rows of the matrix.

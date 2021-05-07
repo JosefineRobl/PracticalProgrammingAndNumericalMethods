@@ -1,7 +1,7 @@
 #include <stdio.h> // Standard Input/Output, contains printf()
 #include <stdlib.h> // Contains rand()
 #include <math.h> // Contains mathematical expressions and functions
-#include <stdbool.h> // Contains the type 'bool'
+// #include <stdbool.h> // Contains the type 'bool'
 // #include <string.h> // Contains string comparison
 // #include <gsl/gsl_vector.h> // Enables Gnu Scientific Library vectors and some of their functions to be used
 #include <gsl/gsl_matrix.h> // Enables Gnu Scientific Library matrices and some of their functions to be used
@@ -85,17 +85,17 @@ void isMatricesEqual(gsl_matrix* M1, char* M1Name, gsl_matrix* M2, char* M2Name,
  */
 void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 	// Copy A before QR-decomposition for comparison
-	gsl_matrix* ABeforeQRDecomposition = gsl_matrix_alloc(A->size1, A->size2); // Allocating space for the copied matrix.
-	gsl_matrix_memcpy(ABeforeQRDecomposition, A); // Copy the matrix A before QR-decomposition.
+	gsl_matrix* ABeforeQRDecomposition = gsl_matrix_alloc(A->size1, A->size2); // Allocating space for the copied matrix
+	gsl_matrix_memcpy(ABeforeQRDecomposition, A); // Copy the matrix A before QR-decomposition
 	
 	// Performing the QR-decomposition
 	qrGramSchmidtDecomposition(A, R);
 	
-	// Printing the matrices A (in the theory called Q) and R after the QR-decomposition.
-	printExerciseSubtitle("Matrix A after QR-decomposition");
-	printMatrix(A, "normal");
+	// Printing the matrices A (in the theory called Q) and R after the QR-decomposition
+	printExerciseSubtitle("Matrix A (in theory Q) after QR-decomposition");
+	printMatrix(A, "Q", "normal");
 	printExerciseSubtitle("Matrix R after QR-decomposition");
-	printMatrix(R, "normal");
+	printMatrix(R, "R", "normal");
 	
 	// Check that R is upper triangular (everything below diagonal shall be zero)
 	double tolerance = 1e-4;
@@ -118,8 +118,8 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 	gsl_blas_dsyrk(CblasUpper, CblasTrans, 1, A, 0, resultOfQTransposedTimesQ);
 		// Only stores either upper (CblasUpper) og lower (CblasLower) part of the matrix due to it being symmetric.
 	printExerciseSubtitle("Checking for Q^TQ = 1");
-	printMatrix(resultOfQTransposedTimesQ, "symmetric upper");
-	/*
+	printMatrix(resultOfQTransposedTimesQ, "Q^TQ", "symmetric upper");
+	/* // The below is instead calculated in the function 'isMatricesEqual'
 	bool conditionDiagonal, conditionNonDiagonal;
 	for (int col = 0; col < R->size2; col++) {
 		for (int row = 0; row < R->size1; row++) {
@@ -147,10 +147,8 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 	gsl_matrix* resultOfQTimesR = gsl_matrix_alloc(A->size1, R->size2);
 	gsl_blas_dgemm(CblasNoTrans, CblasNoTrans, 1, A, R, 0, resultOfQTimesR); // Multiplying Q (in the code called A) and R, while resultsOfQTimesR holds the result
 	printExerciseSubtitle("Checking for QR = A");
-	printf("QR = \n");
-	printMatrix(resultOfQTimesR, "normal");
-	printf("A = \n");
-	printMatrix(ABeforeQRDecomposition, "normal");
+	printMatrix(resultOfQTimesR, "QR", "normal");
+	printMatrix(ABeforeQRDecomposition, "A", "normal");
 	isMatricesEqual(resultOfQTimesR, "QR", ABeforeQRDecomposition, "A", 1e-3);
 	
 	// Freeing all left matrices
@@ -159,12 +157,39 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 }
 
 /*
- * The main function of the document.
- *
- * returns 0 for succesfull execution, and non-zero for error.
+ * ...
  */
-int main(void){
-	// EXERCISE A PART 2
+void performAndTestQRGramSchmidtSovler(gsl_matrix* Q, gsl_matrix R){
+	// Copy A before QR-decomposition for comparison
+	gsl_matrix* ABeforeQRDecomposition = gsl_matrix_alloc(A->size1, A->size2); // Allocating space for the copied matrix
+	gsl_matrix_mamcpy(ABeforeQRDecomposition, A); // Copy the matrix A before QR-decomposition
+	
+	// Performing the QR-decomposition
+	qrGramSchmidt(A, R);
+	
+	// Printing the matrixes A (in the theory called Q) and R after the QR-decomposition
+	printExerciseSubtitle("Matrix A (in theory Q) and R after QR-decomposition");
+	printMatrix(A, "Q", "normal");
+	printMatrix(R, "R", "normal");
+	
+	// Allocating space for the x vector
+	gsl_vector* x = gsl_vector_alloc(n);
+	
+	// Solving QRx = b
+	qrGramSchmidtSolve(A, R, b, x);	
+	
+	// Cheking that Ax = b
+	
+	
+	// Freeing all left matrices and vectors
+	gsl_vector_free(x);
+}
+
+/*
+ * The answers to exercise A.
+ */
+void exerciseA(void){
+	// EXERCISE A PART 1
 	printExercise("A part 1");
 	// Generating the A matrix
 	int n = 5; // 1st dimension
@@ -178,10 +203,10 @@ int main(void){
 	}
 	// Generating the R matrix
 	gsl_matrix* R = gsl_matrix_alloc(m, m);
-	// Printing the 
+	// Printing the generated matrix A
 	printExerciseSubtitle("Matrix A before QR-decomposition");
 	printMatrix(A, "normal");
-	// Performing the QR-decomposition and checks that it is correct.
+	// Performing the QR-decomposition and checks that it is correct
 	performAndTestQRGramSchmidtDecomposition(A, R);
 	// Freeing the allocated space for the matrices
 	gsl_matrix_free(A);
@@ -189,14 +214,55 @@ int main(void){
 
 	// EXERCISE A PART 2
 	printExercise("A part 2");
-	// <SOME MORE HERE>
+	// Generating the new square matrix A and vector b
+	n = 5; // Dimension of square matrix
+	gsl_matrix* A = gsl_matrix_alloc(n, n); // Allocating space for the matrix
+	gsl_vector* b = gsl_vector_alloc(n); // Allocating space for the vector (same dimension as the matrix)
+	for (int i = i; i < n; i++) {
+		gsl_vector_set(b, i, randomBetweenPlusMinus1()); // Generates random values for vector b
+		for (int j = 0; j < m; j++) {
+			gsl_matrix_set(A, i, j, randomBetweenPlusMinus1()); // Generates random values for matrix A
+		}
+	}
+	// Generating the R matrix
+	gsl_matrix* R = gsl_matrix_alloc(n, n);
+	// Printing the generated matrix A
+	printExerciseSubtitle("Matrix A before QR-decomposition");
+	printMatrix(A, "normal");
+	// Performing the QR-solve and checks that it is correct
+	performAndTestQRGramSchmidtSovler(A, R);
+	// Freeing the allocated space for the matrices and vector
+	gsl_matrix_free(A);
+	gsl_matrix_free(R);
+	gsl_vector_free(b);
+}
 
-	// EXERCISE B
+/*
+ * The answers to Exercise B.
+ */
+void exerciseB(void){
+	// Printing the exercise title
 	printExercise("B");
 	// <SOME MORE HERE>
+}
 
-	// EXERCISE C
+/*
+ * The answers to Exercise C.
+ */
+void exerciseC(void){
+	// Printing the exercise title
 	printExercise("C");
 	// <SOME MORE HERE>
+}
+
+/*
+ * The main function of the document.
+ *
+ * returns 0 for successful execution, and non-zero for error.
+ */
+int main(void){
+	exerciceA();
+	exerciseB();
+	exerciseC();
 	return 0;
 }

@@ -70,7 +70,7 @@ void printMatrix(gsl_matrix* M, char* matrixName, char* matrixType){
 				printf(",");
 			}
 		}
-		// After each row but the last (i < M->size - 1) a newline is printed for the new line of the matrix to start on a new line.
+		// After each row but the last (i < M->size1 - 1) a newline is printed for the new line of the matrix to start on a new line.
 		if (i < M->size1 - 1) {
 			printf("\n");
 		}

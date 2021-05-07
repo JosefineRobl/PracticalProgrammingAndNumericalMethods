@@ -164,8 +164,8 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
  * returns 0 for succesfull execution, and non-zero for error.
  */
 int main(void){
-	// EXERCISE A
-	printExercise("A");
+	// EXERCISE A PART 2
+	printExercise("A part 1");
 	// Generating the A matrix
 	int n = 5; // 1st dimension
 	int m = 3; // 2nd dimension
@@ -186,6 +186,10 @@ int main(void){
 	// Freeing the allocated space for the matrices
 	gsl_matrix_free(A);
 	gsl_matrix_free(R);
+
+	// EXERCISE A PART 2
+	printExercise("A part 2");
+	// <SOME MORE HERE>
 
 	// EXERCISE B
 	printExercise("B");

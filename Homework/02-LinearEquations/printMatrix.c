@@ -78,3 +78,28 @@ void printMatrix(gsl_matrix* M, char* matrixName, char* matrixType){
 	// Printing the end bracket one horizontal space from the last matrix element.
 	printf(" ]\n");
 }
+
+/*
+ * Prints the vector.
+ *
+ * V: Pointer to gsl_vector containing the vector, which shall be printed.
+ */
+void printMatrix(gsl_vector* V){
+	// Printing the start bracket of the matrix.
+	printf("[");
+	// Running through the rows of the matrix.
+	for (int i = 0; i < V->size; i++) {
+		// Adding an extra horizontal space before the element of every row but the first (i > 0) for aligment of the matrix elements when printed.
+		if (i > 0) {
+			printf(" ");
+		}
+		// Printing the actual element with 10 digits. Space added in the beginning for extra spacing.
+		printf(" %10f", gsl_vector_get(V, i));
+		// After each row but the last (i < V->size - 1) a newline is printed for the new line of the vector to start on a new line.
+		if (i < V->size - 1) {
+			printf("\n");
+		}
+	}
+	// Printing the end bracket one horizontal space from the last vector element.
+	printf(" ]\n");
+}

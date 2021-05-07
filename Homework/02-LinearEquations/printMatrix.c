@@ -84,7 +84,7 @@ void printMatrix(gsl_matrix* M, char* matrixName, char* matrixType){
  *
  * V: Pointer to gsl_vector containing the vector, which shall be printed.
  */
-void printMatrix(gsl_vector* V){
+void printVector(gsl_vector* V){
 	// Printing the start bracket of the matrix.
 	printf("[");
 	// Running through the rows of the matrix.

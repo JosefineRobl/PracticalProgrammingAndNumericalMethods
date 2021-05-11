@@ -23,7 +23,7 @@ linearEquationSolver: linearEquationSolver.o qrGramSchmidt.o printMatrix.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
 timeDependence.svg: plot.gpi Makefile data.txt
-	tee plot.gpi | pyxplot
+	cat $< | tee plot.gpi | pyxplot
 
 .PHONEY: clean
 clean:

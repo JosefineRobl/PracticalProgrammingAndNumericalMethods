@@ -1,6 +1,7 @@
 #include <stdio.h> // Standard Input/Output, contains printf()
 #include <string.h> // Contains string comparison
 #include <gsl/gsl_matrix.h> // Enables Gnu Scientific Library matrices and some of their functions to be used
+#include <gsl/gsl_vector.h> // Enables Gnu Scientific Library vectors and some of their functions to be used
 #include "printMatrix.h" // File containing the heads of the function for printing a matrix.
 
 /*
@@ -25,7 +26,7 @@ void printMatrix(gsl_matrix* M, char* matrixName, char* matrixType){
 	// Initializing a double for the matrix element to be kept in.
 	double matrixElement;
 	// Printing the matrix name before equality sign
-	prinf("%s =\n", matrixName)
+	printf("%s =\n", matrixName);
 	// Printing the start bracket of the matrix.
 	printf("[");
 	// Running through the rows of the matrix.
@@ -84,9 +85,9 @@ void printMatrix(gsl_matrix* M, char* matrixName, char* matrixType){
  *
  * V: Pointer to gsl_vector containing the vector, which shall be printed.
  */
-void printVector(gsl_vector* V){
+void printVector(gsl_vector* V, char* vectorName){
 	// Printing the matrix name before equality sign
-	prinf("%s =\n", matrixName)
+	printf("%s =\n", vectorName);
 	// Printing the start bracket of the matrix.
 	printf("[");
 	// Running through the rows of the matrix.

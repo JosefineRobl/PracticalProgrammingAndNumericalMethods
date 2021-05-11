@@ -50,15 +50,15 @@ double randomBetweenPlusMinus1(){
  * M1Name: String containing the name of the first matrix to be compared.
  * M2: Pointer to gsl_matrix containing the second of two matrices to be compared.
  * M2Name: String containing the name of the second matrix to be compared.
- * tolerance: Double containing the tolerance for the equality..
+ * tolerance: Double containing the tolerance for the equality.
  */
-void isMatricesEqual(gsl_matrix* M1, char* M1Name, gsl_matrix* M2, char* M2Name, double tolerance){
+void areMatricesEqual(gsl_matrix* M1, char* M1Name, gsl_matrix* M2, char* M2Name, double tolerance){
 	// For the two matrices to be equal they must have the same dimensions
-	if ((M1->size1 == M2->size1) && (M1->size2 == M2->size2)){
+	if ((M1->size1 == M2->size1) && (M1->size2 == M2->size2)) {
 		// Comparing each element of M1 with the corresponding element of M2
 		for (int col = 0; col < M1->size2; col++) {
 			for (int row = 0; row < M1->size1; row++) {
-				// If the elements differ by more than the tolerance the loops are broken an the faliure is printed
+				// If the elements differ by more than the tolerance the loops are broken and the faliure is printed
 				if (fabs(gsl_matrix_get(M1, row, col) - gsl_matrix_get(M2, row, col)) > tolerance) {
 					printf("%s is not equal to %s with a tolerance of %g.\n", M1Name, M2Name, tolerance);
 					// Invalidates the 'col' loop thus breaking the outer loop before next iteration
@@ -74,6 +74,35 @@ void isMatricesEqual(gsl_matrix* M1, char* M1Name, gsl_matrix* M2, char* M2Name,
 		}
 	} else {
 		printf("The two matrices have different dimensions and thus are not equal.\n");
+	}
+}
+
+/*
+ * Tests if two vectors are equal and prints if they are equal or not.
+ *
+ * V1: Pointer to gsl_vector containing the first of two vectors to be compared.
+ * V1Name: String containing the name of the first vector to be compared.
+ * V2: Pointer to gsl_matrix containing the second of two vectors to be compared.
+ * V2Name: String containing the name of the second vector to be compared.
+ * tolerance: Double containing the tolerance for the equality.
+ */
+void areVectorsEqual(gsl_vector* V1, char* V1Name, gsl_vector* V2, char* V2Name, double tolerance){
+	// For the two vectors to be equal they must have the same dimensions
+	if (V1->size == V2->size) {
+		// Comparing each element of V1 with the corresponding element of V2
+		for (int row = 0; row < V1->size; row++) {
+			// If the elements differ by more than the tolerance the loop is broken and the faliure is printed
+			if (fabs(gsl_vector_get(V1, row) - gsl_vector_get(V2, row)) > tolerance) {
+				printf("%s is not equal to %s with a tolerance of %g.\n", V1Name, V2Name, tolerance);
+				break;
+			}
+			// Write out the succes if not stopped when last element is processed
+			if (row == V1->size - 1) {
+				printf("%s is equal to %s with a tolerance of %g.\n", V1Name, V2Name, tolerance);
+			}
+		}
+	} else {
+		printf("The two vectors have different dimensions and this are not equal.\n");
 	}
 }
 
@@ -119,7 +148,7 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 		// Only stores either upper (CblasUpper) og lower (CblasLower) part of the matrix due to it being symmetric.
 	printExerciseSubtitle("Checking for Q^TQ = 1");
 	printMatrix(resultOfQTransposedTimesQ, "Q^TQ", "symmetric upper");
-	/* // The below is instead calculated in the function 'isMatricesEqual'
+	/* // The below is instead calculated in the function 'areMatricesEqual'
 	bool conditionDiagonal, conditionNonDiagonal;
 	for (int col = 0; col < R->size2; col++) {
 		for (int row = 0; row < R->size1; row++) {
@@ -138,7 +167,7 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 	*/
 	gsl_matrix* identityMatrix = gsl_matrix_alloc(resultOfQTransposedTimesQ->size1, resultOfQTransposedTimesQ->size2); // Allocates for the identity matrix for comparison
 	gsl_matrix_set_identity(identityMatrix); // Sets the matrix equal to the identity matrix
-	isMatricesEqual(resultOfQTransposedTimesQ, "Q^TQ", identityMatrix, "the identity matrix", 1e-3);
+	areMatricesEqual(resultOfQTransposedTimesQ, "Q^TQ", identityMatrix, "the identity matrix", 1e-3);
 	gsl_matrix_free(resultOfQTransposedTimesQ);
 	gsl_matrix_free(identityMatrix);
 	/* printf("Q^TQ is the indentity matrix with a tolerance of %g.\n", tolerance); */
@@ -149,7 +178,7 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 	printExerciseSubtitle("Checking for QR = A");
 	printMatrix(resultOfQTimesR, "QR", "normal");
 	printMatrix(ABeforeQRDecomposition, "A", "normal");
-	isMatricesEqual(resultOfQTimesR, "QR", ABeforeQRDecomposition, "A", 1e-3);
+	areMatricesEqual(resultOfQTimesR, "QR", ABeforeQRDecomposition, "A", 1e-3);
 	
 	// Freeing all left matrices
 	gsl_matrix_free(ABeforeQRDecomposition);
@@ -157,15 +186,19 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 }
 
 /*
- * ...
+ * Performin the QR-decomposition and the solves for QRx = b alongside testing if Ax = b.
+ *
+ * A:
+ * R:
+ * b:
  */
-void performAndTestQRGramSchmidtSovler(gsl_matrix* Q, gsl_matrix R){
+void performAndTestQRGramSchmidtSovler(gsl_matrix* A, gsl_matrix* R, gsl_vector* b){
 	// Copy A before QR-decomposition for comparison
 	gsl_matrix* ABeforeQRDecomposition = gsl_matrix_alloc(A->size1, A->size2); // Allocating space for the copied matrix
-	gsl_matrix_mamcpy(ABeforeQRDecomposition, A); // Copy the matrix A before QR-decomposition
-	
+	gsl_matrix_memcpy(ABeforeQRDecomposition, A); // Copy the matrix A before QR-decomposition
+
 	// Performing the QR-decomposition
-	qrGramSchmidt(A, R);
+	qrGramSchmidtDecomposition(A, R);
 	
 	// Printing the matrixes A (in the theory called Q) and R after the QR-decomposition
 	printExerciseSubtitle("Matrix A (in theory Q) and R after QR-decomposition");
@@ -173,16 +206,26 @@ void performAndTestQRGramSchmidtSovler(gsl_matrix* Q, gsl_matrix R){
 	printMatrix(R, "R", "normal");
 	
 	// Allocating space for the x vector
-	gsl_vector* x = gsl_vector_alloc(n);
+	gsl_vector* x = gsl_vector_alloc(b->size);
 	
 	// Solving QRx = b
-	qrGramSchmidtSolve(A, R, b, x);	
+	qrGramSchmidtSolve(A, R, b, x);
+	printExerciseSubtitle("Vector x after using QR-solver on QRx = b");
+	printVector(x, "x");
 	
 	// Cheking that Ax = b
-	
+	printExerciseSubtitle("Checking that Ax = b");
+	gsl_vector* resultATimesX = gsl_vector_alloc(x->size); // allocating space for the vector Ax
+	printf("Recalling, the random vector b generated is:\n");
+	printVector(b, "b");
+	printf("Multiplying our A matrix with the found x from the solver yields:\n");
+	gsl_blas_dgemv(CblasNoTrans, 1, ABeforeQRDecomposition, x, 0, resultATimesX); // Multiplying A and x and saving the result in resultATimesX
+	printVector(resultATimesX, "Ax");
+	areVectorsEqual(resultATimesX, "Ax", b, "b", 1e-3);
 	
 	// Freeing all left matrices and vectors
 	gsl_vector_free(x);
+	gsl_vector_free(resultATimesX);
 }
 
 /*
@@ -205,7 +248,7 @@ void exerciseA(void){
 	gsl_matrix* R = gsl_matrix_alloc(m, m);
 	// Printing the generated matrix A
 	printExerciseSubtitle("Matrix A before QR-decomposition");
-	printMatrix(A, "normal");
+	printMatrix(A, "A", "normal");
 	// Performing the QR-decomposition and checks that it is correct
 	performAndTestQRGramSchmidtDecomposition(A, R);
 	// Freeing the allocated space for the matrices
@@ -213,24 +256,28 @@ void exerciseA(void){
 	gsl_matrix_free(R);
 
 	// EXERCISE A PART 2
+	printf("\n");
 	printExercise("A part 2");
 	// Generating the new square matrix A and vector b
 	n = 5; // Dimension of square matrix
-	gsl_matrix* A = gsl_matrix_alloc(n, n); // Allocating space for the matrix
+	A = gsl_matrix_alloc(n, n); // Allocating space for the matrix
 	gsl_vector* b = gsl_vector_alloc(n); // Allocating space for the vector (same dimension as the matrix)
 	for (int i = i; i < n; i++) {
 		gsl_vector_set(b, i, randomBetweenPlusMinus1()); // Generates random values for vector b
-		for (int j = 0; j < m; j++) {
+		for (int j = 0; j < n; j++) {
 			gsl_matrix_set(A, i, j, randomBetweenPlusMinus1()); // Generates random values for matrix A
 		}
 	}
 	// Generating the R matrix
-	gsl_matrix* R = gsl_matrix_alloc(n, n);
+	R = gsl_matrix_alloc(n, n);
 	// Printing the generated matrix A
 	printExerciseSubtitle("Matrix A before QR-decomposition");
-	printMatrix(A, "normal");
+	printMatrix(A, "A", "normal");
+	// Printing the generated vector b
+	printExerciseSubtitle("Vector b before QR-decomposition");
+	printVector(b, "b");
 	// Performing the QR-solve and checks that it is correct
-	performAndTestQRGramSchmidtSovler(A, R);
+	performAndTestQRGramSchmidtSovler(A, R, b);
 	// Freeing the allocated space for the matrices and vector
 	gsl_matrix_free(A);
 	gsl_matrix_free(R);
@@ -242,6 +289,7 @@ void exerciseA(void){
  */
 void exerciseB(void){
 	// Printing the exercise title
+	printf("\n");
 	printExercise("B");
 	// <SOME MORE HERE>
 }
@@ -251,6 +299,7 @@ void exerciseB(void){
  */
 void exerciseC(void){
 	// Printing the exercise title
+	printf("\n");
 	printExercise("C");
 	// <SOME MORE HERE>
 }
@@ -261,7 +310,7 @@ void exerciseC(void){
  * returns 0 for successful execution, and non-zero for error.
  */
 int main(void){
-	exerciceA();
+	exerciseA();
 	exerciseB();
 	exerciseC();
 	return 0;

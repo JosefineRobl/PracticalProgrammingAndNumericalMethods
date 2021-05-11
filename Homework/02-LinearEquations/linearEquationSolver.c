@@ -374,7 +374,53 @@ void exerciseC(void){
 	// Printing the exercise title
 	printf("\n");
 	printExercise("C");
-	// <SOME MORE HERE>
+	// Creating clock_t objects
+	clock_t startOwn, endOwn; // Starting and ending times for own QR-decomposition implementation
+	clock_t startGSL, endGSL; // Starting and ending times from GSL QR-decomposition implementation
+	// Create new file in writing mode for inserting the running times in
+	FILE* fileTemporary = fopen("temporary.tmp", "w");
+	char str[10000]; // Creating a pointer to a string to store runtime values in for insersion into 'data.txt'
+	// Calculating runtimes and inserting them into data.txt
+	for (int dim = 1; dim < 100; dim++) {
+		// Allocating space in memory for the three matrices and the vector for use in the calculations
+		gsl_matrix* AOwn = gsl_matrix_alloc(dim, dim); // A for own implementation
+		gsl_matrix* Agsl = gsl_matrix_alloc(dim, dim); // A for GSL implementation
+		gsl_matrix* R = gsl_matrix_alloc(dim, dim); // R for own implementation
+		gsl_vector* tau = gsl_vector_alloc(dim); // tau for GSL implementation
+		// Filling the matrix A with random double values between -1 and 1
+		fillRandomMatrix(dim, dim, AOwn);
+		// Copy the AOwn matrix to Agsl
+		gsl_matrix_memcpy(AOwn, Agsl);
+		// Timing own QR-decomposition
+		startOwn = clock();
+		qrGramSchmidtDecomposition(AOwn, R);
+		endOwn = clock();
+		// Timing GSL QR-decomposition
+		startGSL = clock();
+		gsl_linalg_QR_decomp(Agsl, tau);
+		endGSL = clock();
+		// Constructing a string of the runtimes using format specifiers and inserts the string into 'data.txt'
+		sprintf(str, "%d \t %f \t %f \n", dim, (double)(endOwn - startOwn)/CLOCKS_PER_SEC, (double)(endGSL - startGSL)/CLOCKS_PER_SEC);
+		// Inserting the string into 'data.txt'
+		fputs(str, fileTemporary);
+		// Freeing the matrices and the vector
+		gsl_matrix_free(AOwn);
+		gsl_matrix_free(Agsl);
+		gsl_matrix_free(R);
+		gsl_vector_free(tau);
+	}
+	// Checks if the file 'data.txt' already exists: If it does then delete it and rename 'temporary.tmp' to 'data.txt', otherwise just rename 'temporary.tmp'. (One cannot easily overwrite files in C and this script is run multiple times, thus I do not want the values just appended the original file)
+	char* filePath = "data.txt";
+	FILE* file;
+	if ((file = fopen(filePath, "r")) != NULL) {
+		// 'data.txt' exitst, thus close and delete it
+		fclose(file);
+		remove(filePath);
+	}
+	rename("temporary.tmp", filePath);
+	// Printing the text for exercise C
+	printf("The dimension value and the correspinding times can be seen in 'data.txt'.\n");
+	printf("The plot of the runtimes can be seen in 'timeDependence.svg'.\n");
 }
 
 /*

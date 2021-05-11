@@ -4,9 +4,8 @@ CFLAGS += $(shell gsl-config --cflags)
 LDLIBS += $(shell gsl-config --libs)
 
 .PHONEY: default
-# default: out.txt
-#	cat out.txt
-default: time.svg
+default: out.txt
+	cat out.txt
 
 out.txt: linearEquationSolver
 	./$< > $@
@@ -23,8 +22,8 @@ printMatrix.o: printMatrix.c printMatrix.h
 linearEquationSolver: linearEquationSolver.o qrGramSchmidt.o printMatrix.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-time.svg: plot.gpi data.txt
-	gunplot $<
+timeDependence.svg: plot.gpi Makefile data.txt
+	tee plot.gpi | pyxplot
 
 .PHONEY: clean
 clean:

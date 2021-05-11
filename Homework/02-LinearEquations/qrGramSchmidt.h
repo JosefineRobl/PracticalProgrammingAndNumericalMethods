@@ -5,3 +5,5 @@
 void qrGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R);
 
 void qrGramSchmidtSolve(gsl_matrix* Q, gsl_matrix* R, gsl_vector* b, gsl_vector* x);
+
+void qrGramSchmidtInverse(gsl_matrix* Q, gsl_matrix* R, gsl_matrix* B);

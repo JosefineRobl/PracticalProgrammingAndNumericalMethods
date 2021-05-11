@@ -3,11 +3,13 @@
 #include <math.h> // Contains mathematical expressions and functions
 // #include <stdbool.h> // Contains the type 'bool'
 // #include <string.h> // Contains string comparison
-// #include <gsl/gsl_vector.h> // Enables Gnu Scientific Library vectors and some of their functions to be used
+#include <gsl/gsl_vector.h> // Enables Gnu Scientific Library vectors and some of their functions to be used
 #include <gsl/gsl_matrix.h> // Enables Gnu Scientific Library matrices and some of their functions to be used
-#include <gsl/gsl_blas.h> // Enables Gnu Scientific Library functions for calculations with gsl vectors and matrices.
-#include "qrGramSchmidt.h" // File containing the heads of the functions for the QR-decomposition, the solver and likewise.
-#include "printMatrix.h" // File containing the heads of the function for printing a matrix.
+#include <gsl/gsl_blas.h> // Enables Gnu Scientific Library functions for calculations with gsl vectors and matrices
+#include <gsl/gsl_linalg.h> // Enables linear algebra functions from Gnu Scientific Library
+#include <time.h> // Measuring time taken between points in the execution
+#include "qrGramSchmidt.h" // File containing the heads of the functions for the QR-decomposition, the solver and likewise
+#include "printMatrix.h" // File containing the heads of the function for printing a matrix
 
 /*
  * Printing the exercise number, letter or name as "== Exercise <exercise> ==".
@@ -41,6 +43,22 @@ double randomBetweenPlusMinus1(){
 	randomDouble = (double)rand()/RAND_MAX*2.0-1.0; // Double in range -1 to 1
 	// Returning the random double value between -1 and 1
 	return randomDouble;
+}
+
+/*
+ * Fills a matrix M of dimensions (dim1, dim2) with randomly generated double values between -1 and 1.
+ *
+ * dim1: Integer containing the first dimension.
+ * dim2: Integer containing the second dimension.
+ * M: Pointer to gsl_matrix which shall be filled with randomly generated double values between -1 and 1.
+ */
+void fillRandomMatrix(int dim1, int dim2, gsl_matrix* M){
+	for (int i = 0; i < dim1; i++) {
+		for (int j = 0; j < dim2; j++) {
+			// Sets the (i, j)'th element to a random double between -1 and 1
+			gsl_matrix_set(M, i, j, randomBetweenPlusMinus1());
+		}
+	}
 }
 
 /*
@@ -174,7 +192,7 @@ void performAndTestQRGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 	
 	// Check that QR = A
 	gsl_matrix* resultOfQTimesR = gsl_matrix_alloc(A->size1, R->size2);
-	gsl_blas_dgemm(CblasNoTrans, CblasNoTrans, 1, A, R, 0, resultOfQTimesR); // Multiplying Q (in the code called A) and R, while resultsOfQTimesR holds the result
+	gsl_blas_dgemm(CblasNoTrans, CblasNoTrans, 1, A, R, 0, resultOfQTimesR); // Multiplying Q (in the code called A) and R, while resultOfQTimesR holds the result
 	printExerciseSubtitle("Checking for QR = A");
 	printMatrix(resultOfQTimesR, "QR", "normal");
 	printMatrix(ABeforeQRDecomposition, "A", "normal");
@@ -229,22 +247,62 @@ void performAndTestQRGramSchmidtSovler(gsl_matrix* A, gsl_matrix* R, gsl_vector*
 }
 
 /*
+ * ...
+ *
+ * A:
+ * R:
+ */
+void performAndTestQRGramSchmidtInverse(gsl_matrix* A, gsl_matrix* R) {
+	// Copy A before QR-decomposition for later calculations
+	gsl_matrix* ABeforeQRDecomposition = gsl_matrix_alloc(A->size1, A->size2); // Allocating space for the copied matrix
+	gsl_matrix_memcpy(ABeforeQRDecomposition, A); // Copy the matrix A before QR-decomposition
+	
+	// Performing the QR-decomposition
+	qrGramSchmidtDecomposition(A, R);
+	
+	// Allocating space for the matrix B
+	gsl_matrix* B = gsl_matrix_alloc(A->size1, A->size1);
+	
+	// Performing the inverse
+	qrGramSchmidtInverse(A, R, B);
+	printExerciseSubtitle("Inverse matrix B found from QR Gram-Schmidt inverse");
+	printMatrix(B, "B", "normal");
+
+	// Checking that A*B = Q*R*B = I
+	gsl_matrix* resultATimesB = gsl_matrix_alloc(ABeforeQRDecomposition->size1, B->size2); // Allocates memory for the result of A*B (here A is ABeforeQRDecomposition)
+	gsl_matrix* resultBTimesA = gsl_matrix_alloc(B->size1, ABeforeQRDecomposition->size2); // Allocates memory for the result of B*A (here A is ABeforeQRDecomposition)
+	gsl_blas_dgemm(CblasNoTrans, CblasNoTrans, 1, ABeforeQRDecomposition, B, 0, resultATimesB); // Calculating AB = A*B
+	gsl_blas_dgemm(CblasNoTrans, CblasNoTrans, 1, B, ABeforeQRDecomposition, 0, resultBTimesA); // Calculating BA = B*A
+	gsl_matrix* identityMatrix = gsl_matrix_alloc(resultATimesB->size1, resultATimesB->size2); // Allocates memory for the identity matrix
+	gsl_matrix_set_identity(identityMatrix); // Sets the matrix equal to the identity matrix
+	printExerciseSubtitle("Checking that AB = BA = I");
+	printMatrix(resultATimesB, "AB", "normal"); // Prints the resulting matrix for A*B
+	printMatrix(resultBTimesA, "BA", "normal"); // Prints the resulting matrix for B*A
+	areMatricesEqual(resultATimesB, "AB", identityMatrix, "the identity matrix", 1e-3);
+	areMatricesEqual(resultBTimesA, "BA", identityMatrix, "the identity matrix", 1e-3);
+	areMatricesEqual(resultATimesB, "AB", resultBTimesA, "BA", 1e-3);
+	
+	// Freeing all left matrices
+	gsl_matrix_free(ABeforeQRDecomposition);
+	gsl_matrix_free(B);
+	gsl_matrix_free(resultATimesB);
+	gsl_matrix_free(resultBTimesA);
+	gsl_matrix_free(identityMatrix);
+}
+
+/*
  * The answers to exercise A.
  */
 void exerciseA(void){
 	// EXERCISE A PART 1
-	printExercise("A part 1");
+	printExercise("A, part 1");
 	// Generating the A matrix
-	int n = 5; // 1st dimension
-	int m = 3; // 2nd dimension
+	int n = 5; // 1st dimension - (A random dimension at max 5 could be generated as n = rand()%5 + 1)
+	int m = 3; // 2nd dimension - (random dimension less than 1st dimension: m = rand()%(n - 1) + 1)
 	gsl_matrix* A = gsl_matrix_alloc(n, m); // Allocating space for the matrix
-	// Assigning entries in A with floats of random values ranging from -1 to 1.
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			gsl_matrix_set(A, i, j, randomBetweenPlusMinus1());
-		}
-	}
-	// Generating the R matrix
+	// Assigning entries in A with doubles of random values ranging from -1 to 1
+	fillRandomMatrix(n, m, A);
+	// Aloocating space for the R matrix
 	gsl_matrix* R = gsl_matrix_alloc(m, m);
 	// Printing the generated matrix A
 	printExerciseSubtitle("Matrix A before QR-decomposition");
@@ -257,18 +315,19 @@ void exerciseA(void){
 
 	// EXERCISE A PART 2
 	printf("\n");
-	printExercise("A part 2");
+	printExercise("A, part 2");
 	// Generating the new square matrix A and vector b
 	n = 5; // Dimension of square matrix
 	A = gsl_matrix_alloc(n, n); // Allocating space for the matrix
 	gsl_vector* b = gsl_vector_alloc(n); // Allocating space for the vector (same dimension as the matrix)
-	for (int i = i; i < n; i++) {
+	// Assigning entries in A and b with doubles of random values ranging from -1 to 1
+	for (int i = 0; i < n; i++) {
 		gsl_vector_set(b, i, randomBetweenPlusMinus1()); // Generates random values for vector b
 		for (int j = 0; j < n; j++) {
 			gsl_matrix_set(A, i, j, randomBetweenPlusMinus1()); // Generates random values for matrix A
 		}
 	}
-	// Generating the R matrix
+	// Allocating spaec for the R matrix
 	R = gsl_matrix_alloc(n, n);
 	// Printing the generated matrix A
 	printExerciseSubtitle("Matrix A before QR-decomposition");
@@ -291,7 +350,21 @@ void exerciseB(void){
 	// Printing the exercise title
 	printf("\n");
 	printExercise("B");
-	// <SOME MORE HERE>
+	// Generating a square matrix A
+	int n = 5; // Dimension of square matrix
+	gsl_matrix* A = gsl_matrix_alloc(n, n); // Allocating space for the matrix
+	// Assigning entries in A with doubles of random values ranging from -1 to 1
+	fillRandomMatrix(n, n, A);
+	// Allocates space for the the R matrix
+	gsl_matrix* R = gsl_matrix_alloc(n, n);
+	// Printing the generated matrix A
+	printExerciseSubtitle("Matrix A before QR-decomposition");
+	printMatrix(A, "A", "normal");
+	// Performing the QR-inverse and checks that it is correct
+	performAndTestQRGramSchmidtInverse(A, R);
+	// Freeing the allocated space for the matrices (and vector)
+	gsl_matrix_free(A);
+	gsl_matrix_free(R);
 }
 
 /*

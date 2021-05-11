@@ -42,6 +42,9 @@ void qrGramSchmidtDecomposition(gsl_matrix* A, gsl_matrix* R){
 
 /*
  * ...
+ *
+ * M:
+ * v:
  */
 void backSubstitution(gsl_matrix* M, gsl_vector* v){
 	for (int i = v->size - 1; i >= 0; i--) {
@@ -62,6 +65,31 @@ void backSubstitution(gsl_matrix* M, gsl_vector* v){
  * x:
  */
 void qrGramSchmidtSolve(gsl_matrix* Q, gsl_matrix* R, gsl_vector* b, gsl_vector* x){
+	// Calculates Q*b and stores the solution in x
 	gsl_blas_dgemv(CblasTrans, 1, Q, b, 0, x);
+	// Calls the recursive function doing the backsubstitution
 	backSubstitution(R, x);
 }
+
+/*
+ * ...
+ *
+ * Q:
+ * R:
+ * B:
+ */
+void qrGramSchmidtInverse(gsl_matrix* Q, gsl_matrix* R, gsl_matrix* B){
+	// Initializes a vector to be the basis vector
+	gsl_vector* basisVector = gsl_vector_alloc(Q->size2);
+	for (int i = 0; i < Q->size2; i++) {
+		// Sets the basis vector
+		gsl_vector_set_basis(basisVector, i);
+		// Generates a view (temp. object on stack) containing the i'th column of matrix B
+		gsl_vector_view col = gsl_matrix_column(B, i);
+		// The i'th column in the inverse matrix B is found using the Gram-Schmidt solver (Q*R*B_i = I_i).
+		qrGramSchmidtSolve(Q, R, basisVector, &col.vector);
+	}
+	// Freeing the allocated space for the basis vector
+	gsl_vector_free(basisVector);
+}
+

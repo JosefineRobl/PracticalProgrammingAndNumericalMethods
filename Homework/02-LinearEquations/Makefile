@@ -3,8 +3,10 @@ CFLAGS = -std=gnu11 -O -Wall
 CFLAGS += $(shell gsl-config --cflags)
 LDLIBS += $(shell gsl-config --libs)
 
-default: out.txt
-	cat out.txt
+.PHONEY: default
+# default: out.txt
+#	cat out.txt
+default: time.svg
 
 out.txt: linearEquationSolver
 	./$< > $@
@@ -21,6 +23,10 @@ printMatrix.o: printMatrix.c printMatrix.h
 linearEquationSolver: linearEquationSolver.o qrGramSchmidt.o printMatrix.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
+time.svg: plot.gpi data.txt
+	gunplot $<
+
+.PHONEY: clean
 clean:
 	find -type f -executable -delete
-	$(RM) *.o [Oo]ut*
+	$(RM) *.o [Oo]ut* [Dd]ata* *.svg

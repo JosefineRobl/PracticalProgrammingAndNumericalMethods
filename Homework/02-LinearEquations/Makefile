@@ -22,8 +22,8 @@ printMatrix.o: printMatrix.c printMatrix.h
 linearEquationSolver: linearEquationSolver.o qrGramSchmidt.o printMatrix.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-timeDependence.svg: plot.gpi Makefile data.txt
-	cat $< | tee plot.gpi | pyxplot
+timeDependence.svg: plot.gpi data.txt Makefile
+	pyxplot $<
 
 .PHONEY: clean
 clean:

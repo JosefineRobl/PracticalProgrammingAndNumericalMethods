@@ -1,12 +1,12 @@
 \
-set terminal svg;\
+set terminal sv;\
 set output "timeDependence.svg";\
 set key top left;\
-set tics out;\
+set ticks out;\
 set xlabel "Dimensionality";\
 set ylabel "Time [s]";\
 set title "Runtime dimensionality dependence";\
 plot \
- "data.txt" using 1:2 with line title "Gram-Schmidt"\
+"data.txt" using 1:2 with line title "Gram-Schmidt"\
 ,"data.txt" using 1:3 with line title "GSL (Householder)"\
 

@@ -379,7 +379,6 @@ void exerciseC(void){
 	clock_t startGSL, endGSL; // Starting and ending times from GSL QR-decomposition implementation
 	// Create new file in writing mode for inserting the running times in
 	FILE* fileTemporary = fopen("temporary.tmp", "w");
-	char str[10000]; // Creating a pointer to a string to store runtime values in for insersion into 'data.txt'
 	// Calculating runtimes and inserting them into data.txt
 	for (int dim = 1; dim < 100; dim++) {
 		// Allocating space in memory for the three matrices and the vector for use in the calculations
@@ -390,7 +389,7 @@ void exerciseC(void){
 		// Filling the matrix A with random double values between -1 and 1
 		fillRandomMatrix(dim, dim, AOwn);
 		// Copy the AOwn matrix to Agsl
-		gsl_matrix_memcpy(AOwn, Agsl);
+		gsl_matrix_memcpy(Agsl, AOwn);
 		// Timing own QR-decomposition
 		startOwn = clock();
 		qrGramSchmidtDecomposition(AOwn, R);
@@ -400,9 +399,7 @@ void exerciseC(void){
 		gsl_linalg_QR_decomp(Agsl, tau);
 		endGSL = clock();
 		// Constructing a string of the runtimes using format specifiers and inserts the string into 'data.txt'
-		sprintf(str, "%d \t %f \t %f \n", dim, (double)(endOwn - startOwn)/CLOCKS_PER_SEC, (double)(endGSL - startGSL)/CLOCKS_PER_SEC);
-		// Inserting the string into 'data.txt'
-		fputs(str, fileTemporary);
+		fprintf(fileTemporary, "%d \t %f \t %f \n", dim, (double)(endOwn - startOwn)/CLOCKS_PER_SEC, (double)(endGSL - startGSL)/CLOCKS_PER_SEC);
 		// Freeing the matrices and the vector
 		gsl_matrix_free(AOwn);
 		gsl_matrix_free(Agsl);

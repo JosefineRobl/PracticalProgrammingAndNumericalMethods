@@ -5,8 +5,8 @@ LDLIBS += $(shell gsl-config --libs)
 
 .PHONEY: default
 default: out.txt
-	# Generates out.txt (this is due to the chosen way of placing the commands in this block, see reason below, since if 'make clean' used then 'data.txt' does not exist but shall be used in 'make timeDependence.png'
-	make out.txt
+	# Generates 'data.txt'
+	make data.txt
 	# Making the fit produces test to terminal, thus it is set first to make it easier to see out.txt text
 	make timeDependence.png
 	# Writes out the printed text from linearEquationSolver.c into the terminal
@@ -30,8 +30,12 @@ printMatrix.o: printMatrix.c printMatrix.h
 linearEquationSolver: linearEquationSolver.o qrGramSchmidt.o printMatrix.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-timeDependence.png: plot.gpi data.txt Makefile
+timeDependence.png: plot.gpi data.txt
 	pyxplot $<
+
+data.txt: linearEquationSolver Makefile
+	# Passing argument to main in linearEquationSolver.c, thus creating data.txt. The argument is typed into the command line
+	./$< "2"
 
 .PHONEY: clean
 clean:

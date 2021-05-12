@@ -368,12 +368,9 @@ void exerciseB(void){
 }
 
 /*
- * The answers to Exercise C.
+ * Creates the file 'data.txt' containing the dimension of the matrices and the corresponding runtimes our own and GSL's QR-decomposition implementation.
  */
-void exerciseC(void){
-	// Printing the exercise title
-	printf("\n");
-	printExercise("C");
+void createRuntimeFile(void){
 	// Creating objects
 	struct timeval start, end;
 	double runtimeOwn, runtimeGSL; // Runtime for own and GSL QR-decomposition implementation respectively
@@ -416,20 +413,37 @@ void exerciseC(void){
 		remove(filePath);
 	}
 	rename("temporary.txt", filePath);
+}
+
+/*
+ * The answers to Exercise C.
+ */
+void exerciseC(void){
+	// Printing the exercise title
+	printf("\n");
+	printExercise("C");
 	// Printing the text for exercise C
-	printf("The dimension value and the correspinding times can be seen in 'data.txt'.\n");
-	printf("The plot of the runtimes can be seen in 'timeDependence.svg'.\n");
+	printf("The dimension value and the corresponding times can be seen in 'data.txt'.\n");
+	printf("The plot of the runtimes can be seen in 'timesDependence.png'.\n");
 }
 
 /*
  * The main function of the document.
+ * 
+ * argc: Integer containing the number of arguments passed to the main function.
+ * argv: List of arguments passed to the main function.
  *
  * returns 0 for successful execution, and non-zero for error.
  */
-int main(void){
-	exerciseA();
-	exerciseB();
-	exerciseC();
-	printf("====================\n");
+int main(int argc, char** argv){
+	// If an argument is passed (first argument is always the function name, thus passing one argument actually results in argc = 2):
+	if (argc > 1) {
+		createRuntimeFile();
+	} else {
+		exerciseA();
+		exerciseB();
+		exerciseC();
+		printf("====================\n");
+	}
 	return 0;
 }

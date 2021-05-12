@@ -125,6 +125,6 @@ BA is equal to the identity matrix with a tolerance of 0.001.
 AB is equal to BA with a tolerance of 0.001.
 
 ========== Exercise C ==========
-The dimension value and the correspinding times can be seen in 'data.txt'.
-The plot of the runtimes can be seen in 'timeDependence.svg'.
+The dimension value and the corresponding times can be seen in 'data.txt'.
+The plot of the runtimes can be seen in 'timesDependence.png'.
 ====================

@@ -125,5 +125,19 @@ BA is equal to the identity matrix with a tolerance of 0.001.
 AB is equal to BA with a tolerance of 0.001.
 
 ========== Exercise C ==========
+Dim 1: CLOCKS_PER_SEC = 1000000.
+Dim 2: CLOCKS_PER_SEC = 1000000.
+Dim 3: CLOCKS_PER_SEC = 1000000.
+Dim 4: CLOCKS_PER_SEC = 1000000.
+Dim 90: startOwn=31250, endOwn=31250, startGSL=31250, endGSL=31250.
+Dim 91: startOwn=31250, endOwn=31250, startGSL=31250, endGSL=31250.
+Dim 92: startOwn=31250, endOwn=31250, startGSL=31250, endGSL=31250.
+Dim 93: startOwn=31250, endOwn=46875, startGSL=46875, endGSL=46875.
+Dim 94: startOwn=46875, endOwn=46875, startGSL=46875, endGSL=46875.
+Dim 95: startOwn=46875, endOwn=46875, startGSL=46875, endGSL=46875.
+Dim 96: startOwn=46875, endOwn=46875, startGSL=46875, endGSL=46875.
+Dim 97: startOwn=46875, endOwn=46875, startGSL=46875, endGSL=46875.
+Dim 98: startOwn=46875, endOwn=46875, startGSL=46875, endGSL=46875.
+Dim 99: startOwn=46875, endOwn=46875, startGSL=46875, endGSL=46875.
 The dimension value and the correspinding times can be seen in 'data.txt'.
 The plot of the runtimes can be seen in 'timeDependence.svg'.

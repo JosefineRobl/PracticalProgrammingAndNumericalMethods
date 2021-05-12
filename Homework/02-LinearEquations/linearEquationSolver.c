@@ -399,7 +399,10 @@ void exerciseC(void){
 		gsl_linalg_QR_decomp(Agsl, tau);
 		endGSL = clock();
 		// Constructing a string of the runtimes using format specifiers and inserts the string into 'data.txt'
-		fprintf(fileTemporary, "%d \t %f \t %f \n", dim, (double)(endOwn - startOwn)/CLOCKS_PER_SEC, (double)(endGSL - startGSL)/CLOCKS_PER_SEC);
+		fprintf(fileTemporary, "%d \t %f \t %f\n", dim, (double)(endOwn - startOwn)/CLOCKS_PER_SEC, (double)(endGSL - startGSL)/CLOCKS_PER_SEC);
+		if (dim >= 90) {
+			printf("Dim %d: startOwn=%ld, endOwn=%ld, startGSL=%ld, endGSL=%ld.\n", dim, startOwn, endOwn, startGSL, endGSL);
+		}
 		// Freeing the matrices and the vector
 		gsl_matrix_free(AOwn);
 		gsl_matrix_free(Agsl);

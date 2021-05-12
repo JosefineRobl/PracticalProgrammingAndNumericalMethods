@@ -7,7 +7,7 @@
 #include <gsl/gsl_matrix.h> // Enables Gnu Scientific Library matrices and some of their functions to be used
 #include <gsl/gsl_blas.h> // Enables Gnu Scientific Library functions for calculations with gsl vectors and matrices
 #include <gsl/gsl_linalg.h> // Enables linear algebra functions from Gnu Scientific Library
-#include <time.h> // Measuring time taken between points in the execution
+#include <sys/time.h> // Measuring time taken between points in the execution
 #include "qrGramSchmidt.h" // File containing the heads of the functions for the QR-decomposition, the solver and likewise
 #include "printMatrix.h" // File containing the heads of the function for printing a matrix
 
@@ -374,11 +374,11 @@ void exerciseC(void){
 	// Printing the exercise title
 	printf("\n");
 	printExercise("C");
-	// Creating clock_t objects
-	clock_t startOwn, endOwn; // Starting and ending times for own QR-decomposition implementation
-	clock_t startGSL, endGSL; // Starting and ending times from GSL QR-decomposition implementation
+	// Creating objects
+	struct timeval start, end;
+	double runtimeOwn, runtimeGSL; // Runtime for own and GSL QR-decomposition implementation respectively
 	// Create new file in writing mode for inserting the running times in
-	FILE* fileTemporary = fopen("temporary.tmp", "w");
+	FILE* fileTemporary = fopen("temporary.txt", "w");
 	// Calculating runtimes and inserting them into data.txt
 	for (int dim = 1; dim < 100; dim++) {
 		// Allocating space in memory for the three matrices and the vector for use in the calculations
@@ -388,21 +388,19 @@ void exerciseC(void){
 		gsl_vector* tau = gsl_vector_alloc(dim); // tau for GSL implementation
 		// Filling the matrix A with random double values between -1 and 1
 		fillRandomMatrix(dim, dim, AOwn);
-		// Copy the AOwn matrix to Agsl
 		gsl_matrix_memcpy(Agsl, AOwn);
 		// Timing own QR-decomposition
-		startOwn = clock();
+		gettimeofday(&start, NULL);
 		qrGramSchmidtDecomposition(AOwn, R);
-		endOwn = clock();
+		gettimeofday(&end, NULL);
+		runtimeOwn = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec)*1e-6;
 		// Timing GSL QR-decomposition
-		startGSL = clock();
+		gettimeofday(&start, NULL);
 		gsl_linalg_QR_decomp(Agsl, tau);
-		endGSL = clock();
+		gettimeofday(&end, NULL);
+		runtimeGSL = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec)*1e-6;
 		// Constructing a string of the runtimes using format specifiers and inserts the string into 'data.txt'
-		fprintf(fileTemporary, "%d \t %f \t %f\n", dim, (double)(endOwn - startOwn)/CLOCKS_PER_SEC, (double)(endGSL - startGSL)/CLOCKS_PER_SEC);
-		if (dim >= 90) {
-			printf("Dim %d: startOwn=%ld, endOwn=%ld, startGSL=%ld, endGSL=%ld.\n", dim, startOwn, endOwn, startGSL, endGSL);
-		}
+		fprintf(fileTemporary, "%d \t %f \t %f\n", dim, runtimeOwn, runtimeGSL);
 		// Freeing the matrices and the vector
 		gsl_matrix_free(AOwn);
 		gsl_matrix_free(Agsl);
@@ -417,7 +415,7 @@ void exerciseC(void){
 		fclose(file);
 		remove(filePath);
 	}
-	rename("temporary.tmp", filePath);
+	rename("temporary.txt", filePath);
 	// Printing the text for exercise C
 	printf("The dimension value and the correspinding times can be seen in 'data.txt'.\n");
 	printf("The plot of the runtimes can be seen in 'timeDependence.svg'.\n");
@@ -432,5 +430,6 @@ int main(void){
 	exerciseA();
 	exerciseB();
 	exerciseC();
+	printf("====================\n");
 	return 0;
 }

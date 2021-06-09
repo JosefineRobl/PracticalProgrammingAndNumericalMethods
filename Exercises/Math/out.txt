@@ -1,25 +1,31 @@
 ---------- Exercise 1 ----------
-Gamma(5) found value: 24
-Gamma(5) real value: 24
+Gamma(5) found value: 24.
+Gamma(5) real value: 24.
 ----------
-Bessel j_1(0.5) found value: 0.242268
-Bessel j_1(0.5) real value: 0.242268
+Bessel j_1(0.5) found value: 0.242268.
+Bessel j_1(0.5) real value: 0.242268.
 ----------
-sqrt(-2) found value: 0+1.41421i
-sqrt(-2) real value: 0+1.41421i
+sqrt(-2) found value: 0+1.41421i.
+sqrt(-2) real value: 0+1.41421i.
 ----------
-exp(i*pi) found value: -1+1.22465e-16i
-exp(i*pi) real value: -1
+exp(i*pi) found value: -1+1.22465e-16i.
+exp(i*pi) real value: -1.
 ----------
-exp(i) found value: 0.540302+0.841471i
-exp(i) real value: 0.540302+0.841471i
+exp(i) found value: 0.540302+0.841471i.
+exp(i) real value: 0.540302+0.841471i.
 ----------
-i^e found value: -0.42822-0.903675i
-i^e real value: -0.42822-0.903675i
+i^e found value: -0.42822-0.903675i.
+i^e real value: -0.42822-0.903675i.
 ----------
-i^i found value: 0.20788
-i^i real value: 0.20788
+i^i found value: 0.20788.
+i^i real value: 0.20788.
+
 ---------- Exercise 2 ----------
-0.1111111119389533996582031
-0.1111111111111111049432054
-0.1111111111111111049432054
+1./9 for float: 1.f/9 = 0.1111111119389533996582031.
+For float the precision is down to digit 9 after decimal separator.
+----------
+1./9 for double: 1./9 = 0.1111111111111111049432054.
+For double the precision is down to digit 16 after decimal separator.
+----------
+1./9 for long double: 1.L/9 = 0.1111111111111111111096053.
+For long double the precision is down to digit 19 after decimal separator.

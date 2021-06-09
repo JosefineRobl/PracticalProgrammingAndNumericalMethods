@@ -31,7 +31,7 @@ max is set to INT_MAX/2.
 sumUpFloat(max=1073741823) resulted in 15.4037.
 sumDownFloat(max=1073741823) resulted in 18.8079.
 ---------- ii ----------
-The difference between the two sums is ... .
+The difference between the two sums is due to the fact, that the significant digits .
 ---------- iii ----------
 Yes/No, the sum converge as a function of 'max'.
 ---------- iv ----------

@@ -311,7 +311,7 @@ void solutionExercise2(void){
 	sumDownFloat(max);
 	// Part ii
 	printExercise("ii");
-	printf("The difference between the two sums is due to the fact, that the significant digits .\n");
+	printf("The difference between the two sums is due to the fact, that the significant digits.\n");
 	// Part iii
 	printExercise("iii");
 	printf("Yes/No, the sum converge as a function of 'max'.\n");
@@ -386,8 +386,11 @@ void solutionExercise4(void){
  */
 int main(void){
 	solutionExercise1();
+	printf("\n");
 	solutionExercise2();
+	printf("\n");
 	solutionExercise3();
+	printf("\n");
 	solutionExercise4();
 	return 0;
 }

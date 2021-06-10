@@ -32,7 +32,7 @@ stdio.o: stdio.c printExercise.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 out.file.txt: input.txt file
-	./file "$<" > $@
+	./file $< $@
 
 file: file.o printExercise.o formatPrint.o
 	$(CC) $(LSFLAGS) $^ -o $@ $(LDLIBS)

@@ -11,8 +11,4 @@
 
 ### Ignore all files with the below extensions ###
 *.exe
-*.jpg
 *.o
-*.pdf
-*.png
-*.svg

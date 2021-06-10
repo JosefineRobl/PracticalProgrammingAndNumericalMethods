@@ -10,5 +10,7 @@
 !**/makefile
 
 ### Ignore all files with the below extensions ###
+*.aux
 *.exe
+*.log
 *.o

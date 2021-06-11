@@ -1,0 +1,18 @@
+=============== Exercise A ===============
+--------------- Subexercise I ---------------
+Using GSL Householder sovler for liniar systems yields
+x =
+[  -1.137902
+   -2.833031
+    0.851459 ]
+--------------- Subexercise II ---------------
+Now for checking if A*x (for calculated x) is equal to the given b, we now calculate c = A*x, and we will compare b and c.
+c =
+[   6.230000
+    5.370000
+    2.290000 ]
+b =
+[   6.230000
+    5.370000
+    2.290000 ]
+c is equal to b with a tolerance of 0.001.

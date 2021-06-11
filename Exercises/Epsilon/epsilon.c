@@ -311,15 +311,15 @@ void solutionExercise2(void){
 	sumDownFloat(max);
 	// Part ii
 	printExercise("ii");
-	printf("The difference between the two sums is due to the fact, that the significant digits.\n");
+	printf("We get a difference because 1/INT_MAX ~ 10^(-9), which is smaller that the float epsilon, which is ~ 10^(-7). It makes sense that the sumUpFloat is smallest, since we here add the smallest numbers to the largest one, thus making the small numbers insignigicant when we are below float epsilon, instead of sumDownFloat which results in the largest number, since we here add together the smallest numbers (thus getting highest precision) to which we then add larger and larger numbers.\n");
 	// Part iii
 	printExercise("iii");
-	printf("Yes/No, the sum converge as a function of 'max'.\n");
+	printf("Yes, the sums converge as a function of 'max'.\n");
 	// Part iv
 	printExercise("iv");
 	sumUpDouble(max);
 	sumDownDouble(max);
-	printf("Explanation ... .\n");
+	printf("Here we have an agreement of the two sum-functions, which is due to the fact, that the double epsilon is smaller than 1/INT_MAX.\n");
 }
 
 /*

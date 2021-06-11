@@ -25,25 +25,28 @@ Machine epsilon for long doubles for LDBL_EPSILON is: 1.0842e-19.
 Machine epsilon for long doubles for for loop is: 1.0842e-19.
 Machine epsilon for long doubles for while loop is: 1.0842e-19.
 Machine epsilon for long doubles for do while loop is: 1.0842e-19.
+
 ---------- Exercise 2 ----------
 max is set to INT_MAX/2.
 ---------- i ----------
 sumUpFloat(max=1073741823) resulted in 15.4037.
 sumDownFloat(max=1073741823) resulted in 18.8079.
 ---------- ii ----------
-The difference between the two sums is due to the fact, that the significant digits .
+We get a difference because 1/INT_MAX ~ 10^(-9), which is smaller that the float epsilon, which is ~ 10^(-7). It makes sense that the sumUpFloat is smallest, since we here add the smallest numbers to the largest one, thus making the small numbers insignigicant when we are below float epsilon, instead of sumDownFloat which results in the largest number, since we here add together the smallest numbers (thus getting highest precision) to which we then add larger and larger numbers.
 ---------- iii ----------
-Yes/No, the sum converge as a function of 'max'.
+Yes, the sums converge as a function of 'max'.
 ---------- iv ----------
 sumUpDouble(max=1073741823) resulted in 21.3716.
 sumDownDouble(max=1073741823) resulted in 21.3716.
-Explanation ... .
+Here we have an agreement of the two sum-functions, which is due to the fact, that the double epsilon is smaller than 1/INT_MAX.
+
 ---------- Exercise 3 ----------
 We test equal(a, b, tau, epsilon):
 Only relative precision should be true: a = 2, b = 1, tau = 1, epsilon = 1, equal(2, 1, 1, 1) = 1.
 Both absolute and relative precision should be true: a = 2, b = 1, tau = 2, epsilon = 1, equal(2, 1, 2, 1) = 1.
 Only absolute precision should be true: a = 2, b = 1, tau = 2, epsilon = 0.25, equal(2, 1, 2, 0.25) = 1.
 Neither precision should be true, i.e. (both should be false): a = 2, b = 1, tau = 0.5, epsilon = 0.25, equal(2, 1, 0.5, 0.25) = 0.
+
 ---------- Exercise 4 ----------
 Now we test the function nameDigit with the integers from -1 to 10:
 nameDigit for input digit -1 is: -1 is not a single digit between 0 and 9.

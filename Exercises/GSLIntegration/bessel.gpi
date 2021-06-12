@@ -1,0 +1,15 @@
+set terminal png;
+set output "bessel.png";
+
+set key top left;
+set ticks out;
+set pointsize 7;
+
+set title "\textbf{Integral representation of the first Bessel functions}";
+set xlabel "$x$";
+set ylabel "$errfun(x)$";
+
+plot \
+"dataC.txt" using 1:2 with color red line title "$\text{Bessel}_0$",\
+"dataC.txt" using 1:3 with color blue line title "$\text{Bessel}_1$",\
+"dataC.txt" using 1:4 with color green line title "$\text{Bessel}_2$";

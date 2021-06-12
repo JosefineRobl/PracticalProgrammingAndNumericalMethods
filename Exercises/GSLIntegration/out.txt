@@ -1,0 +1,7 @@
+=============== Exercise A ===============
+∫_0^1 dx (ln(x)/√x) = -4.
+
+=============== Exercise B ===============
+The data can be seen in dataB.txt, where the rows are the different runs and the collumns are x and the function value (errFun(x)) respectively.
+The plot can be seen in figure errfun.png.
+==========================================

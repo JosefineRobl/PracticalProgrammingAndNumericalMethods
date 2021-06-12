@@ -1,0 +1,12 @@
+set terminal png;
+set output "errfun.png";
+
+set key top left;
+set ticks out;
+set pointsize 7;
+
+set title "\textbf{Integral representation of the Error Function}";
+set xlabel "$x$";
+set ylabel "$errfun(x)$";
+
+plot "dataB.txt" using 1:2 with line title "Error function";

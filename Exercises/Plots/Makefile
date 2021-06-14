@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -std=gnu11 -O -Wall
 CFLAGS += $(shell gsl-config --cflags)
-CDLIBS = -lm
-CDLIBS += $(shell gsl-config --libs)
+LDLIBS = -lm
+LDLIBS += $(shell gsl-config --libs)
 
 .PHONEY: default
 default: erf.png gamma.png

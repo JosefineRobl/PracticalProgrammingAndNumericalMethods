@@ -23,27 +23,27 @@ int main(void){
 	// TESTING THE ALGEBRAIC KOMPLEX FUNCTIONS
 	
 	// Norm
-	printf("The norm of z1 should be |z1| = sqrt(5) = 2.2361:");
+	printSubtext("The norm of z1 should be |z1| = sqrt(5) = 2.236067:");
 	printf("|z1| = %g\n", komplexNorm(z1));
 	
 	// Complex conjugate
-	printf("The complex conjugate of z2 should be conj(z2) = 3-7i:");
+	printSubtext("The complex conjugate of z2 should be conj(z2) = 3-7i:");
 	komplexPrint("conj(z2) =", komplexConjugate(z2));
 	
 	// Adding
-	printf("Adding z1 and z2 should yield z1 + z2 = 4+9i:");
+	printSubtext("Adding z1 and z2 should yield z1 + z2 = 4+9i:");
 	komplexPrint("z1 + z2 =", komplexAdd(z1, z2));
 	
 	// Subtracting
-	printf("Subtracting z1 from z2 should yield z2 - z1 = 2+5i:");
+	printSubtext("Subtracting z1 from z2 should yield z2 - z1 = 2+5i:");
 	komplexPrint("z2 - z1 =", komplexSubtract(z2, z1));
 	
 	// Multiplication
-	printf("Multiplying z1 by z2 should yield z1 * z2 = - 11 + 13i:");
+	printSubtext("Multiplying z1 by z2 should yield z1 * z2 = -11+13i:");
 	komplexPrint("z1 * z2 =", komplexMultiply(z1, z2));
 	
 	// Division
-	printf("Dividing z2 by z1 should yield z2 / z1 = (17+i)/5 = 3.4+0.2i:");
+	printSubtext("Dividing z2 by z1 should yield z2 / z1 = (17+i)/5 = 3.4+0.2i:");
 	komplexPrint("z2 / z1 =", komplexDivide(z2, z1));
 	
 	return 0;

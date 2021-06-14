@@ -1,0 +1,17 @@
+---------- By initialization we should have z1 = 1+2i and z2 = 4+6i: ----------
+z1 = (1,2).
+z2 = (4,6).
+---------- Setting z2 = 3+7i: ----------
+z2 = (3,7).
+---------- The norm of z1 should be |z1| = sqrt(5) = 2.236067: ----------
+|z1| = 2.23607
+---------- The complex conjugate of z2 should be conj(z2) = 3-7i: ----------
+conj(z2) = (3,-7).
+---------- Adding z1 and z2 should yield z1 + z2 = 4+9i: ----------
+z1 + z2 = (4,9).
+---------- Subtracting z1 from z2 should yield z2 - z1 = 2+5i: ----------
+z2 - z1 = (2,5).
+---------- Multiplying z1 by z2 should yield z1 * z2 = -11+13i: ----------
+z1 * z2 = (-11,13).
+---------- Dividing z2 by z1 should yield z2 / z1 = (17+i)/5 = 3.4+0.2i: ----------
+z2 / z1 = (3.4,0.2).

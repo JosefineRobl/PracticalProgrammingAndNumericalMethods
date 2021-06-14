@@ -9,15 +9,6 @@
  * y: Double containing the imaginary part of the komplex number.
  */
 komplex komplexNew(double x, double y){
-	/*
-	// My implementation such that it actually initializes a komplex number.
-	struct komplex z;
-	z.re = x;
-	z.im = y;
-	return z;
-	//return (komplex){.re = x, .im = y};
-	*/
-	// Dmitri's implementation, which won't let me use it for initialization. Here one should stille write the below line for initialization in the main script, so why have this function?
 	komplex z = {x, y};
 	return z;
 }
@@ -61,7 +52,8 @@ komplex komplexAdd(komplex a, komplex b){
  * b: Komplex number to be subtracted from another komplex number.
  */
 komplex komplexSubtract(komplex a, komplex b){
-	komplexAdd(a, -b);
+	komplex bSignChanged = komplexNew(-b.re, -b.im);
+	return komplexAdd(a, bSignChanged);
 }
 
 /*
@@ -99,7 +91,7 @@ komplex komplexMultiply(komplex a, komplex b){
  * b: Komplex number to divide another komplex number with.
  */
 komplex komplexDivide(komplex a, komplex b){
-	double normSquareOfDenominator = komplexNorm(b);
+	double normSquareOfDenominator = pow(komplexNorm(b), 2);
 	komplex newNumerator = komplexMultiply(a, komplexConjugate(b));
 	return komplexNew(newNumerator.re / normSquareOfDenominator, newNumerator.im / normSquareOfDenominator);
 }

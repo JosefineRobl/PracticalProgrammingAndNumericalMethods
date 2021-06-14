@@ -15,7 +15,7 @@ typedef struct{
  * x: Double containing the real part of the komplex number.
  * y: Double containing the imaginary part of the komplex number.
  */
-void komplexNew(double x, double y);
+komplex komplexNew(double x, double y);
 
 /*
  * Sets a komplex number to x+yI.

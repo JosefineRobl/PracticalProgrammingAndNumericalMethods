@@ -21,22 +21,22 @@ int main(int argc, char** argv){
 			printf("%10g\t%10g\t%10g\t%10g\n", x, tgamma(x), gsl_sf_gamma(x), gammaStirlingApproximation(x));
 		}
 		double x;
-		for (x = -4.9; x <= -4.1; x += 1./8) {
+		for (x = -4.998; x <= -4.000001; x += 1./8) {
 			printGamma(x);
 		}
-		for (x = -3.9; x <= -3.1; x += 1./8) {
+		for (x = -3.992; x <= -3.001; x += 1./8) {
 			printGamma(x);
 		}
-		for (x = -2.9; x <= -2.1; x += 1./8) {
+		for (x = -2.97; x <= -2.04; x += 1./8) {
 			printGamma(x);
 		}
-		for (x = -1.9; x <= -1.1; x += 1./8) {
+		for (x = -1.91; x <= -1.15; x += 1./8) {
 			printGamma(x);
 		}
-		for (x = -0.82; x <= -0.18; x += 1./8) {
+		for (x = -0.81; x <= -0.14; x += 1./8) {
 			printGamma(x);
 		}
-		for (x = 0.2; x <= 4.1; x += 1./8) {
+		for (x = 0.15; x <= 4; x += 1./8) {
 			printGamma(x);
 		}
 	}

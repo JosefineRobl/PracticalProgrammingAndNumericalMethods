@@ -1,9 +1,12 @@
 set terminal png;
 set output "gamma.png";
 
-set key top left;
+set key bottom right;
 set ticks out;
 #set pointsize 7;
+
+set axis x;
+set axis y;
 
 set title "\textbf{Gamma function}";
 set xlabel "$x$";

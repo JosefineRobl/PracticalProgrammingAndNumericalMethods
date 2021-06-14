@@ -1,7 +1,7 @@
 set terminal png;
 set output "erf.png";
 
-set key top left;
+set key bottom right;
 set ticks out;
 #set pointsize 7;
 

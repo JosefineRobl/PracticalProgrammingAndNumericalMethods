@@ -10,6 +10,7 @@ default: erf.png gamma.png
 	make dataGamma.txt
 	make erf.png
 	make gamma.png
+	xdg-open gamma.png
 
 erf.png: erf.gpi dataErf.txt tabulatedDataErf.txt
 	pyxplot $<

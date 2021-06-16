@@ -17,9 +17,8 @@ into two, but into three sub-intervals. Reuse points. Compare with the adaptive
 integrator from your homework.
 
 
---------------------------------------------------------------------------------
 ### Method ###
---------------------------------------------------------------------------------
+
 The method is based on the "Numerical Integration"-PDF.
 
 The adaptive quadrature is an algorithm for which the integration interval is

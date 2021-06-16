@@ -156,17 +156,20 @@ double generalisedIntegrator(double f(double), double a, double b, double delta,
 		if (isinf(b) != 0) {
 			// If both a and b are INFINITY: Using converted integral from table in notes (eq. 58)
 			variableTransformationFormula = 3;
+			a = 0; b = 1;
 			//double g(double t){return ( f((1 - t)/t) + f(- (1 - t)/t ))/pow(t, 2);} // Nested function
 			//return integrateTridivision(f, 0, 1, delta, epsilon); // When nested function
 		} else {
 			// If only a is INFINITY: Using converted integral from table in notes (eq. 62)
 			variableTransformationFormula = 1;
+			a = 0; b = 1;
 			//double g(double t){return ( f(b - (1 - t)/t) )/pow(t, 2);} // Nested function
 			//return integrateTridivision(g, 0, 1, delta, epsilon); // When nested function
 		}
 	} else if (isinf(b) != 0) {
 		// If only b is INFINITY: Using converted integral from table in notes (eq. 60)
 		variableTransformationFormula = 2;
+		a = 0; b = 1;
 		//double g(double t){return ( f(a + (1 - t)/t) )/pow(t, 2);} // Nested function
 		//return integrateTridivision(f, 0, 1, delta, epsilon); // When nested function
 	} else {

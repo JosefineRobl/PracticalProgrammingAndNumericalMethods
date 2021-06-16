@@ -18,7 +18,7 @@ integrator from your homework.
 
 
 --------------------------------------------------------------------------------
-                                  ## Method ##
+   Method
 --------------------------------------------------------------------------------
 The method is based on the "Numerical Integration"-PDF.
 
@@ -64,7 +64,7 @@ and thus the following integral
 
 
 --------------------------------------------------------------------------------
-                                ## Structure ##
+   Structure
 --------------------------------------------------------------------------------
 This folder (/ExamProject/) is the main folder of the exam project, it contains:
 

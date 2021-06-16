@@ -3,6 +3,29 @@
 #include <assert.h>
 
 /*
+ * DUE TO WSL NOT BEING ABLE TO WORK WITH NESTED FUNCTIONS AND INSTEAD RESULT IN SEGMENTATION FAULT. THE ACTUAL NESTED CODE IS COMMENTED OUT, SUCH THAT IT MIGHT STILL BE TESTED ON ANOTHER SYSTEM, BUT DUE TO THIS, THE FUNCTIONS ARE MOVED OUT HERE.
+ */
+
+static double A, B; // Not accesible from other files, and only here due to moved nested functions needing a and b
+
+// If both a and b are INFINITY: Using converted integral from table in "Numerical Integration" PDF (eq. 58)
+double gBothLimitsInf(double f(double), double t){
+	return ( f((1 - t)/t) + f(- (1 - t)/t ))/pow(t, 2);
+}
+// If only a is INFINITY: Using converted integral from table in "Numerical Integration" PDF (eq. 62)
+double gOnlyLowerLimitInf(double f(double), double t){
+	return ( f(B - (1 - t)/t) )/pow(t, 2);
+}
+// If only b is INFINITY: Using converted integral from table in "Numerical Integration" PDF (eq. 60)
+double gOnlyUpperLimitInf(double f(double), double t){
+	return ( f(A + (1 - t)/t) )/pow(t, 2);
+}
+
+/*
+ * END OF FUNCTIONS MOVED FROM NESTED DUE TO WSL.
+ */
+
+/*
  * Adaptively and recursively integrates a function.
  * 
  * f: Function to be integrated. Takes a double as input and returns a double (the function value at that point).
@@ -98,29 +121,6 @@ double integrateTridivision(double f(double), double a, double b, double delta, 
 	// Begin recursion
 	return adaptiveRecursiveIntegrate(f, a, b, delta, epsilon, func2, recursionLimit, variableTransformationFormula);
 }
-
-/*
- * DUE TO WSL NOT BEING ABLE TO WORK WITH NESTED FUNCTIONS AND INSTEAD RESULT IN SEGMENTATION FAULT. THE ACTUAL NESTED CODE IS COMMENTED OUT, SUCH THAT IT MIGHT STILL BE TESTED ON ANOTHER SYSTEM, BUT DUE TO THIS, THE FUNCTIONS ARE MOVED OUT HERE.
- */
-
-static double A, B; // Not accesible from other files, and only here due to moved nested functions needing a and b
-
-// If both a and b are INFINITY: Using converted integral from table in "Numerical Integration" PDF (eq. 58)
-double gBothLimitsInf(double f(double), double t){
-	return ( f((1 - t)/t) + f(- (1 - t)/t ))/pow(t, 2);
-}
-// If only a is INFINITY: Using converted integral from table in "Numerical Integration" PDF (eq. 62)
-double gOnlyLowerLimitInf(double f(double), double t){
-	return ( f(B - (1 - t)/t) )/pow(t, 2);
-}
-// If only b is INFINITY: Using converted integral from table in "Numerical Integration" PDF (eq. 60)
-double gOnlyUpperLimitInf(double f(double), double t){
-	return ( f(A + (1 - t)/t) )/pow(t, 2);
-}
-
-/*
- * END OF FUNCTIONS MOVED FROM NESTED DUE TO WSL.
- */
 
 /*
  * Integrates a function with one or more limits possibly being infinity, using three sub-divisions of the integration interval instead of two, and an adaptive and recursive technique.

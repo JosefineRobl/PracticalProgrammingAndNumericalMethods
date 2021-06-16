@@ -18,7 +18,7 @@ integrator from your homework.
 
 
 --------------------------------------------------------------------------------
-   Method
+### Method ###
 --------------------------------------------------------------------------------
 The method is based on the "Numerical Integration"-PDF.
 

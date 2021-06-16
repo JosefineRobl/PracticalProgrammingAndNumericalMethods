@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
-                                      Exam
+                                   ## Exam ##
 --------------------------------------------------------------------------------
 This folder contains the files for the exam in the Practical Programming and
 Numerical Methods course at Aarhus University, spring 2021.
@@ -9,7 +9,7 @@ My student number is 201706760, so the number of the assignment to be solved is
 
 
 --------------------------------------------------------------------------------
-   16: Adaptive recursive integrator with subdivision into three subintervals
+## 16: Adaptive recursive integrator with subdivision into three subintervals ##
 --------------------------------------------------------------------------------
 Implement a (one-dimensional) adaptive recursive integrator (open or closed
 quadrature, at your choice) which at each iteration subdivides the interval not
@@ -18,7 +18,7 @@ integrator from your homework.
 
 
 --------------------------------------------------------------------------------
-                                    Method
+                                  ## Method ##
 --------------------------------------------------------------------------------
 The method is based on the "Numerical Integration"-PDF.
 
@@ -64,7 +64,7 @@ and thus the following integral
 
 
 --------------------------------------------------------------------------------
-                                   Structure
+                                ## Structure ##
 --------------------------------------------------------------------------------
 This folder (/ExamProject/) is the main folder of the exam project, it contains:
 

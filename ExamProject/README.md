@@ -70,7 +70,7 @@ This folder (/ExamProject/) is the main folder of the exam project, it contains:
   - main.c: The code running and testing the tri-subinterval adaptive and
 	    recursive integration routine.
 
-  - README: This file.
+  - README.md: This file.
 
 
 

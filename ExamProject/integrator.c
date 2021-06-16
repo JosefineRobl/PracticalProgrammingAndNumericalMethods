@@ -70,7 +70,7 @@ double adaptiveRecursiveIntegrate(double f(double), double a, double b, double d
 		func3 = f(xValUpper);
 	}
 	// Initialization of higher and lower order rules (Q and q respectively)
-	double Q = (3*func1 + 2*func2 + 3*func3)*(b - a)/6;
+	double Q = (3*func1 + 2*func2 + 3*func3)*(b - a)/8;
 	double q = (func1 + func2 + func3)*(b - a)/3;
 	// Initialization of the error and the tolerance
 	double error = fabs(Q - q);
@@ -128,7 +128,7 @@ double integrateTridivision(double f(double), double a, double b, double delta, 
 	}
 	/*
 	else {
-		fprintf(stderr, "Error in integratTridivision: The argument passed for the type of variable transformation is not an integer in [0, 3].\n");
+		fprintf(stderr, "Error in integrateTridivision: The argument passed for the type of variable transformation is not an integer in [0, 3].\n");
 	}
 	*/
 	// Initialize the limit of recursions to 99 times - the 100th time should resolve in an error

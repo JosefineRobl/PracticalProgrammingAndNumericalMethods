@@ -27,7 +27,7 @@ reached. For this project, the given number of subintervals is 3, thus in order
 to subdivide total interval [a, b] into three for then to use the quadrature on
 the half-intervals, one needs to choose the points x_i, which will will become
 
-			    x_i = {1/6, 3/6, 5/6}.
+	center aligned x_i = {1/6, 3/6, 5/6}.
 
 From these points weights w_i can be calculated using the trapezium rule,
 

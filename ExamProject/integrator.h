@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <math.h>
-#include <assert.h>
 
 /*
  * Integrates a function with one or more limits possibly being infinity, using three sub-divisions of the integration interval instead of two, and an adaptive and recursive technique.

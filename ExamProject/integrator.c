@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <math.h>
-#include <assert.h>
 
 /*
  * DUE TO WSL NOT BEING ABLE TO WORK WITH NESTED FUNCTIONS AND INSTEAD RESULT IN SEGMENTATION FAULT. THE ACTUAL NESTED CODE IS COMMENTED OUT, SUCH THAT IT MIGHT STILL BE TESTED ON ANOTHER SYSTEM, BUT DUE TO THIS, THE FUNCTIONS ARE MOVED OUT HERE.
@@ -40,17 +39,20 @@ double gOnlyUpperLimitInf(double f(double), double t){
  * returns a double containing the recursively and adaptively integrated value of the function in the integration limit.
  */
 double adaptiveRecursiveIntegrate(double f(double), double a, double b, double delta, double epsilon, double func2, int recursionLimit, int variableTransformationFormula){
-	// Initialize static variables to integration limits
+	// Initialize field-scope variables with the integration limits
 	A = a; B = b;
 	// Initialization of functions surrounding func2 as sain in README.md (like eq. 51 and 48 in the 'Numerical Integration' PDF)
 	double xValLower = a + (b - a)/6,
 	       xValUpper = a + 5*(b - a)/6;
 	double func1, func3;
+	/*
 	if (variableTransformationFormula == 0) {
 		// No variable transformation
 		func1 = f(xValLower);
 		func3 = f(xValUpper);
-	} else if (variableTransformationFormula == 1) {
+	}
+	*/
+	if (variableTransformationFormula == 1) {
 		// Lower limit infinity transformation
 		func1 = gOnlyLowerLimitInf(f, xValLower);
 		func3 = gOnlyLowerLimitInf(f, xValUpper);
@@ -62,6 +64,10 @@ double adaptiveRecursiveIntegrate(double f(double), double a, double b, double d
 		// Both limits infinity transformation
 		func1 = gBothLimitsInf(f, xValLower);
 		func3 = gBothLimitsInf(f, xValUpper);
+	} else {
+		// No variable transformation since variableTransformationFormula == 0.
+		func1 = f(xValLower);
+		func3 = f(xValUpper);
 	}
 	// Initialization of higher and lower order rules (Q and q respectively)
 	double Q = (3*func1 + 2*func2 + 3*func3)*(b - a)/6;
@@ -77,9 +83,9 @@ double adaptiveRecursiveIntegrate(double f(double), double a, double b, double d
 		return Q;
 	} else {
 		double rescaledAbsoluteAccuracyGoal = delta/sqrt(3);
-		return adaptiveRecursiveIntegrate(f, a, (a + b)/3, rescaledAbsoluteAccuracyGoal, epsilon, func1, recursionLimit - 1)
-			+ adaptiveRecursiveIntegrate(f, (a + b)/3, 2*(a + b)/3, rescaledAbsoluteAccuracyGoal, epsilon, func2, recursionLimit - 1)
-			+ adaptiveRecursiveIntegrate(f, 2*(a + b)/3, b, rescaledAbsoluteAccuracyGoal, epsilon, func3, recursionLimit - 1);
+		return adaptiveRecursiveIntegrate(f, a, (a + b)/3, rescaledAbsoluteAccuracyGoal, epsilon, func1, recursionLimit - 1, variableTransformationFormula)
+			+ adaptiveRecursiveIntegrate(f, (a + b)/3, 2*(a + b)/3, rescaledAbsoluteAccuracyGoal, epsilon, func2, recursionLimit - 1, variableTransformationFormula)
+			+ adaptiveRecursiveIntegrate(f, 2*(a + b)/3, b, rescaledAbsoluteAccuracyGoal, epsilon, func3, recursionLimit - 1, variableTransformationFormula);
 	}
 }
 
@@ -96,15 +102,18 @@ double adaptiveRecursiveIntegrate(double f(double), double a, double b, double d
  * returns a double containing the recursively and adaptively integrated value of the function in the integration limit.
  */
 double integrateTridivision(double f(double), double a, double b, double delta, double epsilon, int variableTransformationFormula){
-	// Initialize stacic variables to integration limits
+	// Initialize field-scope variables with the integration limits
 	A = a; B = b;
 	// Initialized func2 as said in README.md (like eq. 51 and 48 in the 'Numerical Integration' PDF)
 	double xVal = a + 3*(b - a)/6;
 	double func2;
+	/*
 	if (variableTransformationFormula == 0) {
 		// No variable transformation
 		func2 = f(xVal);
-	} else if (variableTransformationFormula == 1) {
+	}
+	*/
+	if (variableTransformationFormula == 1) {
 		// Lower limit infinity transformation
 		func2 = gOnlyLowerLimitInf(f, xVal);
 	} else if (variableTransformationFormula == 2) {
@@ -114,8 +123,14 @@ double integrateTridivision(double f(double), double a, double b, double delta, 
 		// Both limits infinity transformation
 		func2 = gBothLimitsInf(f, xVal);
 	} else {
+		// No variable transformation since variableTransformationFormula == 0
+		func2 = f(xVal);
+	}
+	/*
+	else {
 		fprintf(stderr, "Error in integratTridivision: The argument passed for the type of variable transformation is not an integer in [0, 3].\n");
 	}
+	*/
 	// Initialize the limit of recursions to 99 times - the 100th time should resolve in an error
 	int recursionLimit = 99;
 	// Begin recursion
@@ -134,6 +149,8 @@ double integrateTridivision(double f(double), double a, double b, double delta, 
  * returns a double containing the recursively and adaptively integrated value of the function in the integration limit.
  */
 double generalisedIntegrator(double f(double), double a, double b, double delta, double epsilon){
+	// Initializes the variable for knowing which variable function formula to use
+	int variableTransformationFormula;
 	// Check if a and/or b is INFINITY (isinf returns 0 for not infinity and nonzero for argument being infinity)
 	if (isinf(a) != 0) {
 		if (isinf(b) != 0) {

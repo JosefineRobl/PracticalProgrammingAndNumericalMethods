@@ -9,7 +9,7 @@ My student number is 201706760, so the number of the assignment to be solved is
 
 
 --------------------------------------------------------------------------------
-   16: Adaptive recursive integrator with subdivision into three subintervals ##
+   16: Adaptive recursive integrator with subdivision into three subintervals
 --------------------------------------------------------------------------------
 Implement a (one-dimensional) adaptive recursive integrator (open or closed
 quadrature, at your choice) which at each iteration subdivides the interval not

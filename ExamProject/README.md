@@ -58,8 +58,8 @@ interval [a, b] yields the integration intervals
 and thus the following integral
 
      int_a^b f(x) dx = int_a^c f(x) dx + int_c^d f(x) dx + int_d^b f(x) dx.
-		      |_______________| |_______________| |_______________|
-			     Q_1	       Q_2		 Q_3
+		         |_______________| |_______________| |_______________|
+			        Q_1	          Q_2		    Q_3
 
 
 --------------------------------------------------------------------------------

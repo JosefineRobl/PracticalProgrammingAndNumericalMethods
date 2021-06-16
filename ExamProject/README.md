@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
-   				      Exam
+                                      Exam
 --------------------------------------------------------------------------------
 This folder contains the files for the exam in the Practical Programming and
 Numerical Methods course at Aarhus University, spring 2021.
@@ -64,7 +64,7 @@ and thus the following integral
 
 
 --------------------------------------------------------------------------------
-   				   Structure
+                                   Structure
 --------------------------------------------------------------------------------
 This folder (/ExamProject/) is the main folder of the exam project, it contains:
 

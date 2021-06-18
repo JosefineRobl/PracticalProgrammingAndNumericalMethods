@@ -14,16 +14,18 @@ double fun2(double x){ // fun2(x) = 4*sqrt(1-x^2)
 	calls++;
 	return 4*sqrt(1 - pow(x, 2));
 }
+/*
 double fun3(double x){ // fun3(x) = exp(-x)
 	calls++;
 	return exp(-x);
 }
+*/
 
 void printIntegrate(double f(double), char* functag, double a, double b, double delta, double epsilon, double trueVal){
 	// Initialize the call count variable
 	int calls = 0;
 	// Perform integration
-	double Q = generalisedIntegrator(f, a, b, delta, epsilon);
+	double Q = integrateTridivision(f, a, b, delta, epsilon);
 	// Calculate the estimated and actual error
 	double estimatedError = delta + fabs(Q)*epsilon;
 	double actualError = fabs(Q - trueVal);

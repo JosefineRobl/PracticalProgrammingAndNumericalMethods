@@ -71,7 +71,7 @@ double gOnlyUpperLimitInf(double f(double), double t){
 		// No variable transformation since variableTransformationFormula == 0.
 // 		func1 = f(xValLower);
 // 		func3 = f(xValUpper);
-	}
+//	}
 	// Initialization of higher and lower order rules (Q and q respectively)
 // 	double Q = (3*func1 + 2*func2 + 3*func3)*(b - a)/8;
 // 	double q = (func1 + func2 + func3)*(b - a)/3;
@@ -142,7 +142,7 @@ double gOnlyUpperLimitInf(double f(double), double t){
 // 	int recursionLimit = 1e5;
 	// Begin recursion
 // 	return adaptiveRecursiveIntegrate(f, a, b, delta, epsilon, func2, recursionLimit, variableTransformationFormula);
-}
+//}
 
 /*
  * Integrates a function with one or more limits possibly being infinity, using three sub-divisions of the integration interval instead of two, and an adaptive and recursive technique.
@@ -216,9 +216,8 @@ double adaptiveRecursiveIntegrate(double f(double), double a, double b, double d
 	// Initialization of functions surrounding func2 as sain in README.md (like eq. 51 and 48 in the 'Numerical Integration' PDF)
 	double xValLower = a + (b - a)/6,
 	       xValUpper = a + 5*(b - a)/6;
-	double func1, func3;
-	func1 = f(xValLower);
-	func3 = f(xValUpper);
+	double func1 = f(xValLower);
+	double func3 = f(xValUpper);
 	// Initialization of higher and lower order rules (Q and q respectively)
 	double Q = (3*func1 + 2*func2 + 3*func3)*(b - a)/8;
 	double q = (func1 + func2 + func3)*(b - a)/3;
@@ -257,8 +256,7 @@ double adaptiveRecursiveIntegrate(double f(double), double a, double b, double d
 double integrateTridivision(double f(double), double a, double b, double delta, double epsilon){
 	// Initialized func2 as said in README.md (like eq. 51 and 48 in the 'Numerical Integration' PDF)
 	double xVal = a + 3*(b - a)/6;
-	double func2;
-	func2 = f(xVal);
+	double func2 = f(xVal);
 	/*
 	else {
 		fprintf(stderr, "Error in integrateTridivision: The argument passed for the type of variable transformation is not an integer in [0, 3].\n");

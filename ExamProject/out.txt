@@ -1,0 +1,18 @@
+====================
+The integration of sqrt(t) from 0 to 1 using recursive adaptive integration with tri-division:
+	 delta = 1e-06, and epsilon = 1e-06.
+	 Found value     = 0.666667.
+	 Exact value     = 0.666667.
+	 Estimated error = 1.66667e-06.
+	 Actual error    = 1.30186e-08.
+	 Number of calls = 0.
+Test passed: Estimated error is larger than the actual error.
+====================
+The integration of 4*sqrt(1-x^2) from 0 to 1 using recursive adaptive integration with tri-division:
+	 delta = 1e-06, and epsilon = 1e-06.
+	 Found value     = 3.14159.
+	 Exact value     = 3.14159.
+	 Estimated error = 4.14159e-06.
+	 Actual error    = 4.10198e-09.
+	 Number of calls = 0.
+Test passed: Estimated error is larger than the actual error.

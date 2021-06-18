@@ -6,18 +6,19 @@ LDLIBS = -lm
 default: out.txt
 	cat ./$<
 
-out.txt: main
+out.txt: main2
 	./$< > $@
 
-main: main.o integrator.o
+main2: main2.o integrator3.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-main.o: main.c integrator.h
+main2.o: main2.c integrator3.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-integrator.o: integrator.c integrator.h
+integrator3.o: integrator3.c integrator3.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONEY: clean
+clean:
 	find -type f -executable -delete
 	$(RM) *.o [Oo]ut*

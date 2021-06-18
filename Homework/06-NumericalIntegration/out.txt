@@ -1,14 +1,36 @@
+==================== Exercise A ====================
+---------- Cauclating som integrals with finite limits using own implementation ----------
 ----------
-∫01 dx √(x)
-              Q = 0.666954
-          exact = 0.666667
-          calls = 16
-estimated error = 0.00166695
-   actual error = 0.000287242
+The integration of √(x) from 0 to 1 using adaptive and recursive integration with bi-division:
+	 delta = 0.001, and epsilon = 0.001.
+	 Found value     = 0.666862.
+	 Exact value     = 0.666667.
+	 Estimated error = 0.00166686.
+	 Actual error    = 0.000195173.
+	 Number of calls = 0.
+Test passed: Estimated error is larger than the actual error.
 ----------
-∫01 dx 4√(1-x²) = π
-              Q = 3.14183
-          exact = 3.14159
-          calls = 28
-estimated error = 0.00414183
-   actual error = 0.000241924
+The integration of 4√(1-x²) from 0 to 1 using adaptive and recursive integration with bi-division:
+	 delta = 0.001, and epsilon = 0.001.
+	 Found value     = 3.14184.
+	 Exact value     = 3.14159.
+	 Estimated error = 0.00414184.
+	 Actual error    = 0.000243982.
+	 Number of calls = 0.
+Test passed: Estimated error is larger than the actual error.
+
+==================== Exercise B ====================
+---------- Calculating som integrals with finite limits using Clenshaw-Curtis variable transformation ----------
+
+==================== Exercise C ====================
+---------- Calculating (converging) integrals with infinite limits using own implementation ----------
+----------
+The integration of exp(-x) from 0 to inf using adaptive and recursive integration with bi-division:
+	 delta = 0.001, and epsilon = 0.001.
+	 Found value     = 0.632183.
+	 Exact value     = 1.
+	 Estimated error = 0.00163218.
+	 Actual error    = 0.367817.
+	 Number of calls = 0.
+Test failed: Actual error is larger than the estimated error.
+---------- Calculating (converging) integrals with infinite limits using GSL's inegration rutines ----------

@@ -2,6 +2,8 @@
 #include <math.h>
 #include <assert.h>
 
+#include "adaptiveIntegration.h"
+
 /*
  * DUE TO WSL NOT BEING ABLE TO WORK WITH NESTED FUNCTIONS AND INSTEAD RESULT IN SEGMENTATION FAULT. THE ACTUAL NESTED CODE IS COMMENTED OUT, SUCH THAT IT MIGHT STILL BE TESTED ON ANOTHER SYSTEM, BUT DUE TO THIS, THE FUNCTIONS ARE MOVED OUT HERE.
  */
@@ -79,12 +81,13 @@ double recursiveIntegrate(double f(double), double a, double b, double delta, do
 	if (error < tolerance) {
 		return Q;
 	} else {
-		return recursiveIntegrate(f, a, (a + b)/2, delta/sqrt(2), epsilon, func1, func2, recursionLimit - 1) + recursiveIntegrate(f, (a + b)/2, b, delta/sqrt(2), epsilon, func3, func4, recursionLimit - 1);
+		return recursiveIntegrate(f, a, (a + b)/2, delta/sqrt(2), epsilon, func1, func2, recursionLimit - 1, variableTransformationFormula)
+			+ recursiveIntegrate(f, (a + b)/2, b, delta/sqrt(2), epsilon, func3, func4, recursionLimit - 1, variableTransformationFormula);
 	}
 }
 
 /*
- * Integrates a function with limits possibly being infinity, using three sub-divisions of the integration interval instead of two and an adaptive and recursive technique.
+ * Integrates a function with limits possibly being infinity, using two sub-divisions of the integration interval instead of two, and an adaptive and recursive technique.
  * 
  * f: Function to be integrated. Taks a double as input and returns a double (the function value at that point).
  * a: Double containing the lower integration limit.
@@ -127,7 +130,7 @@ double integrate(double f(double), double a, double b, double delta, double epsi
 }
 
 /*
- * Integrates a function with one or more limits possibly being infinity, using three sub-divisions of the integration interval instead of two, and an adaptive and recursive technique.
+ * Integrates a function with one or more limits possibly being infinity, using two sub-divisions of the integration interval, and an adaptive and recursive technique.
  * 
  * f: Function to be integrated. Takes a double as input and returns a double (the function value at the point).
  * a: Double containing the lower integration limit.
@@ -167,5 +170,5 @@ double generalisedIntegrator(double f(double), double a, double b, double delta,
 	}
 	variableTransformationFormula = 0;
 	// Return value
-	return integrateTridivision(f, a, b, delta, epsilon, variableTransformationFormula);
+	return integrate(f, a, b, delta, epsilon, variableTransformationFormula);
 }

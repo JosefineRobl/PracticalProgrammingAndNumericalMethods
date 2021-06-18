@@ -5,13 +5,16 @@ LDLIBS = -lm
 default: out.txt
 	cat ./$<
 
-out.txt: adaptiveIntegration
+out.txt: main
 	./$< > $@
 
-adaptiveIntegration: adaptiveIntegration.o
-	$(CC) $(LDFLAGS) $< -o $@ $(LDLIBS)
+main: main.o adaptiveIntegration.o
+	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-adaptiveIntegration.o: adaptiveIntegration.c
+main.o: main.c adaptiveIntegration.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+adaptiveIntegration.o: adaptiveIntegration.c adaptiveIntegration.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

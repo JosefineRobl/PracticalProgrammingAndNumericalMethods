@@ -10,10 +10,10 @@ double recursiveIntegrate(double f(double), double a, double b, double delta, do
 	double Q = (2*func1 + func2 + func3 + 2*func4)*(b - a)/6;
 	double q = (func1 + func2 + func3 + func4)*(b - a)/4;
 	// Initialization of the error and the tolerance
-	double error = fabs(Q - q)/3;
+	double error = fabs(Q - q);
 	double tolerance = delta + epsilon*fabs(Q);
 	if (recursionLimit == 0) {
-		printf(stderr, "Function 'recursiveIntegrate' have reached the recursion limit.\n");
+		fprintf(stderr, "Function 'recursiveIntegrate' have reached the recursion limit.\n");
 		return Q;
 	}
 	if (error < tolerance) {

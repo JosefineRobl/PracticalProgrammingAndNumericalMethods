@@ -38,7 +38,7 @@ double fun5(double x){ // fun5(x) = 1/(1+x^2)
 
 void testAndPrintIntegrate(double f(double), char* functag, double a, double b, double delta, double epsilon, double trueVal, char* integrationType){
 	// Initialize the call count variable
-	int calls = 0;
+	calls = 0;
 	// Perform integration
 	/*
 	double Q = generalisedIntegrator(f, a, b, delta, epsilon);

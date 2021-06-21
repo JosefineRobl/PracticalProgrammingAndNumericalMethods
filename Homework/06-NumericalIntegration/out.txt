@@ -7,7 +7,7 @@ The integration of √(x) from 0 to 1 using adaptive and recursive integration w
 	 Exact value     = 0.666667.
 	 Estimated error = 0.000166671.
 	 Actual error    = 4.20973e-05.
-	 Number of calls = 0.
+	 Number of calls = 28.
 Test passed: Estimated error is larger than the actual error.
 ----------
 The integration of 4√(1-x²) from 0 to 1 using adaptive and recursive integration with bi-division:
@@ -16,7 +16,7 @@ The integration of 4√(1-x²) from 0 to 1 using adaptive and recursive integrat
 	 Exact value     = 3.14159.
 	 Estimated error = 0.000414161.
 	 Actual error    = 1.40442e-05.
-	 Number of calls = 0.
+	 Number of calls = 60.
 Test passed: Estimated error is larger than the actual error.
 
 ==================== Exercise B ====================
@@ -31,7 +31,7 @@ The integration of exp(-x) from 0 to inf using adaptive and recursive integratio
 	 Exact value     = 1.
 	 Estimated error = 0.000200001.
 	 Actual error    = 8.16678e-06.
-	 Number of calls = 0.
+	 Number of calls = 52.
 Test passed: Estimated error is larger than the actual error.
 ----------
 The integration of 1/(1+x^2) from -inf to inf using adaptive and recursive integratioon with bi-division:
@@ -40,6 +40,6 @@ The integration of 1/(1+x^2) from -inf to inf using adaptive and recursive integ
 	 Exact value     = 3.14159.
 	 Estimated error = 0.00017854.
 	 Actual error    = 2.35619.
-	 Number of calls = 0.
+	 Number of calls = 60.
 Test failed: Actual error is larger than the estimated error.
 ---------- Calculating (converging) integrals with infinite limits using GSL's inegration rutines ----------

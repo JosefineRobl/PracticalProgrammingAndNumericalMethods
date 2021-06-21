@@ -8,13 +8,13 @@ default: out.txt
 out.txt: main
 	./$< > $@
 
-main: main.o adaptiveIntegration.o
+main: main.o adaptiveIntegration2.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-main.o: main.c adaptiveIntegration.h
+main.o: main.c adaptiveIntegration2.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-adaptiveIntegration.o: adaptiveIntegration.c adaptiveIntegration.h
+adaptiveIntegration2.o: adaptiveIntegration2.c adaptiveIntegration2.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

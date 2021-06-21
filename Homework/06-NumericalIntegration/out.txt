@@ -2,20 +2,20 @@
 ---------- Cauclating som integrals with finite limits using own implementation ----------
 ----------
 The integration of √(x) from 0 to 1 using adaptive and recursive integration with bi-division:
-	 delta = 0.001, and epsilon = 0.001.
-	 Found value     = 0.666862.
+	 delta = 0.0001, and epsilon = 0.0001.
+	 Found value     = 0.666709.
 	 Exact value     = 0.666667.
-	 Estimated error = 0.00166686.
-	 Actual error    = 0.000195173.
+	 Estimated error = 0.000166671.
+	 Actual error    = 4.20973e-05.
 	 Number of calls = 0.
 Test passed: Estimated error is larger than the actual error.
 ----------
 The integration of 4√(1-x²) from 0 to 1 using adaptive and recursive integration with bi-division:
-	 delta = 0.001, and epsilon = 0.001.
-	 Found value     = 3.14184.
+	 delta = 0.0001, and epsilon = 0.0001.
+	 Found value     = 3.14161.
 	 Exact value     = 3.14159.
-	 Estimated error = 0.00414184.
-	 Actual error    = 0.000243982.
+	 Estimated error = 0.000414161.
+	 Actual error    = 1.40442e-05.
 	 Number of calls = 0.
 Test passed: Estimated error is larger than the actual error.
 
@@ -26,11 +26,20 @@ Test passed: Estimated error is larger than the actual error.
 ---------- Calculating (converging) integrals with infinite limits using own implementation ----------
 ----------
 The integration of exp(-x) from 0 to inf using adaptive and recursive integration with bi-division:
-	 delta = 0.001, and epsilon = 0.001.
-	 Found value     = 0.632183.
+	 delta = 0.0001, and epsilon = 0.0001.
+	 Found value     = 1.00001.
 	 Exact value     = 1.
-	 Estimated error = 0.00163218.
-	 Actual error    = 0.367817.
+	 Estimated error = 0.000200001.
+	 Actual error    = 8.16678e-06.
+	 Number of calls = 0.
+Test passed: Estimated error is larger than the actual error.
+----------
+The integration of 1/(1+x^2) from -inf to inf using adaptive and recursive integratioon with bi-division:
+	 delta = 0.0001, and epsilon = 0.0001.
+	 Found value     = 0.785401.
+	 Exact value     = 3.14159.
+	 Estimated error = 0.00017854.
+	 Actual error    = 2.35619.
 	 Number of calls = 0.
 Test failed: Actual error is larger than the estimated error.
 ---------- Calculating (converging) integrals with infinite limits using GSL's inegration rutines ----------

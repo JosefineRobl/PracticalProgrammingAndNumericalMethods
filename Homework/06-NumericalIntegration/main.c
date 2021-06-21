@@ -3,6 +3,7 @@
 #include <assert.h>
 
 #include "adaptiveIntegration.h"
+#include "adaptiveIntegration2.h"
 
 void printExercise(char* exercise){
 	printf("==================== Exercise %s ====================\n", exercise);
@@ -26,12 +27,23 @@ double fun3(double x){ // fun3(x) = exp(-x)
 	calls++;
 	return exp(-x);
 }
+double fun4(double x){ // fun4(x) = exp(x)
+	calls++;
+	return exp(x);
+}
+double fun5(double x){ // fun5(x) = 1/(1+x^2)
+	calls++;
+	return 1./(1 + pow(x, 2));
+}
 
 void testAndPrintIntegrate(double f(double), char* functag, double a, double b, double delta, double epsilon, double trueVal, char* integrationType){
 	// Initialize the call count variable
 	int calls = 0;
 	// Perform integration
+	/*
 	double Q = generalisedIntegrator(f, a, b, delta, epsilon);
+	*/
+	double Q = generalisedIntegrator2(f, a, b, delta, epsilon);
 	// Calculate the estimated and actual error
 	double estimatedError = delta + fabs(Q)*epsilon;
 	double actualError = fabs(Q - trueVal);
@@ -52,7 +64,7 @@ void testAndPrintIntegrate(double f(double), char* functag, double a, double b, 
 
 int main(void){
 	// Absolute and relative accuracy goals
-	double delta = 0.001, epsilon = 0.001;
+	double delta = 1e-4, epsilon = 1e-4;
 	
 	// EXERCISE A
 	printExercise("A");
@@ -73,6 +85,8 @@ int main(void){
 	// fun3
 	printSubtext("Calculating (converging) integrals with infinite limits using own implementation");
 	testAndPrintIntegrate(fun3, "exp(-x)", 0, INFINITY, delta, epsilon, 1, "adaptive and recursive integration with bi-division");
+	//testAndPrintIntegrate(fun4, "exp(x)", -INFINITY, 0, delta, epsilon, 1, "adaptive and recursive integration with bi-division");
+	testAndPrintIntegrate(fun5, "1/(1+x^2)", -INFINITY, INFINITY, delta, epsilon, M_PI, "adaptive and recursive integratioon with bi-division");
 
 	printSubtext("Calculating (converging) integrals with infinite limits using GSL's inegration rutines");
 	

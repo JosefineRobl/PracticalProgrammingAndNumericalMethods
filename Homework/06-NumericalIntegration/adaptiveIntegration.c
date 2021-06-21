@@ -51,22 +51,23 @@ double recursiveIntegrate(double f(double), double a, double b, double delta, do
 	double xValLower = a + (b - a)/6,
 	       xValUpper = a + 5*(b - a)/6;
 	double func1, func4;
-	if (variableTransformationFormula == 1) {
-		// Lower limit infinity transformation
-		func1 = gOnlyLowerLimitInf(f, xValLower);
-		func4 = gOnlyLowerLimitInf(f, xValUpper);
-	} else if (variableTransformationFormula == 2) {
-		// Upper limit infinity transformation
-		func1 = gOnlyUpperLimitInf(f, xValLower);
-		func4 = gOnlyUpperLimitInf(f, xValUpper);
-	} else if (variableTransformationFormula == 3) {
-		// Both limits infinity transformation
-		func1 = gBothLimitsInf(f, xValLower);
-		func4 = gBothLimitsInf(f, xValUpper);
-	} else {
-		// No variable transformation since variableTransformationFormula == 0.
-		func1 = f(xValLower);
-		func4 = f(xValUpper);
+	switch  (variableTransformationFormula) {
+		case 1:
+			// Lower limit infinity transformation
+			func1 = gOnlyLowerLimitInf(f, xValLower);
+			func4 = gOnlyLowerLimitInf(f, xValUpper);
+		case 2:
+			// Upper limit infinity transformation
+			func1 = gOnlyUpperLimitInf(f, xValLower);
+			func4 = gOnlyUpperLimitInf(f, xValUpper);
+		case 3:
+			// Both limits infinity transformation
+			func1 = gBothLimitsInf(f, xValLower);
+			func4 = gBothLimitsInf(f, xValUpper);
+		default:
+			// No variable transformation since variableTransformationFormula == 0.
+			func1 = f(xValLower);
+			func4 = f(xValUpper);
 	}
 	// Initialization of higher and lower order rules (Q and q respectively)
 	double Q = (2*func1 + func2 + func3 + 2*func4)*(b - a)/6;

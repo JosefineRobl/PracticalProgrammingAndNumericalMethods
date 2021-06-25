@@ -17,8 +17,7 @@ double gBothLimitsInf(double f(double), double t){
 
 // If only a is INFINITY: Using converted integral from table in "Numerical Integration" PDF (eq. 62)
 double gOnlyLowerLimitInf(double f(double), double t){
-	//return ( f(B - (1 - t)/t) )/pow(t, 2);
-	return -gOnlyUpperLimitInf(f, t);
+	return ( f(B - (1 - t)/t) )/pow(t, 2);
 }
 
 // If only b is INFINITY: Using converted integral from table in "Numerical Integration" PDF (eq. 60)
@@ -47,17 +46,16 @@ double gOnlyUpperLimitInf(double f(double), double t){
  */
 double recursiveIntegrate(double f(double), double a, double b, double delta, double epsilon, double func2, double func3, int recursionLimit, int variableTransformationFormula){
 	// Initialize field-scope variables with the integration limits
-	//A = a; B = b;
+	A = a; B = b;
 	// Initialization of functions surrounding func2 and func3 using 'Numerical Integration' PDF eq. 51 and 48
 	double xValLower = a + (b - a)/6,
 	       xValUpper = a + 5*(b - a)/6;
 	double func1, func4;
 	switch  (variableTransformationFormula) {
 		case 1:
-			A = -b; // Initialize field-scope variable with the integration limit
 			// Lower limit infinity transformation
-			func1 = gOnlyUpperLimitInf(f, xValLower);
-			func4 = gOnlyUpperLimitInf(f, xValUpper);
+			func1 = gOnlyLowerLimitInf(f, xValLower);
+			func4 = gOnlyLowerLimitInf(f, xValUpper);
 		case 2:
 			A = a; // Initialize field-scope variable with the integration limit
 			// Upper limit infinity transformation
@@ -104,30 +102,30 @@ double recursiveIntegrate(double f(double), double a, double b, double delta, do
  */
 double integrate(double f(double), double a, double b, double delta, double epsilon, int variableTransformationFormula){
 	// Initialize field-scope variables with the integration limits
-	//A = a; B = b;
+	A = a; B = b;
 	// Initialized func2 and func3 from eq. 51 and 48 in the 'Numerical Integration' PDF
 	double xValUpper = a + 2*(b - a)/6,
 	       xValLower = a + 4*(b - a)/6;
 	double func2, func3;
 	assert((variableTransformationFormula >= 0) & (variableTransformationFormula <= 3));
-	if (variableTransformationFormula == 1) {
-		A = -b; // Initialize field-scope variable with the integration limit
-		// Lower limit infinity transformation
-		func2 = gOnlyUpperLimitInf(f, xValLower);
-		func3 = gOnlyUpperLimitInf(f, xValUpper);
-	} else if (variableTransformationFormula == 2) {
-		A = a; // Initialize field-scope variable with the integration limit
-		// Upper limit infinity transformation
-		func2 = gOnlyUpperLimitInf(f, xValLower);
-		func3 = gOnlyUpperLimitInf(f, xValUpper);
-	} else if (variableTransformationFormula == 3) {
-		// Both limits infinity transformation
-		func2 = gBothLimitsInf(f, xValLower);
-		func3 = gBothLimitsInf(f, xValUpper);
-	} else {
-		// No variable transformation since variableTransformationFormula == 0
-		func2 = f(xValUpper);
-		func3 = f(xValUpper);
+	switch (variableTransformationFormula) {
+		case 1:
+			// Lower limit infinity transformation
+			func2 = gOnlyLowerLimitInf(f, xValLower);
+			func3 = gOnlyLowerLimitInf(f, xValUpper);
+		case 2:
+			A = a; // Initialize field-scope variable with the integration limit
+			// Upper limit infinity transformation
+			func2 = gOnlyUpperLimitInf(f, xValLower);
+			func3 = gOnlyUpperLimitInf(f, xValUpper);
+		case 3:
+			// Both limits infinity transformation
+			func2 = gBothLimitsInf(f, xValLower);
+			func3 = gBothLimitsInf(f, xValUpper);
+		default:
+			// No variable transformation since variableTransformationFormula == 0
+			func2 = f(xValLower);
+			func3 = f(xValUpper);
 	}
 	// Initialize the limit of recursions to 99 times - the 100th time should resolve in an error
 	int recursionLimit = 99;

@@ -5,12 +5,18 @@
 
 static double A, B; // the left and right integration limit
 
+/*
 static double gOnlyLowerLimitInf(double f(double), double t){
 	return f( B - (1 - t)/t ) / pow(t, 2);
 }
+*/
 
 static double gOnlyUpperLimitInf(double f(double),double t){// variable transformation formula
 	return f( A + (1 - t)/t ) / pow(t, 2);
+}
+
+static double gOnlyLowerLimitInf(double f(double), double t){
+	return -gOnlyUpperLimitInf(f, t);
 }
 
 static double gBothLimitsInf(double f(double), double t){
@@ -27,6 +33,7 @@ double wrap24( double f(double),double a, double b,
 		case 1:
 			f1 = gOnlyLowerLimitInf(f, xValLowerLimit);
 			f4 = gOnlyLowerLimitInf(f, xValUpperLimit);
+			break;
 		case 2:
 			f1 = gOnlyUpperLimitInf(f, xValLowerLimit);
 			f4 = gOnlyUpperLimitInf(f, xValUpperLimit);
@@ -34,6 +41,7 @@ double wrap24( double f(double),double a, double b,
 		case 3:
 			f1 = gBothLimitsInf(f, xValLowerLimit);
 			f4 = gBothLimitsInf(f, xValUpperLimit);
+			break;
 		default:
 			f1 = f(xValLowerLimit);
 			f4 = f(xValUpperLimit);
@@ -51,21 +59,26 @@ double wrap24( double f(double),double a, double b,
 }
 
 double integrate2(double f(double),double a, double b, double delta,double epsilon, int variableTransformationFormula){
-	A=a; B=b; // save left limit in file-scope variable
+	//A=a; B=b; // save left limit in file-scope variable
 	double xValLowerLimit = a + 2*(b - a)/6,
 	       xValUpperLimit = a + 4*(b - a)/6;
 	double f2,f3;
 	switch (variableTransformationFormula) {
 		case 1:
+			A = -b;
 			f2 = gOnlyLowerLimitInf(f, xValLowerLimit);
 			f3 = gOnlyLowerLimitInf(f, xValUpperLimit);
+			break;
 		case 2:
+			A = a;
 			f2 = gOnlyUpperLimitInf(f, xValLowerLimit);
 			f3 = gOnlyUpperLimitInf(f, xValUpperLimit);
 			break;
 		case 3:
+			A = a; B = b;
 			f2 = gBothLimitsInf(f, xValLowerLimit);
 			f3 = gBothLimitsInf(f, xValUpperLimit);
+			break;
 		default:
 			f2 = f(xValLowerLimit);
 			f3 = f(xValUpperLimit);

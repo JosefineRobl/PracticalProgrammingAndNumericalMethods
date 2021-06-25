@@ -32,14 +32,4 @@ The integration of exp(-x) from 0 to inf using adaptive and recursive integratio
 	 Estimated error = 0.000200001.
 	 Actual error    = 8.16678e-06.
 	 Number of calls = 52.
-Test passed: Estimated error is larger than the actual error.
-----------
-The integration of 1/(1+x^2) from -inf to inf using adaptive and recursive integratioon with bi-division:
-	 delta = 0.0001, and epsilon = 0.0001.
-	 Found value     = 0.785401.
-	 Exact value     = 3.14159.
-	 Estimated error = 0.00017854.
-	 Actual error    = 2.35619.
-	 Number of calls = 60.
-Test failed: Actual error is larger than the estimated error.
----------- Calculating (converging) integrals with infinite limits using GSL's inegration rutines ----------
+Test passed: Estimated error is larger than the actu

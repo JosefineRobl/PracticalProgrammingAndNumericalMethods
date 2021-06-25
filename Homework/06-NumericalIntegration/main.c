@@ -85,7 +85,7 @@ int main(void){
 	// fun3
 	printSubtext("Calculating (converging) integrals with infinite limits using own implementation");
 	testAndPrintIntegrate(fun3, "exp(-x)", 0, INFINITY, delta, epsilon, 1, "adaptive and recursive integration with bi-division");
-	//testAndPrintIntegrate(fun4, "exp(x)", -INFINITY, 0, delta, epsilon, 1, "adaptive and recursive integration with bi-division");
+	testAndPrintIntegrate(fun4, "exp(x)", -INFINITY, 0, delta, epsilon, 1, "adaptive and recursive integration with bi-division");
 	testAndPrintIntegrate(fun5, "1/(1+x^2)", -INFINITY, INFINITY, delta, epsilon, M_PI, "adaptive and recursive integratioon with bi-division");
 
 	printSubtext("Calculating (converging) integrals with infinite limits using GSL's inegration rutines");

@@ -6,9 +6,9 @@ OUT = susceptible.txt infectious.txt removed.txt
 
 
 
-default : plot.svg
+default : plot.png
 	
-plot.svg : plot.gpi $(OUT)
+plot.png : plot.gpi $(OUT)
 	pyxplot $<
 	
 $(OUT) : main

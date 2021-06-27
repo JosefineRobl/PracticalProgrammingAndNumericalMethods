@@ -101,8 +101,38 @@ double integrate2(double f(double),double a, double b, double delta,double epsil
 	return wrap24(f, a, b, 2*delta, 2*epsilon, f2, f3, nrec, variableTransformationFormula);
 }
 
+double CC24( double f(double),double a, double b,
+	double delta, double epsilon, double f2, double f3, int nrec, int variableTransformationFormula){//wrapper calls F(f,t)
+	assert(nrec < 1e4);
+	double xValLowerLimit = a + (b - a)/6,
+	       xValUpperLimit = a + 5*(b - a)/6;
+	double f1, f4;
+	f1 = fClenshawCurtis(f, xValLowerLimit);
+	f4 = fClenshawCurtis(f, xValUpperLimit);
+	double Q = (2*f1 + f2 + f3 + 2*f4) / 6 * (b - a);
+	double q = (f1 + f2 + f3 + f4) / 4 * (b - a);
+	double tolerance = delta + epsilon*fabs(Q);
+	double error = fabs(Q - q);
+	if(error < tolerance) return Q;
+	else {
+		double Q1 = CC24(f, a, (a+b)/2, delta/sqrt(2), epsilon, f1, f2, nrec + 1, variableTransformationFormula);
+		double Q2 = CC24(f, (a+b)/2, b, delta/sqrt(2), epsilon, f3, f4, nrec + 1, variableTransformationFormula);
+		return Q1 + Q2;
+	}
+}
+
+double integrateCC(double f(double),double a, double b, double delta,double epsilon, int variableTransformationFormula){
+	double xValLowerLimit = a + 2*(b - a)/6,
+	       xValUpperLimit = a + 4*(b - a)/6;
+	double f2,f3;
+	f2 = fClenshawCurtis(f, xValLowerLimit);
+	f3 = fClenshawCurtis(f, xValUpperLimit);
+	int nrec = 0;
+	return CC24(f, a, b, 2*delta, 2*epsilon, f2, f3, nrec, variableTransformationFormula);
+}
+
 double ClenshawCurtisIntegrate(double f(double), double a, double b, double delta, double epsilon){
-	return integrate2(f, 0, M_PI, delta, epsilon, 4);
+	return integrateCC(f, 0, M_PI, delta, epsilon, 4);
 }
 	
 

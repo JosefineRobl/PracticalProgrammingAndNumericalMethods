@@ -1,20 +1,24 @@
-set term svg background rgb "white"
-set out "plot.svg"
+set terminal png;
+set output "sirPlot.png"
 
-set key out
+set key out;
+set ticks out;
+set pointsize 7;
 
-set xlabel ("Days")
-set xrange [0:40]
+set title "\textbf{SIR model for COVID-19 in Denmark}";
+set xlabel "Days";
+set xrange [0:50]
 
-plot "susceptible.txt" using 1:2 with lines dt "." lc rgb "red" title "Susceptible, Tc = 1",\
-"" using 1:3 with lines dt "." lc rgb "blue" title "Tc = 3",\
-"" using 1:4 with lines dt "." lc rgb "green" title "Tc = 5",\
-"" using 1:5 with lines dt "." lc rgb "purple" title "Tc = 8",\
-"infectious.txt" using 1:2 with lines lc rgb "red" title "Infectious, Tc = 1",\
-"" using 1:3 with lines lc rgb "blue" title "Tc = 3",\
-"" using 1:4 with lines lc rgb "green" title "Tc = 5",\
-"" using 1:5 with lines lc rgb "purple" title "Tc = 8",\
-"removed.txt" using 1:2 with lines dt "-" lc rgb "red" title "Removed, Tc = 1",\
-"" using 1:3 with lines dt "-" lc rgb "blue" title "Tc = 3",\
-"" using 1:4 with lines dt "-" lc rgb "green" title "Tc = 5",\
-"" using 1:5 with lines dt "-" lc rgb "purple" title "Tc = 8",\
+plot \
+"susceptible.txt" using 1:2 with color red dots title "Susceptible, $T_C = 1$",\
+"" using 1:3 with color blue dots title "$T_C = 3$",\
+"" using 1:4 with color gree dots title "$T_C = 5$",\
+"" using 1:5 with color black dots title "$T_C = 10$",\
+"infectious.txt" using 1:2 with color red lines title "Infectious, $T_C = 1$",\
+"" using 1:3 with color blue lines title "$T_C = 3$",\
+"" using 1:4 with color green lines title "$T_C = 5$",\
+"" using 1:5 with color black lines title "$T_C = 10$",\
+"removed.txt" using 1:2 with color red dashtype 2" title "Removed, $T_C = 1$",\
+"" using 1:3 with color blue dashtype 2 title "$T_C = 3$",\
+"" using 1:4 with color green dashtype 2 title "$T_C = 5$",\
+"" using 1:5 with color black dashtype 2 title "$T_C = 10$";

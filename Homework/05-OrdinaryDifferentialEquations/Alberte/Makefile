@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -O -Wall 
+CFLAGS = std=gnu11 -O -Wall 
 LDLIBS = -lm
 OBJFILES = main.o ode_rk12.o
 OUT = susceptible.txt infectious.txt removed.txt

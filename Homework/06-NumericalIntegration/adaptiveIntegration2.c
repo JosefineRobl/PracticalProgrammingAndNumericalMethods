@@ -29,7 +29,7 @@ static double gBothLimitsInf(double f(double), double t){
 
 double wrap24( double f(double),double a, double b,
 	double delta, double epsilon, double f2, double f3, int nrec, int variableTransformationFormula){//wrapper calls F(f,t)
-	assert(nrec > 0);
+	assert(nrec < 1e4);
 	double xValLowerLimit = a + (b - a)/6,
 	       xValUpperLimit = a + 5*(b - a)/6;
 	double f1, f4;
@@ -60,8 +60,8 @@ double wrap24( double f(double),double a, double b,
 	double error = fabs(Q - q);
 	if(error < tolerance) return Q;
 	else {
-		double Q1 = wrap24(f, a, (a+b)/2, delta/sqrt(2), epsilon, f1, f2, nrec - 1, variableTransformationFormula);
-		double Q2 = wrap24(f, (a+b)/2, b, delta/sqrt(2), epsilon, f3, f4, nrec - 1, variableTransformationFormula);
+		double Q1 = wrap24(f, a, (a+b)/2, delta/sqrt(2), epsilon, f1, f2, nrec + 1, variableTransformationFormula);
+		double Q2 = wrap24(f, (a+b)/2, b, delta/sqrt(2), epsilon, f3, f4, nrec + 1, variableTransformationFormula);
 		return Q1 + Q2;
 	}
 }
@@ -97,8 +97,8 @@ double integrate2(double f(double),double a, double b, double delta,double epsil
 			f2 = f(xValLowerLimit);
 			f3 = f(xValUpperLimit);
 	}
-	int nrec = 99;
-	return wrap24(f, a, b, delta, epsilon, f2, f3, nrec, variableTransformationFormula);
+	int nrec = 0;
+	return wrap24(f, a, b, 2*delta, 2*epsilon, f2, f3, nrec, variableTransformationFormula);
 }
 
 double ClenshawCurtisIntegrate(double f(double), double a, double b, double delta, double epsilon){

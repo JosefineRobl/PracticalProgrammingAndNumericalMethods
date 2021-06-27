@@ -3,20 +3,20 @@
 ----------
 The integration of √(x) from 0 to 1 using adaptive and recursive integration with bi-division:
 	 delta = 0.0001, and epsilon = 0.0001.
-	 Found value     = 0.666681.
+	 Found value     = 0.666709.
 	 Exact value     = 0.666667.
-	 Estimated error = 0.000166668.
-	 Actual error    = 1.42662e-05.
-	 Number of calls = 40.
+	 Estimated error = 0.000166671.
+	 Actual error    = 4.20973e-05.
+	 Number of calls = 28.
 Test passed: Estimated error is larger than the actual error.
 ----------
 The integration of 4√(1-x²) from 0 to 1 using adaptive and recursive integration with bi-division:
 	 delta = 0.0001, and epsilon = 0.0001.
-	 Found value     = 3.1416.
+	 Found value     = 3.14161.
 	 Exact value     = 3.14159.
-	 Estimated error = 0.00041416.
-	 Actual error    = 4.85411e-06.
-	 Number of calls = 80.
+	 Estimated error = 0.000414161.
+	 Actual error    = 1.40442e-05.
+	 Number of calls = 60.
 Test passed: Estimated error is larger than the actual error.
 
 ==================== Exercise B ====================
@@ -28,7 +28,7 @@ The integration of 1/√(x) from 0 to 1 using Clenshaw-Curtis variable transform
 	 Exact value     = 2.
 	 Estimated error = 0.000454491.
 	 Actual error    = 1.54491.
-	 Number of calls = 56.
+	 Number of calls = 32.
 Test failed: Actual error is larger than the estimated error.
 ----------
 The integration of ln(x)/√(x) from 0 to 1 using Clenshaw-Curtis variable transformation:
@@ -36,12 +36,12 @@ The integration of ln(x)/√(x) from 0 to 1 using Clenshaw-Curtis variable trans
 	 Found value     = -3.03185.
 	 Exact value     = -4.
 	 Estimated error = 0.000403185.
-	 Actual error    = 0.968148.
-	 Number of calls = 332.
+	 Actual error    = 0.968151.
+	 Number of calls = 248.
 Test failed: Actual error is larger than the estimated error.
 ---------- Calculating the integral ∫_0^1 dx 4√(1-x²) = π with normal, Clenshaw-Curtis and GSL integrator ----------
 ----------
 The integration of 4√(1-x²) from 0 to 1 using adaptive and recursive integration with bi-division:
 	 delta = 0.0001, and epsilon = 0.0001.
-	 Found value     = 3.141597507702630576176261.
-	 Exact 
+	 Found value     = 3.14160669783852020131576.
+	 Exact

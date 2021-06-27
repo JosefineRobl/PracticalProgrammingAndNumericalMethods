@@ -4,7 +4,6 @@
 #include <gsl/gsl_integration.h>
 
 #include "adaptiveIntegration.h"
-#include "adaptiveIntegration2.h"
 
 void printExercise(char* exercise){
 	printf("==================== Exercise %s ====================\n", exercise);
@@ -81,7 +80,7 @@ void testAndPrintIntegrate(double f(double), char* functag, double a, double b, 
 	double Q;
 	switch (integrator) {
 		case 1:
-			Q = generalisedIntegrator2(f, a, b, delta, epsilon);
+			Q = generalisedIntegrator(f, a, b, delta, epsilon);
 			break;
 		case 2:
 			Q = ClenshawCurtisIntegrate(f, a, b, delta, epsilon);

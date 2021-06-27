@@ -6,12 +6,19 @@ void sir_model (
 		double t, double y[], double dydt[]
 		)
 {
-	double population_size = 7*1e6;
+	double population_size = 6*1e6;
 	double recovery_time = 14;
 
 	dydt[0] = -y[0]*y[1]/population_size/time_between_contacts;
 	dydt[1] = y[0]*y[1]/population_size/time_between_contacts - y[1]/recovery_time;
 	dydt[2] = y[1]/recovery_time;
+}
+
+static double time_between_contacts_file_var;
+
+void sir_model_given_time_between_contacts (double t, double y[], double dydt[])
+{
+	sir_model (time_between_contacts_file_var, t, y, dydt);
 }
 
 int main () 
@@ -32,7 +39,7 @@ int main ()
 
 	for (int t = 1; t < b; t++)
 	{
-		y[0] = 6*1e7;
+		y[0] = 6*1e6;
 		y[1] = 10;
 		y[2] = 0; 
 
@@ -42,12 +49,9 @@ int main ()
 
 		for (int i = 0; i < n; i++)
 		{
-			void sir_model_given_time_between_contacts (double t, double y[], double dydt[])
-			{
-				sir_model (time_between_contacts[i], t, y, dydt);
-			}
+			time_between_contacts_file_var = time_between_contacts[i];
 
-			driver_rk12 (3, sir_model_given_time_between_contacts, (double) a, (double) t, y, h, acc, eps);
+			driver_rk12 (n, sir_model_given_time_between_contacts, (double) a, (double) t, y, h, acc, eps);
 			
 			fprintf (susceptible, "%g ", y[0]);
 			fprintf (infectious, "%g ", y[1]); 

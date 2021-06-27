@@ -1,17 +1,22 @@
 CC = gcc
-CFLAGS = std=gnu11 -O -Wall 
+CFLAGS = -std=gnu11 -O -Wall 
 LDLIBS = -lm
 OBJFILES = main.o ode_rk12.o
-OUT = susceptible.txt infectious.txt removed.txt
 
-
-
-default : plot.png
+default : sirPlot.png
+	make sirPlot.png
+	xdg-open sirPlot.png
 	
-plot.png : plot.gpi $(OUT)
+sirPlot.png : plot.gpi susceptible.txt infectious.txt removed.txt
 	pyxplot $<
 	
-$(OUT) : main
+susceptible.txt : main
+	./$< > $@
+
+infectious.txt: main
+	./$< > $@
+
+removed.txt: main
 	./$< > $@
 
 main : $(OBJFILES)

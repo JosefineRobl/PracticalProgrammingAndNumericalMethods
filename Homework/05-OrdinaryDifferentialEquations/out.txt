@@ -1,0 +1,11 @@
+=============== Testing implementation using u''=-u ===============
+Solution to the ODE u''(x)=-u(x) can be seen in harmonicPlot.png alongside its derivative. The initial values are u(0) = 1, u'(0) = 0. The data can be found in the file harmonic.txt.
+=============== SIR model of epidemic development ===============
+The graph of the SIR model for the COVID-19 epidemi in Denmark can be seen on sirPlot.png, and the data in the susceptible.txt, infected.txt, and removed.txt files.
+The parameters used is:
+ 	 Population of Denmark: 6e+06
+ 	 Number of infected from beginning: 10
+ 	 Number of dead and recoverede from beginning: 0
+From the plot it can be seen, that an decreasing contact time (T_C) give rise to faster and steaper peaks for the infected and number of dead/recovered graphs. This makes perfect sense due to the fact, that there for shorter times between contacts will be more contact and thus a larger virus spreading.
+=============== Newtonian gravitational three-body problem ===============
+The graph can be found in the file threeBodyProblemPlot.png, while the data can be found in threeBodyProblem.txt.

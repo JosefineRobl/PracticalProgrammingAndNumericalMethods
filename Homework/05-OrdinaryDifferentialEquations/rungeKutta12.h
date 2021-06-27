@@ -12,7 +12,7 @@
  * step: The y(t+h)-value.
  * dy: The error esimate.
  */
-void rungeKuttaStep12(int n, void f(double t, double y[], double dydt[]), double t, double y[], double h, double step[], double dy[]);
+void rungeKuttaStep12(int n, void f(double t, double y[], double dydt[]), double t, double y[], double h, double step[], double error[]);
 
 /*
  * Driver.
@@ -27,4 +27,4 @@ void rungeKuttaStep12(int n, void f(double t, double y[], double dydt[]), double
  * epsilon: Double containing the relative accuracy goal.
  * out: Pointer to FILE object to store the points calculated along the way.
  */
-void rungeKuttaDrive12(int n, void f(double t, double y[], double dydt[]), double a, double b, double y[], double h, double delta, double epsilon);
+void rungeKuttaDrive12 (int n, void f(double t, double y[], double dydt[]), double a, double b, double y[], double h, double delta, double epsilon, FILE* out);

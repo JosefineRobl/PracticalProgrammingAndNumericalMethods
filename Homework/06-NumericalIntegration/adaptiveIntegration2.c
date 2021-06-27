@@ -5,6 +5,10 @@
 
 static double A, B; // the left and right integration limit
 
+static double fClenshawCurtis(double f(double), double t){// Variable transformation for Clenshaw-Curtis
+	return f( (A + B)/2 + (A - B)/2 * cos(t) ) * sin(t) * (B - A)/2;
+}
+
 /*
 static double gOnlyLowerLimitInf(double f(double), double t){
 	return f( B - (1 - t)/t ) / pow(t, 2);
@@ -42,6 +46,10 @@ double wrap24( double f(double),double a, double b,
 			f1 = gBothLimitsInf(f, xValLowerLimit);
 			f4 = gBothLimitsInf(f, xValUpperLimit);
 			break;
+		case 4:
+			f1 = fClenshawCurtis(f, xValLowerLimit);
+			f4 = fClenshawCurtis(f, xValUpperLimit);
+			break;
 		default:
 			f1 = f(xValLowerLimit);
 			f4 = f(xValUpperLimit);
@@ -65,7 +73,7 @@ double integrate2(double f(double),double a, double b, double delta,double epsil
 	double f2,f3;
 	switch (variableTransformationFormula) {
 		case 1:
-			A = -b;
+			A = b;
 			f2 = gOnlyLowerLimitInf(f, xValLowerLimit);
 			f3 = gOnlyLowerLimitInf(f, xValUpperLimit);
 			break;
@@ -79,13 +87,24 @@ double integrate2(double f(double),double a, double b, double delta,double epsil
 			f2 = gBothLimitsInf(f, xValLowerLimit);
 			f3 = gBothLimitsInf(f, xValUpperLimit);
 			break;
+		case 4:
+			A = a; B = b;
+			f2 = fClenshawCurtis(f, xValLowerLimit);
+			f3 = fClenshawCurtis(f, xValUpperLimit);
+			break;
+
 		default:
 			f2 = f(xValLowerLimit);
 			f3 = f(xValUpperLimit);
 	}
 	int nrec = 99;
-	return wrap24(f, a, b, 2*delta, 2*epsilon, f2, f3, nrec, variableTransformationFormula);
+	return wrap24(f, a, b, delta, epsilon, f2, f3, nrec, variableTransformationFormula);
 }
+
+double ClenshawCurtisIntegrate(double f(double), double a, double b, double delta, double epsilon){
+	return integrate2(f, 0, M_PI, delta, epsilon, 4);
+}
+	
 
 double generalisedIntegrator2(double f(double), double a, double b, double delta, double epsilon){
 	int variableTransformationFormula;

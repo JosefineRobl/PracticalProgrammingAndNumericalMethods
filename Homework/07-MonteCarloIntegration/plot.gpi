@@ -1,0 +1,15 @@
+set terminal png;
+set output "error.png";
+
+set key top right;
+set ticks out;
+set pointsize 7;
+
+set xlabel "Number of sampled points $N$";
+set ylabel "Error";
+set title "Error scaling based on $\int_0^{2\pi} dx \int_0^{2\pi}dy\, cos^2(x)sin^2(y)$ in exercise description";
+set yrange [0:0.012];
+
+plot \
+"error.txt" using 1:2 with line color red title "Plain MC", \
+"" using 1:3 with line color blue title "Quasi MC";

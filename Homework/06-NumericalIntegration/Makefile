@@ -1,6 +1,8 @@
 CC = gcc
 CFLAGS = -Wall -std=gnu11 -O
+CFLAGS += $(shell gsl-config --cflags)
 LDLIBS = -lm
+LDLIBS += $(shell gsl-config --libs)
 
 default: out.txt
 	cat ./$<

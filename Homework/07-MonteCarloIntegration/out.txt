@@ -1,0 +1,37 @@
+========================= Exercise A =========================
+Integrals calculated using the plain Monte-Carlo integrator.
+---------- ∫0π  dx/√(x) ----------
+The integral to solve is: ∫0π  dx/√(x).
+The calculated solution to the integral is: 3.54496+0.00244782i.
+The theoretical solution to the integral is: 3.54491.
+
+---------- ∫0π exp(ix) dx ----------
+The integral to solve is: ∫0π exp(ix) dx.
+The calculated solution to the integral is: -0.000214494+0.000702447i.
+The theoretical solution to the integral is: 0+2i.
+
+---------- ∫0π dx/π ∫0π dy/π ∫0π dz/π 1/[1 - cos(x)cos(y)cos(z)] ----------
+The integral to solve is: ∫0π dx/π ∫0π dy/π ∫0π dz/π 1/[1 - cos(x)cos(y)cos(z)].
+The calculated solution to the integral is: 1.3843+0.00244273i.
+The theoretical solution to the integral is: 1.3932.
+
+========================= Exercise B =========================
+The same integrals as those from exercise A is tested using the quasi-random Monte-Carlo integrator.
+---------- ∫0π  dx/√(x) ----------
+The integral to solve is: ∫0π  dx/√(x).
+The calculated solution to the integral is: 3.5449+0.000220072i.
+The theoretical solution to the integral is: 3.54491.
+
+---------- ∫0π exp(ix) dx ----------
+The integral to solve is: ∫0π exp(ix) dx.
+The calculated solution to the integral is: 3.52286e-06+8.3743e-08i.
+The theoretical solution to the integral is: 0+2i.
+
+---------- ∫0π dx/π ∫0π dy/π ∫0π dz/π 1/[1 - cos(x)cos(y)cos(z)] ----------
+The integral to solve is: ∫0π dx/π ∫0π dy/π ∫0π dz/π 1/[1 - cos(x)cos(y)cos(z)].
+The calculated solution to the integral is: 1.38897+5.88012e-05i.
+The theoretical solution to the integral is: 1.3932.
+---------- Error comparison ----------
+Comparison of the scaling of the error for the quasi-random Monte-Carlo integrator (exercise B) with the pseudo-random Monte-Carlo integrator (exercise A) can be seen at error.png (with the data in error.txt). The error scaling is done with the integral of cos^2(x)*sin^2(y) from 0 to 2*PI for both limits.
+
+========================= Exercise C =========================

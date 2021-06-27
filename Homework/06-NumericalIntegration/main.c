@@ -61,6 +61,7 @@ void testAndPrintIntegrate(double f(double), char* functag, double a, double b, 
 			Q = generalisedIntegrator2(f, a, b, delta, epsilon);
 			break;
 		case 2:
+			//Q = clenshaw(f, a, b, delta, epsilon);
 			Q = ClenshawCurtisIntegrate(f, a, b, delta, epsilon);
 	}
 	// Calculate the estimated and actual error
@@ -130,7 +131,7 @@ int main(void){
 	printExercise("C");
 	// fun3
 	printSubtext("Calculating (converging) integrals with infinite limits using own implementation");
-	testAndPrintIntegrate(fun3, "exp(-x)", 0, INFINITY, delta, epsilon, 1, "adaptive and recursive integration with bi-division", 1, 0);
+	//testAndPrintIntegrate(fun3, "exp(-x)", 0, INFINITY, delta, epsilon, 1, "adaptive and recursive integration with bi-division", 1, 0);
 	//testAndPrintIntegrate(fun4, "exp(x)", -INFINITY, 0, delta, epsilon, 1, "adaptive and recursive integration with bi-division", 1, 0);
 	//testAndPrintIntegrate(fun5, "1/(1+x²)", -INFINITY, INFINITY, delta, epsilon, M_PI, "adaptive and recursive integratioon with bi-division", 1, 0);
 

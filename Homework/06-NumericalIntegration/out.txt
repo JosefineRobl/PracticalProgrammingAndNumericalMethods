@@ -24,24 +24,45 @@ Test passed: Estimated error is larger than the actual error.
 ----------
 The integration of 1/√(x) from 0 to 1 using Clenshaw-Curtis variable transformation:
 	 delta = 0.0001, and epsilon = 0.0001.
-	 Found value     = 3.54491.
+	 Found value     = 2.
 	 Exact value     = 2.
-	 Estimated error = 0.000454491.
-	 Actual error    = 1.54491.
-	 Number of calls = 32.
-Test failed: Actual error is larger than the estimated error.
+	 Estimated error = 0.0003.
+	 Actual error    = 1.99397e-06.
+	 Number of calls = 144.
+Test passed: Estimated error is larger than the actual error.
 ----------
 The integration of ln(x)/√(x) from 0 to 1 using Clenshaw-Curtis variable transformation:
 	 delta = 0.0001, and epsilon = 0.0001.
-	 Found value     = -3.03185.
+	 Found value     = -3.99999.
 	 Exact value     = -4.
-	 Estimated error = 0.000403185.
-	 Actual error    = 0.968151.
-	 Number of calls = 248.
-Test failed: Actual error is larger than the estimated error.
+	 Estimated error = 0.000499999.
+	 Actual error    = 5.09157e-06.
+	 Number of calls = 352.
+Test passed: Estimated error is larger than the actual error.
 ---------- Calculating the integral ∫_0^1 dx 4√(1-x²) = π with normal, Clenshaw-Curtis and GSL integrator ----------
 ----------
 The integration of 4√(1-x²) from 0 to 1 using adaptive and recursive integration with bi-division:
 	 delta = 0.0001, and epsilon = 0.0001.
 	 Found value     = 3.14160669783852020131576.
-	 Exact
+	 Exact value     = 3.14159.
+	 Estimated error = 0.000414161.
+	 Actual error    = 1.40442e-05.
+	 Number of calls = 60.
+Test passed: Estimated error is larger than the actual error.
+----------
+The integration of 4√(1-x²) from 0 to 1 using Clenshaw-Curtis variable transformation:
+	 delta = 0.0001, and epsilon = 0.0001.
+	 Found value     = 3.141594890442140908248803.
+	 Exact value     = 3.14159.
+	 Estimated error = 0.000414159.
+	 Actual error    = 2.23685e-06.
+	 Number of calls = 196.
+Test passed: Estimated error is larger than the actual error.
+----------
+The integration of 4√(1-x²) from 0 to 1 using GSL QAGS integration rutine:
+	 Found value     = 3.141592803259175781249724.
+	 Exact value     = 3.141592653589793115997963.
+
+==================== Exercise C ====================
+---------- Calculating (converging) integrals with infinite limits using own implementation ----------
+---------- Calculating (converging) integrals with infinite limits using GSL's inegration rutines ----------

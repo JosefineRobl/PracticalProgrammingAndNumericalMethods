@@ -27,8 +27,8 @@ The integration of 1/√(x) from 0 to 1 using Clenshaw-Curtis variable transform
 	 Found value     = 2.
 	 Exact value     = 2.
 	 Estimated error = 0.0003.
-	 Actual error    = 1.99397e-06.
-	 Number of calls = 144.
+	 Actual error    = 4.97568e-07.
+	 Number of calls = 32.
 Test passed: Estimated error is larger than the actual error.
 ----------
 The integration of ln(x)/√(x) from 0 to 1 using Clenshaw-Curtis variable transformation:
@@ -36,8 +36,8 @@ The integration of ln(x)/√(x) from 0 to 1 using Clenshaw-Curtis variable trans
 	 Found value     = -3.99999.
 	 Exact value     = -4.
 	 Estimated error = 0.000499999.
-	 Actual error    = 5.09157e-06.
-	 Number of calls = 352.
+	 Actual error    = 5.31563e-06.
+	 Number of calls = 200.
 Test passed: Estimated error is larger than the actual error.
 ---------- Calculating the integral ∫_0^1 dx 4√(1-x²) = π with normal, Clenshaw-Curtis and GSL integrator ----------
 ----------
@@ -52,17 +52,70 @@ Test passed: Estimated error is larger than the actual error.
 ----------
 The integration of 4√(1-x²) from 0 to 1 using Clenshaw-Curtis variable transformation:
 	 delta = 0.0001, and epsilon = 0.0001.
-	 Found value     = 3.141594890442140908248803.
+	 Found value     = 3.14159228900856124511165.
 	 Exact value     = 3.14159.
 	 Estimated error = 0.000414159.
-	 Actual error    = 2.23685e-06.
-	 Number of calls = 196.
+	 Actual error    = 3.64581e-07.
+	 Number of calls = 92.
 Test passed: Estimated error is larger than the actual error.
 ----------
-The integration of 4√(1-x²) from 0 to 1 using GSL QAGS integration rutine:
+The integration of 4√(1-x²) from 0 to 1 using GSL QAGS rutine:
 	 Found value     = 3.141592803259175781249724.
-	 Exact value     = 3.141592653589793115997963.
+	 Exact value     = 3.14159.
+	 Estimated error = 0.000414159.
+	 Actual error    = 1.49669e-07.
+	 Number of calls = 231.
 
 ==================== Exercise C ====================
 ---------- Calculating (converging) integrals with infinite limits using own implementation ----------
----------- Calculating (converging) integrals with infinite limits using GSL's inegration rutines ----------
+---------- Calculating integral of exp(-x) from 0 to infinity using own and GSL rutines ----------
+----------
+The integration of exp(-x) from 0 to inf using adaptive and recursive integration with bi-division:
+	 delta = 0.0001, and epsilon = 0.0001.
+	 Found value     = 1.00001.
+	 Exact value     = 1.
+	 Estimated error = 0.000200001.
+	 Actual error    = 8.16678e-06.
+	 Number of calls = 52.
+Test passed: Estimated error is larger than the actual error.
+----------
+The integration of exp(-x) from 0 to inf using GSL QAGI rutine (upper limit inf: QAGIU):
+	 Found value     = 1.
+	 Exact value     = 1.
+	 Estimated error = 0.0002.
+	 Actual error    = 2.98174e-10.
+	 Number of calls = 75.
+---------- Calculating integral of exp(x) from -infinity to 0 using own and GSL rutines ----------
+----------
+The integration of exp(x) from -inf to 0 using adaptive and recursive integration with bi-division:
+	 delta = 0.0001, and epsilon = 0.0001.
+	 Found value     = 1.00001.
+	 Exact value     = 1.
+	 Estimated error = 0.000200001.
+	 Actual error    = 8.16678e-06.
+	 Number of calls = 52.
+Test passed: Estimated error is larger than the actual error.
+----------
+The integration of exp(-x) from -inf to 0 using GSL QAGI rutine (lower limit inf: QAGIL):
+	 Found value     = 1.
+	 Exact value     = 1.
+	 Estimated error = 0.0002.
+	 Actual error    = 2.98174e-10.
+	 Number of calls = 75.
+---------- Calculating integral of 1/(1+x²) from -infinity to infinity using own and GSL rutines ----------
+----------
+The integration of 1/(1+x²) from -inf to inf using adaptive and recursive integratioon with bi-division:
+	 delta = 0.0001, and epsilon = 0.0001.
+	 Found value     = 3.1416.
+	 Exact value     = 3.14159.
+	 Estimated error = 0.00041416.
+	 Actual error    = 9.19915e-06.
+	 Number of calls = 96.
+Test passed: Estimated error is larger than the actual error.
+----------
+The integration of 1/(1+x²) from -inf to inf using GSL QAGI rutine (both limits inf: QAGI):
+	 Found value     = 3.14159.
+	 Exact value     = 3.14159.
+	 Estimated error = 0.000414159.
+	 Actual error    = 0.
+	 Number of calls = 90.

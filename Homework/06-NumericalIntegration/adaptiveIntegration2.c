@@ -60,28 +60,39 @@ double wrap24( double f(double),double a, double b, double delta, double epsilon
 }
 
 double integrate2(double f(double), double a, double b, double delta, double epsilon, int variableTransformationFormula){
-	//A=a; B=b; // save left limit in file-scope variable
+	// Save the limits in the file-scope variables
+	A=a; B=b;
+	// Set new limits for use in the transformation formulas
+	switch (variableTransformationFormula) {
+		case 1:
+			a = 0; b = 1;
+			break;
+		case 2:
+			a = 0; b = 1;
+			break;
+		case 3:
+			a = 0; b = 1;
+			break;
+		case 4:
+			a = 0; b = M_PI;
+	}
 	double xValLowerLimit = a + 2*(b - a)/6,
 	       xValUpperLimit = a + 4*(b - a)/6;
 	double f2, f3;
 	switch (variableTransformationFormula) {
 		case 1:
-			a = 0; b = 1;
 			f2 = gOnlyLowerLimitInf(f, xValLowerLimit);
 			f3 = gOnlyLowerLimitInf(f, xValUpperLimit);
 			break;
 		case 2:
-			a = 0; b = 1;
 			f2 = gOnlyUpperLimitInf(f, xValLowerLimit);
 			f3 = gOnlyUpperLimitInf(f, xValUpperLimit);
 			break;
 		case 3:
-			a = 0; b = 1;
 			f2 = gBothLimitsInf(f, xValLowerLimit);
 			f3 = gBothLimitsInf(f, xValUpperLimit);
 			break;
 		case 4:
-			a = 0; b = M_PI;
 			f2 = fClenshawCurtis(f, xValLowerLimit);
 			f3 = fClenshawCurtis(f, xValUpperLimit);
 			break;
@@ -99,7 +110,6 @@ double ClenshawCurtisIntegrate(double f(double), double a, double b, double delt
 }	
 
 double generalisedIntegrator2(double f(double), double a, double b, double delta, double epsilon){
-	A = a; B = b;
 	int variableTransformationFormula;
 	if (isinf(a) != 0) {
 		if (isinf(b) != 0) {

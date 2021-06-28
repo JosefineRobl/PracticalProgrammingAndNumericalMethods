@@ -34,7 +34,7 @@ double function(double x){
 /*
  * Derivative of function for the artificial neural network to hopefully learn.
  */
-double function(double x){
+double derivativeOfFunction(double x){
 	return (cos(x) - sin(x))*exp(-x);
 }
 
@@ -72,10 +72,10 @@ int main(void){
 		xs[i] = xMin + (xMax - xMin)*i/(m - 1);
 		ys[i] = function(xs[i]);
 		yms[i] = derivativeOfFunction(xs[i]);
-		Ys[i] = OfFunction(xs[i], xMin);
+		Ys[i] = antiderivativeOfFunction(xs[i], xMin);
 	}
 	// Train the artificial neural network
-	annTrain(network, x, y);
+	annTrain(network, m, xs, ys);
 	// Print the found optimized patameters
 	FILE* foundOptimizedParameters = fopen("foundOptimizedParameters.txt", "w");
 	for (int i = 0; i < network->n; i++){
@@ -87,14 +87,14 @@ int main(void){
 	fclose(foundOptimizedParameters);
 	// Generate file with the generated points
 	FILE* pointsFile = fopen("generatedPoints.txt", "w");
-	for (int i = 0; i < nx; i++) {
+	for (int i = 0; i < m; i++) {
 		fprintf(pointsFile, "%g\t%g\t%g\t%g\n", xs[i], ys[i], yms[i], Ys[i]);
 	}
 	fclose(pointsFile);
 	// Generate file with the data from the functions
 	FILE* data = fopen("dataFunctions.txt", "w");
 	for (double z = xMin; z < xMax; z += 0.2) {
-		fprintf(data, "%g\t%g\t%g\t%g\n", z, annResponse(network, z), annDerivative(network,z), annIntegral(network, z, xmin)); 
+		fprintf(data, "%g\t%g\t%g\t%g\n", z, annResponse(network, z), annDerivative(network,z), annIntegral(network, z, xMin)); 
 	}
 	fclose(data);
 	// Free network

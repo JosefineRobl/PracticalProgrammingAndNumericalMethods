@@ -96,7 +96,7 @@ double costFunction(int d, double* p){
 	}
 	double sum = 0;
 	for(int i = 0; i < N; i++){
-		double fi = ann_response(NETWORK, X[i]);
+		double fi = annResponse(NETWORK, X[i]);
 		sum += pow(fi-Y[i], 2);
 	}
 	return sum/N;
@@ -117,7 +117,7 @@ void annTrain(artificialNeuralNetwork* network, int nx, double* xs, double* ys){
 	for (int i = 0; i < d; i++) {
 		p[i] = network->params[i];
 	}
-	quasiNewton(d, cost_func, p, acc);
+	quasiNewton(d, costFunction, p, acc);
 	for (int i = 0; i < d; i++) {
 		network->params[i] = p[i];
 	}

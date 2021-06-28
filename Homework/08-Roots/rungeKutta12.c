@@ -13,7 +13,7 @@
  * yh: The y(t+h)-value.
  * dy: The error esimate.
  */
-void rungeKuttaStep23(void f(int n, double x, double* y, double* dydx), int n, double x, double* yx, double h, double* yh, double* dy) {
+void rungeKuttaStep23(void f(int n, double x, double* y, double* dydx), int n, double x, double* yx, double h, double* yh, double* dy){
 	double k1[n], k2[n], k3[n], k4[n];
 	double yt[n];
 	// Evaluate to find k1

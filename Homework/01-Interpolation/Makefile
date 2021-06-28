@@ -25,6 +25,9 @@ exerciseB.txt: main
 exerciseC.txt: main
 	./$< > $@
 
+xyPoints.txt: main
+	./$< > $@
+
 main.o: main.c linearSpline.h cubicSpline.h quadraticSpline.h
 	$(CC) $(CFLAGS) -c $< -o $@
 

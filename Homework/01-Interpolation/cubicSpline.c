@@ -18,7 +18,7 @@ typedef struct{gsl_vector* x;
  */
 cubicSline* cubicSplineAlloc(gsl_vector* x, gsl_vector* y){
 	// Initializing a cubic spline element
-	cubicSline* spline = (cinterp*)malloc(sizeof(cinterp));
+	cubicSline* spline = (cubicSpline*)malloc(sizeof(cubicSpline));
 	int N = x->size;
 	spline -> x = gsl_vector_alloc(N);
 	spline -> y = gsl_vector_alloc(N);

@@ -1,5 +1,5 @@
 #include <assert.h>
-#include <gsl/gsl_vetor.h>
+#include <gsl/gsl_vector.h>
 #include "binarySearch.h"
 
 typedef struct{

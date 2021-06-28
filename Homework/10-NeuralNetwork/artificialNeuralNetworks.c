@@ -1,4 +1,7 @@
-#include <gsl/gsl_vector.h> // Implements vectors
+#include <stdio.h>
+#include <math.h>
+#include <assert.h>
+#include <stdlib.h>
 #include "artificialNeuralNetworks.h"
 #include "quasiNewton.h"
 
@@ -16,7 +19,7 @@ artificialNeuralNetwork* annAlloc(int n, double (*f)(double t), double (*dfdt)(d
 	network->f = f;
 	network->dfdt = dfdt;
 	network->F = F;
-	network->params = gsl_vector_alloc(3*n);
+	network->params = malloc(3*n*sizeof(double)); // Allocation of space for 3 parameters (the weights, a,b,w) for each neuron
 	return network;
 }
 
@@ -24,12 +27,12 @@ artificialNeuralNetwork* annAlloc(int n, double (*f)(double t), double (*dfdt)(d
  * Free memory allocated by artificial neural network.
  */
 void annFree(artificialNeuralNetwork* network){
-	gsl_vector_free(network->params);
+	free(network->params);
 	free(network);
 }
 
 /*
- *
+ * Respons function.
  */
 double annResponse(artificialNeuralNetwork* network, double x){
 	double sum = 0;
@@ -37,16 +40,16 @@ double annResponse(artificialNeuralNetwork* network, double x){
 	double a, b, w;
 	// Set weights and the suum
 	for (int i = 0; i < network->n; i++) {
-		a = gsl_vector_get(network->params, 3*i + 0);
-		b = gsl_vector_get(network->params, 3*i + 1);
-		w = gsl_vector_get(network->params, 3*i + 2);
+		a = network->params[3*i];
+		b = network->params[3*i + 1];
+		w = network->params[3*i + 2];
 		sum += network->f((x - a)/b)*w;
 	}
 	return sum;
 }
 
 /*
- *
+ * Derivative of respons function. Not needed for tuning due to use of same parameters for both function, derivative and antiderivative, but still need it to approximate derivative of tabulated function.
  */
 double annDerivative(artificialNeuralNetwork* network, double x){
 	double sum = 0; 
@@ -54,9 +57,9 @@ double annDerivative(artificialNeuralNetwork* network, double x){
 	double a, b, w;
 	// Set weights and the sum
 	for (int i = 0; i < network->n; i++) {
-		a = gsl_vector_get (network->params, 3*i + 0); 
-		b = gsl_vector_get (network->params, 3*i + 1); 
-		w = gsl_vector_get (network->params, 3*i + 2); 
+		a = network->params[3*i];
+		b = network->params[3*i + 1];
+		w = network->params[3*i + 2];
 		sum += network->dfdt((x - a)/b)*w;
 	}
 	return sum; 
@@ -71,9 +74,9 @@ double annIntegral(artificialNeuralNetwork* network, double x){
 	double a, b, w;
 	// Set weights and the sum
 	for (int i = 0; i < network->n; i++) {
-		a = gsl_vector_get (network->params, 3*i + 0); 
-		b = gsl_vector_get (network->params, 3*i + 1); 
-		w = gsl_vector_get (network->params, 3*i + 2); 
+		a = network->params[3*i];
+		b = network->params[3*i + 1];
+		w = network->params[3*i + 2];
 		sum += network->F((x - a)/b)*w;
 	}
 	return sum; 
@@ -82,48 +85,41 @@ double annIntegral(artificialNeuralNetwork* network, double x){
 /*
  * Cost function as non-nested function due to WSL.
  */
+// Cost function to be minimized in training function
+static int N;
+static double* X;
+static double* Y;
 static artificialNeuralNetwork* NETWORK;
-static gsl_vector* XS;
-static gsl_vector* YS;
-double costFunction(gsl_vector* params){
-	gsl_vector_memcpy(NETWORK->params, params);
-	double sum = 0;
-	double xi, yi, fi;
-	for (int i = 0; i < XS->size; i++) {
-		xi = gsl_vector_get(XS, i);
-		yi = gsl_vector_get(YS, i);
-		fi = annResponse(NETWORK, xi);
-		sum += pow(fi - yi, 2);
+double costFunction(int d, double* p){
+	assert(d == 3*NETWORK->n);
+	for (int i = 0; i < d; i++) {
+		NETWORK->params[i]=p[i];
 	}
-	// Average
-	return sum/(XS->size);
+	double sum = 0;
+	for(int i = 0; i < N; i++){
+		double fi = ann_response(NETWORK, X[i]);
+		sum += pow(fi-Y[i], 2);
+	}
+	return sum/N;
 }
 
 /*
  * Train the artificial neural network on xs, ys.
  */
-void annTrain(artificialNeuralNetwork* network, gsl_vector* xs, gsl_vector* ys){
+void annTrain(artificialNeuralNetwork* network, int nx, double* xs, double* ys){
+	// Set file-scope variables
+	N = nx; X = xs; Y = ys;
 	NETWORK = network;
-	gsl_vector_memcpy(XS, xs);
-	gsl_vector_memcpy(YS, ys);
-	/* DUE TO WSL THE BELOW IS OUTCOMMENTED AND THE ABOVE IS INSERTED
-	double costFunction(gsl_vector* params){
-		gsl_vector_memcpy(network->params, params);
-		double sum = 0;
-		double xi, yi, fi;
-		for (int i = 0; i < xs->size; i++) {
-			xi = gsl_vector_get(xs, i);
-			yi = gsl_vector_get(ys, i);
-			fi = annResponse(network, xi);
-			sum += pow(fi - yi, 2);
-		}
-		// Average
-		return sum/(xs->size);
+	// Set accuracy
+	double acc = 1e-3;
+	// Define the size
+	int d = 3*network->n;
+	double p[d];
+	for (int i = 0; i < d; i++) {
+		p[i] = network->params[i];
 	}
-	*/
-	gsl_vector* params = gsl_vector_alloc(network->params->size);
-	gsl_vector_memcpy(params, network->params);
-	quasiNewton(costFunction, network->params, 1e-3);
-	gsl_vector_memcpy(params, network->params);
-	gsl_vector_free(params);
+	quasiNewton(d, cost_func, p, acc);
+	for (int i = 0; i < d; i++) {
+		network->params[i] = p[i];
+	}
 }

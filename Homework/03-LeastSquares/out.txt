@@ -1,0 +1,13 @@
+=============== GENERAL INFO ===============
+For the answer to exercise A, the fit and the half-life can be found later in this file, alongside the reference value half-life from Wikipedia, and the plot of this is seen in leastSquarePlot.png. Also later in this file, the covariance matrix can be found (exercise B), and on the png-file, the fit is plottet both with and without its uncertainties (exercise C).
+
+=============== RESULTS ===============
+The polynomial for the fit is given by:
+	4.95867*x^0)-0.171379*x^1)and thus the value of c1 is -0.171379.
+The estimation of the value for the half-life of the THX, which is based upon a least square fit, is 4.04452 days.
+ Resolving to Wikipedia for the correct value, one gets 3.6319 days. This is slightly in agreement with one another.
+
+Furthermore one could note that the covariance matrix for the calculation is
+    [	0.0009	-9e-05
+	-9e-05	1e-05	]
+========================================

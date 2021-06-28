@@ -15,7 +15,7 @@
 int main(){
 	FILE* outFile = fopen("out.txt", "w");
 	// Print info
-	fprintf(outFile, "GENERAL INFO\n\nFor the answer to exercise A, the fit and the half-life can be found later in this file, alongside the reference value half-life from Wikipedia, and the plot of this is seen in leastSquarePlot.png. Also later in this file, the covariance matrix can be found (exercise B), and on the png-file, the fit is plottet both with and without its uncertainties (exercise C).\n\n\n");
+	fprintf(outFile, "=============== GENERAL INFO ===============\nFor the answer to exercise A, the fit and the half-life can be found later in this file, alongside the reference value half-life from Wikipedia, and the plot of this is seen in leastSquarePlot.png. Also later in this file, the covariance matrix can be found (exercise B), and on the png-file, the fit is plottet both with and without its uncertainties (exercise C).\n\n");
 	
 	int m = 2;
 	double t[] = {1, 2, 3, 4, 6, 9, 10, 13, 15};
@@ -67,7 +67,7 @@ int main(){
 		return sum;
 	}
 	// Writing to the out file about the fit
-	fprintf(outFile, "RESULTS\n\nThe polynomial for the fit is given by:\n\t");
+	fprintf(outFile, "=============== RESULTS ===============\nThe polynomial for the fit is given by:\n\t");
 	for(int i = 0; i < m; i++) {
 		fprintf(outFile, "%g*x^%i)", gsl_vector_get(c, i), i);
 	}
@@ -76,14 +76,18 @@ int main(){
 	// Writing to the out file about the half-life and the covariance matrix
 	fprintf(outFile, "The estimation of the value for the half-life of the THX, which is based upon a least square fit, is %g days.\n Resolving to Wikipedia for the correct value, one gets %g days. This is slightly in agreement with one another.\n\n", t0, 3.6319);
 	fprintf(outFile, "Furthermore one could note that the covariance matrix for the calculation is\n");
-	fprintf(outFile, "[");
+	fprintf(outFile, "    [");
 	for (int i = 0; i < m ; i++){
 		for(int j = 0; j < m; j++){
-		fprintf(outFile, "  %3.g", gsl_matrix_get(cov, i, j));
+		fprintf(outFile, "\t%3.g", gsl_matrix_get(cov, i, j));
 		}
-		fprintf(outFile, "\n");
+		if (i < m - 1) {
+			fprintf(outFile, "\n");
+		} else {
+			fprintf(outFile, "\t]\n");
+		}
 	}
-	fprintf(outFile, " ]");
+	fprintf(outFile, "========================================");
 	// Closing file
 	fclose(outFile);
 	

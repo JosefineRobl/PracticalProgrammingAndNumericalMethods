@@ -12,7 +12,7 @@ particleInABox.png: particleInABox.gpi particleInABoxEigenfunctions.txt
 timePlot.png: timePlot.gpi diaganalisationTime.txt
 	pyxplot $<
 
-jacobiDiagonalisationTesting.txt: main
+jacobiDiagonalisationTest.txt: main
 	./$< > $@
 
 particleInABoxEigenvalues.txt: main

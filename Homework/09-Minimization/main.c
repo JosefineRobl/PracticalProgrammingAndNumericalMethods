@@ -156,12 +156,12 @@ void exerciseB(void){
 	gsl_vector* param = gsl_vector_alloc(N);	
 	// Initial guess
 	gsl_vector_set(param0, 0, 125);
-	gsl_vector_set(param0, 1, 1);
-	gsl_vector_set(param0, 2, 1);
+	gsl_vector_set(param0, 1, 5);
+	gsl_vector_set(param0, 2, 10);
 	// Copy the initial guess for one of the vectors to be used for update to found minimum
 	gsl_vector_memcpy(param, param0);
 	// Initialize a tolerance
-	double tolerance = 1e-3;
+	double tolerance = 1e-5;
 	// Perform
 	int nsteps = quasiNewton(D, param, tolerance);
 	fprintf(ExcB, "=============== Higgs Boson: ===============\n");
@@ -169,6 +169,14 @@ void exerciseB(void){
 	fprintf(ExcB, "Initial guess (m, Gamma, A)   = (%g,%g,%g)\n", gsl_vector_get(param0, 0), gsl_vector_get(param0, 1), gsl_vector_get(param0, 2));
 	fprintf(ExcB, "Estimate values (m, Gamma, A) = (%g,%g,%g)\n", gsl_vector_get(param, 0), gsl_vector_get(param, 1), gsl_vector_get(param, 2));
 	fprintf(ExcB, "Number of steps               = %i\n", nsteps);
+	
+	// For plot of Higgs mass
+	FILE* higgsMassData = fopen("higgsMassData.txt", "w");
+	fprintf(higgsMassData, "# - higgs mass data\n");
+	for (double i = 101; i < 159; i += 0.1){
+		fprintf(higgsMassData,"%g\t%g\n", i, BreitWigner(i, param));
+	}
+	fclose(higgsMassData);
 	
 	// Free GSL vectors
 	gsl_vector_free(param0);

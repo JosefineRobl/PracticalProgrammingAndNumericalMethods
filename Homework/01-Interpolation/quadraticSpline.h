@@ -19,12 +19,12 @@ double quadraticSplineEval(quadraticSpline* s, double z);
 /*
  * Function that evaluates the derivative in point z.
  */
-double quadraticSplineEval(quadraticSpline* s, double z);
+double quadraticSplineEvalDerivative(quadraticSpline* s, double z);
 
 /*
  * Function that evaluates integral from x[0] to z.
  */
-double quadraticSplineEvalDerivative(quadraticSpline* s, double z);
+double quadraticSplineIntegrate(quadraticSpline* s, double z);
 
 //Function for freeing allocated memory
 void quadraticSplineFree(quadraticSpline* s);

@@ -21,7 +21,7 @@ particleInABoxEigenvalues.txt: main
 particleInABoxEigenfunctions.txt: main
 	./$< > $@
 
-diagonalisationTime.txt: main
+diaganalisationTime.txt: main
 	./$< > $@
 
 main: main.o matrixDiagonalization.o

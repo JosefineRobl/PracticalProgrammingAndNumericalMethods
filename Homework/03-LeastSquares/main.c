@@ -110,7 +110,7 @@ int main(){
 		fprintf(resultFile,"%g %g \n", t[i], fit(t[i]) - gsl_vector_get(dfit, 0)*func(0, t[i]) - gsl_vector_get(dfit, 1)*func(1, t[i]));
 	}
 	// Close result file
-	fclose(my_result);
+	fclose(resultFile);
 	// Free matrices and vectors
 	gsl_matrix_free(cov);
 	gsl_vector_free(c);

@@ -3,6 +3,7 @@ set output "exerciseCPlot.png"
 
 set key out;
 set ticks out;
+set pointsize 1;
 set width 8;
 
 set title "Quadratic interpolation";

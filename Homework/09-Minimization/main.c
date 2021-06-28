@@ -163,7 +163,7 @@ void exerciseB(void){
 	// Initialize a tolerance
 	double tolerance = 1e-5;
 	// Perform
-	int nsteps = quasiNewton(D, param, tolerance);
+	int nsteps = quasiNewton(deviation, param, tolerance);
 	fprintf(ExcB, "=============== Higgs Boson: ===============\n");
 	fprintf(ExcB, "Tolerance                     = %g\n", tolerance);
 	fprintf(ExcB, "Initial guess (m, Gamma, A)   = (%g,%g,%g)\n", gsl_vector_get(param0, 0), gsl_vector_get(param0, 1), gsl_vector_get(param0, 2));
@@ -225,7 +225,7 @@ void exerciseC(void){
 	// Initialize index for the lowest value
 	lowValIndex = 0;
 	// Perform
-	int steps = amoeba(dim, HimmelblauC, Simplex, sizeGoal);
+	steps = amoeba(dim, HimmelblauC, Simplex, sizeGoal);
 	fprintf(ExcC, "\n=============== Himmelblau's function: ===============\n");
 	fprintf(ExcC, "Simplex size goal = %g\n", sizeGoal);
 	fprintf(ExcC, "Found minimum at  = (%g,%g)\n", Simplex[lowValIndex][0], Simplex[lowValIndex][1]);

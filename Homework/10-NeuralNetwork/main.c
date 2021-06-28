@@ -28,61 +28,76 @@ double integralOfActivationFunction(double x){
  * Function for the artificial neural network to hopefully learn.
  */
 double function(double x){
-	return cos(5*x - 1)*exp(-pow(x, 2)); 
+	return sin(x)*exp(-x);
+}
+
+/*
+ * Derivative of function for the artificial neural network to hopefully learn.
+ */
+double function(double x){
+	return (cos(x) - sin(x))*exp(-x);
+}
+
+/*
+ * Antiderivative of function for the artificial neural network to hopefully learn.
+ */
+double antiderivativeOfFunction(double x, double x0){
+	return -1./2 * (sin(x) + cos(x))*exp(-x) + 1./2 * (sin(x0) + cos(x0)) * exp(-x0);
 }
 
 /*
  * Main function.
  */
-int main(void){	
-	// Number of neurons in the artificial neural network
-	int n = 6;
-	// Initialize the artificial neural network using the activation fucntion
-	artificialNeuralNetwork* network = annAlloc(n, activationFunction, derivativeOfActivationFunction, integralOfActivationFunction); 
+int main(void){
+	// Generate network
+	int n=6; //number of neurons
+	artificialNeuralNetwork* network = annAlloc(n, activationFunction, derivativeOfActivationFunction, integralOfActivationFunction);
 	// Initialize the interval on the x-axis
 	double xMin = -1, xMax = 1; 
 	// Initialize number of points
 	int m = 50;
-	// Allocate memory for data points
-	gsl_vector* x = gsl_vector_alloc(m);
-	gsl_vector* y = gsl_vector_alloc(m);
-	gsl_vector* derivative = gsl_vector_alloc(m);
-	gsl_vector* antiderivative = gsl_vector_alloc(m);
-	// Generate data points
-	for (int i = 0; i < m; i++) {
-		gsl_vector_set(x, i, xMin + (xMax - xMin)*i/(m - 1));
-		gsl_vector_set(y, i, function(gsl_vector_get(x, i))); // y = function(xi)
-		gsl_vector_set(derivative, i, derivativeOfActivationFunction(gsl_vector_get(x, i))); // derivative(xi) = f'(xi)
-		gsl_vector_set(antiderivative, i, integralOfActivationFunction(gsl_vector_get(x, i))); // antiderivative(xi) = F(xi)
+	
+	// Set parameters
+	for(int i = 0; i < network->n; i++){
+		network->params[3*i] = xMin + (xMax - xMin)*i/(network->n - 1);
+		network->params[3*i + 1]=1;
+		network->params[3*i + 2]=1;
 	}
-	// Setting the parameters for the network
-	for (int i = 0; i < network->n; i++) {
-		gsl_vector_set(network->params, 3*i + 0, xMin + (xMax - xMin)*i/(network->n - 1));
-		gsl_vector_set(network->params, 3*i + 1, 1.); 
-		gsl_vector_set(network->params, 3*i + 2, 1.); 
+	// Generate data points
+	double xs[m];
+	double ys[m]; // Tabulated points
+	double yms[m]; // Derivative
+	double Ys[m]; // Antiderivative
+	for(int i = 0; i < m; i++){
+		xs[i] = xMin + (xMax - xMin)*i/(m - 1);
+		ys[i] = function(xs[i]);
+		yms[i] = derivativeOfFunction(xs[i]);
+		Ys[i] = OfFunction(xs[i], xMin);
 	}
 	// Train the artificial neural network
 	annTrain(network, x, y);
 	// Print the found optimized patameters
 	FILE* foundOptimizedParameters = fopen("foundOptimizedParameters.txt", "w");
 	for (int i = 0; i < network->n; i++){
-		double ai = gsl_vector_get(network->params, 3*i);
-		double bi = gsl_vector_get(network->params, 3*i + 1);
-		double wi = gsl_vector_get(network->params, 3*i + 2);
-		fprintf(foundOptimizedParameters, "i = %i \t ai = %g \t bi = %g \t wi = %g\n", i, ai, bi, wi);
+		double ai = network->params[3*i];
+		double bi = network->params[3*i + 1];
+		double wi = network->params[3*i + 2];
+		fprintf(foundOptimizedParameters, "i = %d \t ai = %g \t bi = %g \t wi = %g\n", i, ai, bi, wi);
 	}
+	fclose(foundOptimizedParameters);
 	// Generate file with the generated points
-	FILE* pointsFile = fopen("generatedPoints.txt", "w"); 
-	for (int i = 0; i < m; i++) {
-		fprintf(pointsFile, "%g\t%g\t%g\t%g\n", gsl_vector_get(x, i), gsl_vector_get(y, i), gsl_vector_get(derivative, i), gsl_vector_get(antiderivative, i));
+	FILE* pointsFile = fopen("generatedPoints.txt", "w");
+	for (int i = 0; i < nx; i++) {
+		fprintf(pointsFile, "%g\t%g\t%g\t%g\n", xs[i], ys[i], yms[i], Ys[i]);
 	}
 	fclose(pointsFile);
 	// Generate file with the data from the functions
 	FILE* data = fopen("dataFunctions.txt", "w");
-	for (double d = xMin; d < xMax; d += 0.2) {
-		fprintf(data, "%g\t%g\t%g\t%g\n", d, annResponse(network, d), annDerivative(network, d), annIntegral(network, d)); 
+	for (double z = xMin; z < xMax; z += 0.2) {
+		fprintf(data, "%g\t%g\t%g\t%g\n", z, annResponse(network, z), annDerivative(network,z), annIntegral(network, z, xmin)); 
 	}
 	fclose(data);
-	
+	// Free network
+	annFree(network);
 	return 0;
 }

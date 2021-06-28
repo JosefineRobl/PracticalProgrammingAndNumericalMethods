@@ -1,0 +1,5 @@
+=============== Lowest root of M(E) = 0: ===============
+Chosen rmax           = 8
+We start searching at = -2
+Lowest found root     = -0.500042
+Exact result would be = -1/2

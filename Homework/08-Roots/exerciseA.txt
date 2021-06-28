@@ -1,0 +1,6 @@
+=============== Extremum of Rosenbrock valley function ===============
+We start searching at (x, y) = (-2, 8)
+The function is called 90000 times
+The found extremum is:
+-nan
+-nan

@@ -28,10 +28,10 @@ void RosenbrockGradient(gsl_vector* r, gsl_vector* Rr){
 /*
  * Schrödinger ODE to be solved, exercise B.
  */
-static double e; // energy
+static double E; // energy
 void schroedingerEquation(int n, double x, double* y, double* dydx) {
 	dydx[0] = y[1];
-	dydx[1] = -2*e*y[0] - 2./x * y[0];
+	dydx[1] = -2*E*y[0] - 2./x * y[0];
 }
 
 /*

@@ -11,7 +11,6 @@ default: out.txt
 	make timeDependence.png
 	# Writes out the printed text from linearEquationSolver.c into the terminal
 	cat out.txt
-	#make timeDependence.png
 	# Opens the png image in the default image viewer on the computer
 	xdg-open timeDependence.png
 

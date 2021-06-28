@@ -1,0 +1,17 @@
+set terminal png
+set output "exerciseAPlot.png"
+
+set key out;
+set ticks out;
+set width 8;
+
+set title "Linear interpolation";
+set xlabel "$x$";
+set ylabel "$y$";
+
+plot \
+"xyPoints.txt" using 1:2 with points pointtype 2 title "Tabulated data",\
+"exerciseA.txt" using 1:2 with line linetype 1 color black title "implemented linear interpolation",\
+"" using 1:3 with line title "implemented integral function",\
+"" using 1:4 with line linetype 3 color yellow title "GSL linear interpolation",\
+"" using 1:5 with points pointtype 3 title "GSL integral function";

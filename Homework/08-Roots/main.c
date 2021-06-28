@@ -85,13 +85,13 @@ void exerciseA(void){
 	newton(RosenbrockGradient, r, epsilon);
 	// Print the result
 	fprintf(excA, "We start searching at (x, y) = (%g, %g)\n", x0, y0);
-	fprintf(excA, "The function is called %i times\n", calls);
+	fprintf(excA, "The function is called %i times\n", ncalls);
 	fprintf(excA, "The found extremum is:\n");
 	for(int i=0; i<d; i++){
 	       fprintf(excA, "%g\n", gsl_vector_get(r,i));
 	}
 	// Close the file for writing
-	fclose(Exc_A);
+	fclose(excA);
 	// Free allocated memory
 	gsl_vector_free(r);
 }

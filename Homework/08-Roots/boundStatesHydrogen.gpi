@@ -8,7 +8,7 @@ set xlabel "$r$";
 set ylabel "$\psi_r$";
 set title "\textbf{Radial hydrogen solution with $l=0$}";
 
-f(x)=x*exp(-x) ;\
+f(x) = x*exp(-x) ;\
 
 plot \
 f(x) with line linetype 1 title "Exact solution $r\exp(-r)$",\

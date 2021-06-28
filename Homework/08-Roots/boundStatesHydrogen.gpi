@@ -1,0 +1,15 @@
+set terminal png;
+set output "boundStatesHydrogen.png";
+
+set key out;
+set ticks out;
+
+set xlabel "$r$";
+set ylabel "$\psi_r$";
+set title "\textbf{Radial hydrogen solution with $l=0$}";
+
+f(x)=x*exp(-x) ;\
+
+plot \
+"boundStatesHydrogen.txt" using 1:2 with line linetype 5 color red title "Solution found numerically",\
+f(x) with line linetype 3 title "Exact solution $r\exp(-r)$";

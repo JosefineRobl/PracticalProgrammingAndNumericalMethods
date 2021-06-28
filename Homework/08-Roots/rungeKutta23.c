@@ -93,8 +93,8 @@ void rungeKuttaDrive23(void f(int n, double x, double* y, double* dydx), int n, 
 			}
 			fprintf(file, "\n");
 		}
-		if (err > 0) {
-			h *= 0.95*pow(tol/err, 0.25);
+		if (error > 0) {
+			h *= 0.95*pow(tolerance/error, 0.25);
 		} else {
 			h *= 2;
 		}

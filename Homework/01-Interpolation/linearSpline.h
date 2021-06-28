@@ -11,7 +11,7 @@
  *
  * Returns a double containing the spline.
  */
-double linearInterpolation(gsl_vector x, gsl_vector y, double z);
+double linearInterpolation(gsl_vector* x, gsl_vector* y, double z);
 
 /*
  * ...
@@ -22,4 +22,4 @@ double linearInterpolation(gsl_vector x, gsl_vector y, double z);
  *
  * Returns a double containing the result of the integration of the spline on x[0] to z.
  */
-double linearInterpolationIntegration(gsl_vector x, gsl_vector y, double z);
+double linearInterpolationIntegration(gsl_vector* x, gsl_vector* y, double z);

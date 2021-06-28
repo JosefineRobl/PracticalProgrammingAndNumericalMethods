@@ -2,14 +2,14 @@ CC = gcc
 CFLAGS = -O -Wall -std=gnu11 $(shell gsl-config --cflags)
 LDLIBS = -lm $(shell gsl-config --libs)
 
-default : plot.svg
-	xdg-open plot.svg
+default: plot.png
+	xdg-open $<
 
-plot.svg : generatedPoints.gpi dataFunctions.txt points.txt
+plot.png: plot.gpi dataFunctions.txt points.txt
 	pyxplot $<
 
 dataFunctions.txt generatedPoints.txt log.txt: main
-	./$< > data.txt points.txt 2> log.txt 
+	./$< > data.txt points.txt 2> out.txt
 
 main: main.o artificialNeuralNetwork.o quasiNewton.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
@@ -23,9 +23,7 @@ artificialNeauralNetwork.o : artificialNeauralNetwork.c artificialNeauralNetwork
 quasiNewton.o: quasiNewton.c quasiNewton.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-
-
 .PHONEY : clean 
-
-clean : 
-	@$(RM) *.txt main *.o
+clean :
+	find -type f -executable -delete
+	$(RM) *.txt *.o *.png

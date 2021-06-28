@@ -32,8 +32,8 @@ void newton(void f(gsl_vector* x, gsl_vector* fx), gsl_vector* x, double epsilon
 		// Calculates f(x) and stores it in fx
 		f(x,fx);
 		// Crate Jacobian
-		for (int i = 0; i < n; k++){
-			double xi = gsl_vector_get(i, k);
+		for (int i = 0; i < n; i++){
+			double xi = gsl_vector_get(x, i);
 			gsl_vector_set(x, i, xi + sqrt(DBL_EPSILON)); // Our finite difference is square root of machine epsilon
 			f(x,df); // now df=f(x+sqrt())
 			gsl_vector_sub(df, fx); // df = f(x + sqrt()) - f(x), as it should

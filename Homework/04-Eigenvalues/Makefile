@@ -5,6 +5,11 @@ LDLIBS = $(shell gsl-config --libs)
 
 .PHONEY: default
 default: jacobiDiagonalisationTest.txt particleInABoxEigenvalues.txt particleInABox.png timePlot.png
+	make particleInABox.png
+	make timePlot.png
+	cat $<
+	xdg-open particleInABox.png
+	xdg-open timePlot.png
 	
 particleInABox.png: particleInABox.gpi particleInABoxEigenfunctions.txt
 	pyxplot $<

@@ -1,16 +1,16 @@
 set terminal png;
 set output "particleInABox.png"
 
-set key out;
+set key bottom left;
 set ticks out;
-set pointsize 1;
+set pointsize 10;
 set width 8;
 
-set title "Quantum particle in a box";
+set title "\textbf{Quantum particle in a box}";
 set xlabel "$x$";
 set ylabel "$\psi$";
-set yrange [-1.5:1.5];
+set yrange [-1.75:1.5];
 
 plot \
-"particleInABoxEigenfunctions.txt" using 1:2 with points pointtype 15 color black title "Exact",\
-"particleInABoxEigenfunctions.txt" using 1:3 with line linetype 1 color red title "Own implementation";
+"particleInABoxEigenfunctions.txt" using 1:3 with line linetype 1 color red title "Own implementation",\
+"" using 1:2 with dots color black title "Exact";

@@ -10,7 +10,7 @@
 #include "rungeKutta23.h"
 #include "rootFinding.h"
 
-int ncalls;
+static int ncalls;
 
 /*
  * Gradient of Rosenbrock's valley function for exercise A.

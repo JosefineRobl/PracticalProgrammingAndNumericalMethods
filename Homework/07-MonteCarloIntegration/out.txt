@@ -35,3 +35,12 @@ The theoretical solution to the integral is: 1.3932.
 Comparison of the scaling of the error for the quasi-random Monte-Carlo integrator (exercise B) with the pseudo-random Monte-Carlo integrator (exercise A) can be seen at error.png (with the data in error.txt). The error scaling is done with the integral of cos^2(x)*sin^2(y) from 0 to 2*PI for both limits.
 
 ========================= Exercise C =========================
+The same integrals as those from exercise A (and B) is tested using the stratified sampling Monte-Carlo integrator.
+---------- ∫0π  dx/√(x) ----------
+The integral to solve is: ∫0π  dx/√(x).
+The calculated solution to the integral is: 3.54476.
+The theoretical solution to the integral is: 3.54491.
+
+---------- ∫0π exp(ix) dx ----------
+The integral to solve is: ∫0π exp(ix) dx.
+The calculated solution to the integral is: -

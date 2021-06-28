@@ -1,7 +1,7 @@
 set terminal png;
 set output "error.png";
 
-set key top right;
+set key out;
 set ticks out;
 set pointsize 7;
 

@@ -12,7 +12,7 @@ set ylabel "Runtime [s]$"
 
 a=1 ;\
 f(x)=a*x**3 ;\
-fit f(x) "diag_time.txt" using 1:2 via a ;\
+fit f(x) "diagonalisationTime.txt" using 1:2 via a ;\
 
 plot \
 f(x) with line title "$O(N^3)$",\

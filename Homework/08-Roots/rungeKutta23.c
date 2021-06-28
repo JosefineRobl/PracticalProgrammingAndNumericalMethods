@@ -61,7 +61,7 @@ void rungeKuttaDrive23(void f(int n, double x, double* y, double* dydx), int n, 
 	fprintf(file, "%20g", x);
 	for(int i = 0; i < n; i++){
 		y[i] = ya[i];
-		fprintf(list, "%20g", y[i]);
+		fprintf(file, "%20g", y[i]);
 	}
 	fprintf(file, "\n");
 	// Calculate as long as we have not reached the last point yet
@@ -84,7 +84,7 @@ void rungeKuttaDrive23(void f(int n, double x, double* y, double* dydx), int n, 
 		// Compare the error with the tolerance, and just the error by itself
 		if (error < tolerance){
 			x += h;
-			fprintf(list, "%20g", x);
+			fprintf(file, "%20g", x);
 			for (int i = 0; i < n; i++) {
 				// Update the y-list
 				y[i] = yh[i];

@@ -4,6 +4,16 @@
 #include <gsl/gsl_blas.h> // Enables Gnu Scientific Library functions for calculations with gsl vectors and matrices.
 #include "qrGramSchmidt.h" // File containing the heads of the functions for the QR-decomposition, the solver and likewise.
 
+// Defining dot product and norm to ease the notation
+double dot(gsl_vector* x, gsl_vector* y){
+	double xy;
+	gsl_blas_ddot(x, y, &xyy); //GSL function that calculates dot product
+	return xy;
+}
+double norm(gsl_vector* x){
+	return sqrt(dot(x, x));
+}
+
 /*
  * ...
  *

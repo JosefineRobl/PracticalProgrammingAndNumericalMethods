@@ -15,5 +15,7 @@ void numericGradient(double f(gsl_vector* x), gsl_vector* x, gsl_vector* gradien
  * F: Objective function.
  * x: Pointer to vector; on input is the starting point, while on exit is the approximation to the root.
  * epsilon: Double containing the accuracy goal; on exit the absolute value of the gradient should be less than epsilon.
+ *
+ * returns the number of steps.
  */
-void quasiNewton(double F(gsl_vector* x), gsl_vector* x, double epsilon);
+int quasiNewton(double F(gsl_vector* x), gsl_vector* x, double epsilon);

@@ -9,6 +9,7 @@
 #include "linearSpline.h"
 #include "cubicSpline.h"
 #include "quadraticSpline.h"
+#include "binarySearch.h"
 
 /*
  * EXERCISE A - Linear spline.

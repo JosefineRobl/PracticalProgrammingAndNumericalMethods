@@ -8,6 +8,7 @@
 
 #include "qrGramSchmidt.h"
 #include "rungeKutta23.h"
+#include "rootFinding.h"
 
 static int calls;
 

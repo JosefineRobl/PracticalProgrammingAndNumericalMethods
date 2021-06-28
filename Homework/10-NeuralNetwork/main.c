@@ -53,7 +53,7 @@ int main(void){
 	int n=6; //number of neurons
 	artificialNeuralNetwork* network = annAlloc(n, activationFunction, derivativeOfActivationFunction, integralOfActivationFunction);
 	// Initialize the interval on the x-axis
-	double xMin = -1, xMax = 1; 
+	double xMin = -0, xMax = 2;
 	// Initialize number of points
 	int m = 50;
 	

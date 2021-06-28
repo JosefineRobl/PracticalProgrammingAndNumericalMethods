@@ -60,7 +60,7 @@ double annDerivative(artificialNeuralNetwork* network, double x){
 		a = network->params[3*i];
 		b = network->params[3*i + 1];
 		w = network->params[3*i + 2];
-		sum += network->dfdt((x - a)/b)*w;
+		sum += network->dfdt((x - a)/b)*w/b;
 	}
 	return sum; 
 }

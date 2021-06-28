@@ -150,3 +150,10 @@ void exerciseC(void){
 	gsl_vector_free(x);
 	gsl_vector_free(y);
 }
+
+int main(void){
+	exerciseA();
+	exerciseB();
+	exerciseC();
+	return 0;
+}

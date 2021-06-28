@@ -10,16 +10,6 @@
 #include <gsl/gsl_linalg.h>
 
 /*
- * Prints a given GSL matrix.
- */
-void printMatrix(gsl_matrix* A);
-
-/*
- * Prints a given GSL matrix.
- */
-void printVector(gsl_vector* V);
-
-/*
  * The dot product of two GSL vectors.
  */
 double cdot(gsl_vector* A, gsl_vector* B);

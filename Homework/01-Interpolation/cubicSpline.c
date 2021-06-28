@@ -76,7 +76,7 @@ cubicSline* cubicSplineAlloc(gsl_vector* x, gsl_vector* y){
 /*
  * Evaluating cubic spline at given z.
  */
-double cubicSplineEvaluate(cubicSline* s, double z){
+double cubicSplineEvaluate(cubicSpline* s, double z){
 	int i = binarySearch(s->x, z);
 	double h = z-gsl_vector_get(s->x, i);
 	double yi = gsl_vector_get(s->y, i);
@@ -90,7 +90,7 @@ double cubicSplineEvaluate(cubicSline* s, double z){
 /*
  * Evaluate the derivative of the cubic spline at given z.
  */
-double cubicSplineEvaluateDerivative(cubicSline* s, double z){
+double cubicSplineEvaluateDerivative(cubicSpline* s, double z){
 	int i = binarySearch(s->x, z);
 	double h = z-gsl_vector_get(s->x, i);
 	double bi = gsl_vector_get(s->b, i);
@@ -103,7 +103,7 @@ double cubicSplineEvaluateDerivative(cubicSline* s, double z){
 /*
  * Evaluates the integral from x[0] to z.
   */
-double cubicSplineIntegrate(cubicSline* s, double z){
+double cubicSplineIntegrate(cubicSpline* s, double z){
 	int j = binarySearch(s->x, z);
 	double area = 0;
 	for(int i = 0; i < j; i++){
@@ -125,7 +125,7 @@ double cubicSplineIntegrate(cubicSline* s, double z){
 
 
 //Function for freeing allocated memory
-void cubicSplineFree(cubicSline* s){
+void cubicSplineFree(cubicSpline* s){
 	gsl_vector_free(s->x);
 	gsl_vector_free(s->y);
 	gsl_vector_free(s->b);

@@ -4,7 +4,7 @@
 #include<math.h>
 #include<gsl/gsl_interp.h>
 #include<gsl/gsl_spline.h>
-#include"binsearch.h"
+#include"binarySearch.h"
 
 typedef struct{gsl_vector* x;
                gsl_vector* y;
@@ -83,7 +83,7 @@ cubicSline* cubicSplineAlloc(gsl_vector* x, gsl_vector* y){
  * Evaluating cubic spline at given z.
  */
 double cubicSplineEvaluate(cubicSline* s, double z){
-	int i = binsearch(s->x, z);
+	int i = binarySearch(s->x, z);
 	double h = z-gsl_vector_get(s->x, i);
 	double yi = gsl_vector_get(s->y, i);
 	double bi = gsl_vector_get(s->b, i);
@@ -97,7 +97,7 @@ double cubicSplineEvaluate(cubicSline* s, double z){
  * Evaluate the derivative of the cubic spline at given z.
  */
 double cubicSplineEvaluateDerivative(cubicSline* s, double z){
-	int i = binsearch(s->x, z);
+	int i = binarySearch(s->x, z);
 	double h = z-gsl_vector_get(s->x, i);
 	double bi = gsl_vector_get(s->b, i);
 	double ci = gsl_vector_get(s->c, i);
@@ -110,7 +110,7 @@ double cubicSplineEvaluateDerivative(cubicSline* s, double z){
  * Evaluates the integral from x[0] to z.
   */
 double cubicSplineIntegrate(cubicSline* s, double z){
-	int j = binsearch(s->x, z);
+	int j = binarySearch(s->x, z);
 	double area = 0;
 	for(int i = 0; i < j; i++){
 		double h = gsl_vector_get(s->x, i+1) - gsl_vector_get(s->x, i);

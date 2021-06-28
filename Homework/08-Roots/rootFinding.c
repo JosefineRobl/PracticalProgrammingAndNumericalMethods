@@ -61,7 +61,7 @@ void newton(void f(gsl_vector* x, gsl_vector* fx), gsl_vector* x, double epsilon
 		}
 		gsl_vector_memcpy(x,z);
 		gsl_vector_memcpy(fx,fz); // Final result
-		if((norm(Dx) < sqrt(DBL_EPSILON)) || (norm(fx) < eps)) {
+		if((norm(Dx) < sqrt(DBL_EPSILON)) || (norm(fx) < epsilon)) {
 			break;
 		}
 		// Update the steps variable

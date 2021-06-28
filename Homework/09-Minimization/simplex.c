@@ -5,16 +5,19 @@
 void simplexContraction(double* highest, double* centroid, double* contracted, int dim){
 	for (int i = 0; i < dim; i++) {
 		contracted[i] = 1./2 * (centroid[i] + highest[i]);
+	}
 }
 
 void simplexReflection(double* highest, double* centroid, double* reflected, int dim){
 	for (int i = 0; i < dim; i++) {
 		reflected[i] = 2*centroid[i] - highest[i];
+	}
 }
 
 void simplexExpansion(double* highest, double* centroid, double* expanded, int dim){
 	for (int i = 0; i < dim; i++) {
 		expanded[i] = 3*centroid[i] - 2*highest[i];
+	}
 }
 
 void simplexReduction(double** simplex, int dim, int lowValIndex){
@@ -32,6 +35,7 @@ double simplexDistance(double* a, double* b, int dim){
 	double s = 0;
 	for (int i = 0; i < dim; i++) {
 		s += pow(b[i] - a[i], 2);
+	}
 	return sqrt(s);
 }
 

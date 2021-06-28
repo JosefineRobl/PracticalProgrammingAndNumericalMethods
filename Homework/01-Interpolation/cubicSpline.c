@@ -6,13 +6,6 @@
 #include<gsl/gsl_spline.h>
 #include"binarySearch.h"
 
-typedef struct{gsl_vector* x;
-               gsl_vector* y;
-               gsl_vector* b;
-               gsl_vector* c;
-               gsl_vector* d;
-} cubicSline;
-
 /*
  * Allocates memory for the cubic spline.
  */

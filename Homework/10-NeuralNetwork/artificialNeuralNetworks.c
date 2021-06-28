@@ -1,13 +1,5 @@
 #include <gsl/gsl_vector.h> // Implements vectors
-
-/*
- *
- */
-typedef struct{
-	int n;
-	double (*f)(double);
-	gsl_vector* params;
-} artificialNeuralNetwork;
+#include "artificialNeuralNetworks.h"
 
 /*
  *

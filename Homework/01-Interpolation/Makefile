@@ -49,4 +49,4 @@ binarySearch.o: binarySearch.c
 .PHONEY: clean
 clean:
 	find -type f -executable -delete
-	$(RM) *.o *.txt
+	$(RM) *.o xyPoints* exercise*

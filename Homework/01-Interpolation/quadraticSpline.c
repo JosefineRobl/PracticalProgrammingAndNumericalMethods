@@ -73,7 +73,7 @@ quadraticSpline* quadraticSplineAlloc(gsl_vector* x, gsl_vector* y){
  * Evaulates interpolation in point z (see table in notes).
  */
 double quadraticSplineEval(quadraticSpline* s, double z){
-	int i = binsearch(s->x, z);
+	int i = binarySearch(s->x, z);
 	double h = z-gsl_vector_get(s->x, i);
 	double yi = gsl_vector_get(s->y, i);
 	double bi = gsl_vector_get(s->b, i);
@@ -86,7 +86,7 @@ double quadraticSplineEval(quadraticSpline* s, double z){
  * Function that evaluates the derivative in point z.
  */
 double quadraticSplineEval(quadraticSpline* s, double z){
-	int i = binsearch(s->x, z);
+	int i = binarySearch(s->x, z);
 	double h = z - gsl_vector_get(s->x, i);
 	double bi = gsl_vector_get(s->b, i);
 	double ci = gsl_vector_get(s->c, i);
@@ -98,7 +98,7 @@ double quadraticSplineEval(quadraticSpline* s, double z){
  * Function that evaluates integral from x[0] to z.
  */
 double quadraticSplineEvalDerivative(quadraticSpline* s, double z){
-	int j = binsearch(s->x, z);
+	int j = binarySearch(s->x, z);
 	double area = 0;
 	// Summing over all intervals except the last one, which is done outside the loop
 	for(int i = 0; i < j; i++){

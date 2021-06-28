@@ -2,13 +2,6 @@
 #include <gsl/gsl_vetor.h>
 #include "binarySearch.h"
 
-typedef struct{
-	gsl_vector* x;
-	gsl_vector* y;
-	gsl_vector* b;
-	gsl_vector* c;
-} quadraticSpline;
-
 quadraticSpline* quadraticSplineAlloc(gsl_vector* x, gsl_vector* y){
 	// Initialize struct
 	quadraticSpline* spline = (quadraticSpline*)malloc(sizeof(quadraticSpline)); // See theory in the book, table 3

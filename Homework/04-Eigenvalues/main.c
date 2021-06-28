@@ -66,7 +66,7 @@ int main(){
 	int n = 20;
 	double s = 1.0/(n+1);
 	gsl_matrix* H = gsl_matrix_alloc(n, n);
-	for(int i=0; i<n-1; i++){
+	for (int i = 0; i < n-1; i++){
 		gsl_matrix_set(H, i, i, -2);
 		gsl_matrix_set(H, i, i+1, 1);
 		gsl_matrix_set(H, i+1, i, 1);
@@ -79,14 +79,14 @@ int main(){
 	jacobiDiagonalisation(H,VQ);
 
 	// Printing the eigenvalues of H corresponding to the energies of the system
-	for (int k = 0; k < n/3; k++){
+	for (int k = 0; k < n/3; k++) {
 		double exact = pow(M_PI, 2)*pow(k+1, 2);
 		double calculated = gsl_matrix_get(H, k, k);
 		fprintf(quantum_eigVal_file, "n = %i \t calculated = %g \t exact = %g\n", k+1, calculated, exact);
 	}
 	// Printing obtained eigenfunctions and compare to ananlytic solution sqrt(2/L)*sin(m*pi*ksi);
 	double C = sqrt(2.0/(n+1));
-	for (int k = 0; k < 3; k++){
+	for (int k = 0; k < 3; k++) {
 		fprintf(quantum_eigfunc_file,"0\t0\t0\n");
 	for (int i = 0; i < n; i++){
 		double ksi = (i+1.0)/(n+1);

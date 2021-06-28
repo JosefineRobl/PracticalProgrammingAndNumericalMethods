@@ -17,7 +17,7 @@ void printMatrixToFile(gsl_matrix* A, FILE* list){
 	}
 }
 
-int main(){	
+int main(void){
 	// Open file for testing the implementation of the JacobiDiagonalisation function
 	FILE* jacobi_diag_file = fopen("jacobiDiagonalisationTest.txt", "w");
 	// Generating a random real symmetric matrix A
@@ -88,12 +88,13 @@ int main(){
 	double C = sqrt(2.0/(n+1));
 	for (int k = 0; k < 3; k++) {
 		fprintf(quantum_eigfunc_file,"0\t0\t0\n");
-	for (int i = 0; i < n; i++){
-		double ksi = (i+1.0)/(n+1);
-		// In the below we multiply with (-1)^k such that the phases of our eigenfunctions agree with sin(x), and we divide by C for normalization.
-		fprintf(quantum_eigfunc_file,"%g\t%g\t%g\n", ksi, sin((k+1)*M_PI*ksi), gsl_matrix_get(VQ, i, k)*pow(-1,k)/C);
+		for (int i = 0; i < n; i++){
+			double ksi = (i+1.0)/(n+1);
+			// In the below we multiply with (-1)^k such that the phases of our eigenfunctions agree with sin(x), and we divide by C for normalization.
+			fprintf(quantum_eigfunc_file,"%g\t%g\t%g\n", ksi, sin((k+1)*M_PI*ksi), gsl_matrix_get(VQ, i, k)*pow(-1,k)/C);
+		}
+	       fprintf(quantum_eigfunc_file, "1\t0\t0\n"); // Print end point
 	}
-       fprintf(quantum_eigfunc_file, "1\t0\t0\n"); // Print end point 
 	
 	// For time measurements
 	FILE* diag_time_file = fopen("diagonalisationTime.txt", "w");

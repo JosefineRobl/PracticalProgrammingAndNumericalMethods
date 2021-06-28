@@ -1,16 +1,14 @@
-#include <stdio.h>
-#include <math.h>
-#include <gsl/gsl_matrix.h>
-#include <gsl/gsl_vector.h>
-#include <gsl/gsl_blas.h>
+#include<stdio.h>
+#include<math.h>
+#include<float.h>
 
 /*
  * Calculates the numeric gradient.
  */
-void numericGradient(double f(gsl_vector* x), gsl_vector* x, gsl_vector* gradient);
+void gradient(int d, double f(int d, double* x), double* x, double* grad);
 
 /*
- * ...
+ * Different quasiNewton that from Homework 9, since I could not get GSL vectors and non-nested functions (due to WSL) to collaborate.
  *
  * F: Objective function.
  * x: Pointer to vector; on input is the starting point, while on exit is the approximation to the root.
@@ -18,4 +16,4 @@ void numericGradient(double f(gsl_vector* x), gsl_vector* x, gsl_vector* gradien
  *
  * returns the number of steps.
  */
-int quasiNewton(double F(gsl_vector* x), gsl_vector* x, double epsilon);
+int quasiNewton(int d, double f(int, double*), double* x, double acc);

@@ -11,7 +11,7 @@ typedef struct{gsl_vector* x;
                gsl_vector* b;
                gsl_vector* c;
                gsl_vector* d;
-} cubicSline;
+} cubicSpline;
 
 /*
  * Allocates memory for the cubic spline.

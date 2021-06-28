@@ -85,7 +85,6 @@ double annIntegral(artificialNeuralNetwork* network, double x){
 /*
  * Cost function as non-nested function due to WSL.
  */
-// Cost function to be minimized in training function
 static int N;
 static double* X;
 static double* Y;

@@ -60,8 +60,8 @@ double simplexSize(double** simplex, int dim){
 void simplexUpdate(int dim, double** simplex, double* fVal, int* highValIndex, int* lowValIndex, double* centroid){
 	*highValIndex = 0;
 	*lowValIndex = 0;
-	double fHigh = fVal[highValIndex];
-	double fLow = fVal[lowValIndex];
+	double fHigh = fVal[0];
+	double fLow = fVal[0];
 
 	// Find highest and lowest value
 	for (int i = 1; i < dim + 1; i++){

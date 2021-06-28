@@ -70,7 +70,7 @@ cubicSpline* cubicSplineAlloc(gsl_vector* x, gsl_vector* y){
 		gsl_vector_set(spline->c, i, (-2*bi - bi1 + 3*pi)/hi);
 		gsl_vector_set(spline->d, i, (bi + bi1 - 2*pi)/pow(hi, 2));
 	}
-	return s;
+	return spline;
 }
 
 /*

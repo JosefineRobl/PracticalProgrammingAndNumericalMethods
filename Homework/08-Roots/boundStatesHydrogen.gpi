@@ -11,5 +11,5 @@ set title "\textbf{Radial hydrogen solution with $l=0$}";
 f(x)=x*exp(-x) ;\
 
 plot \
-"boundStatesHydrogen.txt" using 1:2 with line linetype 5 color red title "Solution found numerically",\
-f(x) with line linetype 3 title "Exact solution $r\exp(-r)$";
+f(x) with line linetype 1 title "Exact solution $r\exp(-r)$",\
+"boundStatesHydrogen.txt" using 1:2 with line linetype 5 color red title "Solution found numerically";

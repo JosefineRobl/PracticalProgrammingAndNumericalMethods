@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include "simplex.h"
 
 void simplexContraction(double* highest, double* centroid, double* contracted, int dim){
 	for (int i = 0; i < dim; i++) {

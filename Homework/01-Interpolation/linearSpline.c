@@ -1,6 +1,7 @@
 #include <gsl/gsl_vector.h> // Gnu Scientific Library with vectors
 #include <assert.h> // For assertions throughtout the code
 #include "binarySearch.h"
+#include "linearSpline.h"
 
 /*
  * ...

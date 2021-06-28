@@ -15,7 +15,7 @@
  * vector x: on entry -- the stating point; upon exit -- the approximation to the root
  * double epsilon: the accuracy goal; on exit the condition ||f(x)|| < epsilon should be satisfied
  */
-void newton(void f(gsl_vector* x, gsl_vector* fx), gsl_vectoor* x, double epsilon){
+void newton(void f(gsl_vector* x, gsl_vector* fx), gsl_vector* x, double epsilon){
 	int n = x->size;
 	int limit = 10000;
 	int steps = 0;

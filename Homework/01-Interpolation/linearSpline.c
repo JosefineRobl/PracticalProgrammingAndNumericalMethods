@@ -22,7 +22,7 @@ double linearInterpolation(gsl_vector* x, gsl_vector* y, double z){
 	double yiPlus1 = gsl_vector_get(y, i+1);
 	double xi = gsl_vector_get(x, i);
 	double xiPlus1 = gsl_vector_get(x, i+1);
-	return spline = yi + (yiPlus1 - yi) / (xiPlus1 - xi) * (z - xi);
+	return yi + (yiPlus1 - yi) / (xiPlus1 - xi) * (z - xi);
 }
 
 /*

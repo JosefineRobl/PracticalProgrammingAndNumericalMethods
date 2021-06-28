@@ -20,11 +20,11 @@ void exerciseA(void){
 	gsl_vector* y = gsl_vector_alloc(N);
 	
 	// Open files for the x and y points
-	FILE* x_file = fopen("xPointsLinear.txt","r");
-	FILE* y_file = fopen("yPointsLinear.txt","r");
+	FILE* x_file = fopen("xPoints.txt","r");
+	FILE* y_file = fopen("yPoints.txt","r");
 	gsl_vector_fscanf(x_file, x);
 	gsl_vector_fscanf(y_file, y);
-	FILE* xy_file = fopen("xyPointsLinear.txt","w");
+	FILE* xy_file = fopen("xyPoints.txt","w");
 
 	// For GSL comparison we must use ordinary arrays:
 	double xa[x -> size];
@@ -72,8 +72,8 @@ void exerciseB(void){
 	int N = 9;
 	gsl_vector* x = gsl_vector_alloc(N);
 	gsl_vector* y = gsl_vector_alloc(N);
-	FILE* x_file = fopen("xPointsCubic.txt", "r");
-	FILE* y_file = fopen("yPointsCubic.txt", "r");
+	FILE* x_file = fopen("xPoints.txt", "r");
+	FILE* y_file = fopen("yPoints.txt", "r");
 	gsl_vector_fscanf(x_file,x);
 	gsl_vector_fscanf(y_file,y);
 	
@@ -123,8 +123,8 @@ void exerciseC(void){
 	gsl_vector* x = gsl_vector_alloc(N);
 	gsl_vector* y = gsl_vector_alloc(N);
 	// Open files for writing
-	FILE* x_file = fopen("xPointsQuadratic.txt","r");
-	FILE* y_file = fopen("yPointsQuadratic.txt", "r");
+	FILE* x_file = fopen("xPoints.txt","r");
+	FILE* y_file = fopen("yPoints.txt", "r");
 	gsl_vector_fscanf(x_file,x);
 	gsl_vector_fscanf(y_file,y);
 	

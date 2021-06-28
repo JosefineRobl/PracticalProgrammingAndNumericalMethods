@@ -59,7 +59,7 @@ void solverForSchrodinger(gsl_vector* x, gsl_vector* M){
 	ya[0] = a - pow(a, 2);
 	ya[1] = 1 - 2*a;
 	// Solve
-	rungeKuttaDrive23(n, schroedingerEquation, a, b, ya, yb, h, acc, epsilon, pathToFile);
+	rungeKuttaDrive23(schroedingerEquation, n, a, b, ya, yb, h, acc, epsilon, pathToFile);
 	// M is found as the solution evaluated at the endpoint
 	gsl_vector_set(M, 0, yb[0]);
 }

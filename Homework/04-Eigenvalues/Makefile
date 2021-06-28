@@ -24,10 +24,13 @@ particleInABoxEigenfunctions.txt: main
 diagonalisationTime.txt: main
 	./$< > $@
 
-main: main.o jacobi.o
+main: main.o matrixDiagonalization.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-main.o: main.c jacobi.h
+main.o: main.c matrixDiagonalization.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+matrixDiagonalization.o: matrixDiagonalization.c matrixDiagonalization.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONEY: clean

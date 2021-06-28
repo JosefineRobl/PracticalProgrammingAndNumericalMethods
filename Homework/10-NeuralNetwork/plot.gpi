@@ -6,7 +6,7 @@ set ticks out;
 set pointsize 1;
 set width 8;
 
-set title "Interpolation of $\cos(5x-1)\exp(-x^2)$, its derivative and antiderivative";
+set title "Interpolation of $\sin(x)\exp(-x)$, its derivative and antiderivative";
 set xlabel "$x$";
 set ylabel "$y$";
 set yrange[-1:1.5];

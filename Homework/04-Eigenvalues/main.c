@@ -36,7 +36,7 @@ int main(void){
 	
 	gsl_matrix* V = gsl_matrix_alloc(N,N);
 	gsl_matrix_set_identity(V); // See page 36 in notes
-	jacobi_diag(A, V); // Stores the diagonalmatrix in A
+	jacobiDiagonalisation(A, V); // Stores the diagonalmatrix in A
 	fprintf(jacobi_diag_file, "\nDiagonal matrix containing eigenvalues of A:\n");
 	printMatrixToFile(A, jacobi_diag_file);
 	

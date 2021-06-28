@@ -32,8 +32,10 @@ void numericGradient(double f(gsl_vector* x), gsl_vector* x, gsl_vector* gradien
  * F: Objective function.
  * x: Pointer to vector; on input is the starting point, while on exit is the approximation to the root.
  * epsilon: Double containing the accuracy goal; on exit the absolute value of the gradient should be less than epsilon.
+ * 
+ * return the number of steps.
  */
-void quasiNewton(double F(gsl_vector* x), gsl_vector* x, double epsilon){
+int quasiNewton(double F(gsl_vector* x), gsl_vector* x, double epsilon){
 	// Initialization
 	int n = x->size; // Dimension of vector x
 	int steps = 0; // Steps taken all in all for finding the minimum
@@ -124,4 +126,6 @@ void quasiNewton(double F(gsl_vector* x), gsl_vector* x, double epsilon){
 	fprintf(quasiNewtonFile, "quasi_newton : steps = %i, good steps = %i, bad steps = %i\n", steps, good_steps, bad_steps); 
 	fprintf(quasiNewtonFile, "quasi_newton : function value at min %g \n", fx);
 	fclose(quasiNewtonFile);
+	
+	return steps;
 }

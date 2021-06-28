@@ -104,7 +104,7 @@ void jacobiDiagonalisation(gsl_matrix* A, gsl_matrix* V){
 				double newApp = c*c*app - 2*s*c*apq + s*s*aqq;
 				double newAqq = s*s*app + 2*s*c*apq + c*c*aqq;
 				// Check if the new element differ from the old one
-				if ((newApp!=app) || (newAqq!=aqq)) {
+				if ((newApp != app) || (newAqq != aqq)) {
 				// If they differ we have not reached convergence and we must rotate again
 					changed = 1;
 					timesJ(A, p, q, theta);
@@ -134,7 +134,7 @@ void jacobiDiagonalisationOptimised(gsl_matrix* A, gsl_matrix* V){
 				double s = sin(theta);
 				double newApp = c*c*app - 2*s*c*apq + s*s*aqq;
 				double newAqq = s*s*app + 2*s*c*apq + c*c*aqq;
-				if((newApp! = app) || (newAqq! = aqq)) {
+				if((newApp != app) || (newAqq != aqq)) {
 					changed = 1;
 					JTAJ_up(A, p, q, theta);
 					timesJ(V, p, q, theta);

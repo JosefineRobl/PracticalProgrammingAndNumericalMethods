@@ -44,30 +44,42 @@ int main(void){
 	// Initialize number of points
 	int m = 50;
 	// Allocate memory for data points
-	gsl_vector* x = gsl_vector_alloc(m)
-	gsl_vector* y = gsl_vector_alloc(m); 
+	gsl_vector* x = gsl_vector_alloc(m);
+	gsl_vector* y = gsl_vector_alloc(m);
+	gsl_vector* derivative = gsl_vector_alloc(m);
+	gsl_vector* antiderivative = gsl_vector_alloc(m);
 	// Generate data points
 	for (int i = 0; i < m; i++) {
-		gsl_vector_set (x, i, xMin + (xMax - xMin)*i/(m - 1)); 
-		gsl_vector_set (y, i, function (gsl_vector_get (x, i))); 
+		gsl_vector_set(x, i, xMin + (xMax - xMin)*i/(m - 1));
+		gsl_vector_set(y, i, function(gsl_vector_get(x, i))); // y = function(xi)
+		gsl_vector_set(derivative, i, derivativeOfActivationFunction(gsl_vector_get(x, i))); // derivative(xi) = f'(xi)
+		gsl_vector_set(antiderivative, i, integralOfActivationFunction(gsl_vector_get(x, i))); // antiderivative(xi) = F(xi)
 	}
 	// Setting the parameters for the network
 	for (int i = 0; i < network->n; i++) {
-		gsl_vector_set (network->parameters, 3*i + 0, a + (b - a)*i/(network->n - 1));
-		gsl_vector_set (network->parameters, 3*i + 1, 1.); 
-		gsl_vector_set (network->parameters, 3*i + 2, 1.); 
+		gsl_vector_set(network->parameters, 3*i + 0, a + (b - a)*i/(network->n - 1));
+		gsl_vector_set(network->parameters, 3*i + 1, 1.); 
+		gsl_vector_set(network->parameters, 3*i + 2, 1.); 
 	}
 	// Train the artificial neural network
 	NN_train (network, x, y); 
+	// Print the found optimized patameters
+	FILE* foundOptimizedParameters = fopen("foundOptimizedParameters.txt", "w");
+	for (int i = 0; i < network->n; i++){
+		double ai = gsl_vector_get(network->params, 3*i);
+		double bi = gsl_vector_get(network->params, 3*i + 1);
+		double wi = gsl_vector_get(network->params, 3*i + 2);
+		fprintf(foundOptimizedParameters, "i = %i \t ai = %g \t bi = %g \t wi = %g\n", i, ai, bi, wi);
+	}
 	// Generate file with the generated points
 	FILE* pointsFile = fopen("generatedPoints.txt", "w"); 
 	for (int i = 0; i < m; i++) {
-		fprintf (points, "%g\t%g\n", gsl_vector_get(x, i), gsl_vector_get(y, i));
+		fprintf (points, "%g\t%g\t%g\t%g\n", gsl_vector_get(x, i), gsl_vector_get(y, i), gls_vector_get(derivative, i), gsl_vector_get(antiderivative, i);
 	}
 	fclose(pointsFile);
 	// Generate file with the data from the functions
 	FILE* data = fopen ("dataFunctions.txt", "w");
-	for (double d = xMin; d < xMax; d += 1./64) {
+	for (double d = xMin; d < xMax; d += 0.2) {
 		fprintf(data, "%g\t%g\t%g\t%g\n", d, annResponse(network, d), annDerivative(network, d), annIntegral(network, d)); 
 	}
 	fclose(data);

@@ -31,7 +31,7 @@ xyPoints.txt: main
 main.o: main.c linearSpline.h cubicSpline.h quadraticSpline.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-main: main.o linearSpline.o cubicSpline.o quadraticSpline.o
+main: main.o linearSpline.o cubicSpline.o quadraticSpline.o binarySearch.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
 linearSpline.o: linearSpline.c linearSpline.h binarySearch.h
@@ -43,6 +43,10 @@ cubicSpline.o: cubicSpline.c cubicSpline.h binarySearch.h
 quadraticSpline.o: quadraticSpline.c quadraticSpline.h binarySearch.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
+binarySearch.o: binarySearch.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.PHONEY: clean
 clean:
 	find -type f -executable -delete
 	$(RM) *.o *.txt

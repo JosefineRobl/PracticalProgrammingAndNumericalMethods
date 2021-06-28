@@ -14,14 +14,14 @@ double activationFunction(double x){
  * Derivative of activation function for the artificial neural network.
  */
 double derivativeOfActivationFunction(double x){
-	return exp(-pos(x, 2))*(1 - 2*pow(x, 2)*exp(-pow(x, 2)));
+	return exp(-pow(x, 2))*(1 - 2*pow(x, 2)*exp(-pow(x, 2)));
 }
 
 /*
  * Integrated activation function for the artificial neural network.
  */
 double integralOfActivationFunction(double x){
-	return - 1.2/ * exp(-pow(x, 2));
+	return - 1./2 * exp(-pow(x, 2));
 }
 
 /*
@@ -38,7 +38,7 @@ int main(void){
 	// Number of neurons in the artificial neural network
 	int n = 6;
 	// Initialize the artificial neural network using the activation fucntion
-	artificialNeuralNetwork* network = annAlloc(n, activation_function, derivativeOfActivationFunction, integralOfActivationFunction); 
+	artificialNeuralNetwork* network = annAlloc(n, activationFunction, derivativeOfActivationFunction, integralOfActivationFunction); 
 	// Initialize the interval on the x-axis
 	double xMin = -1, xMax = 1; 
 	// Initialize number of points
@@ -57,12 +57,12 @@ int main(void){
 	}
 	// Setting the parameters for the network
 	for (int i = 0; i < network->n; i++) {
-		gsl_vector_set(network->parameters, 3*i + 0, a + (b - a)*i/(network->n - 1));
-		gsl_vector_set(network->parameters, 3*i + 1, 1.); 
-		gsl_vector_set(network->parameters, 3*i + 2, 1.); 
+		gsl_vector_set(network->params, 3*i + 0, xMin + (xMax - xMin)*i/(network->n - 1));
+		gsl_vector_set(network->params, 3*i + 1, 1.); 
+		gsl_vector_set(network->params, 3*i + 2, 1.); 
 	}
 	// Train the artificial neural network
-	NN_train (network, x, y); 
+	annTrain(network, x, y);
 	// Print the found optimized patameters
 	FILE* foundOptimizedParameters = fopen("foundOptimizedParameters.txt", "w");
 	for (int i = 0; i < network->n; i++){
@@ -74,11 +74,11 @@ int main(void){
 	// Generate file with the generated points
 	FILE* pointsFile = fopen("generatedPoints.txt", "w"); 
 	for (int i = 0; i < m; i++) {
-		fprintf (points, "%g\t%g\t%g\t%g\n", gsl_vector_get(x, i), gsl_vector_get(y, i), gls_vector_get(derivative, i), gsl_vector_get(antiderivative, i);
+		fprintf(pointsFile, "%g\t%g\t%g\t%g\n", gsl_vector_get(x, i), gsl_vector_get(y, i), gsl_vector_get(derivative, i), gsl_vector_get(antiderivative, i));
 	}
 	fclose(pointsFile);
 	// Generate file with the data from the functions
-	FILE* data = fopen ("dataFunctions.txt", "w");
+	FILE* data = fopen("dataFunctions.txt", "w");
 	for (double d = xMin; d < xMax; d += 0.2) {
 		fprintf(data, "%g\t%g\t%g\t%g\n", d, annResponse(network, d), annDerivative(network, d), annIntegral(network, d)); 
 	}

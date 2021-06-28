@@ -5,19 +5,25 @@ LDLIBS = -lm $(shell gsl-config --libs)
 default: plot.png
 	xdg-open $<
 
-plot.png: plot.gpi dataFunctions.txt points.txt
+plot.png: plot.gpi dataFunctions.txt generatedPoints.txt
 	pyxplot $<
 
-dataFunctions.txt generatedPoints.txt log.txt: main
-	./$< > data.txt points.txt 2> out.txt
+out.txt: main
+	./$< > $@
 
-main: main.o artificialNeuralNetwork.o quasiNewton.o
+dataFunctions.txt: main
+	./$<
+
+generatedPoints.txt: main
+	./$<
+
+main: main.o artificialNeuralNetworks.o quasiNewton.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-main.o: main.c artificialNeuralNetwork.h
+main.o: main.c artificialNeuralNetworks.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-artificialNeuralNetwork.o: artificialNeuralNetwork.c artificialNeuralNetwork.h quasiNewton.h
+artificialNeuralNetworks.o: artificialNeuralNetworks.c artificialNeuralNetworks.h quasiNewton.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 quasiNewton.o: quasiNewton.c quasiNewton.h

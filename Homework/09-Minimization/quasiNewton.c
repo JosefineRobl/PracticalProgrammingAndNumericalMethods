@@ -94,9 +94,9 @@ int quasiNewton(double f(gsl_vector* x), gsl_vector* x, double epsilon){
 			gsl_vector_scale(dx, 0.5);
 		}
 		// Update the gradient vectors
-		numericGradient(F, xNew, gradientNew);
+		numericGradient(f, xNew, gradientNew);
 		gsl_vector_memcpy(dGradient, gradientNew);
-		gsl_blas_daxpy(-1, gradient , dgradient);
+		gsl_blas_daxpy(-1, gradient , dGradient);
 		// Copy the derivative due to use of vector in function
 		gsl_vector_memcpy(u, dx);
 		gsl_blas_dgemv(CblasNoTrans, -1, B, dGradient, 1, u);
@@ -106,8 +106,8 @@ int quasiNewton(double f(gsl_vector* x), gsl_vector* x, double epsilon){
 			gsl_blas_ddot(u, dGradient, &uTDGradient);
 			double gamma = uTDGradient/(2*sTDGradient);
 			gsl_blas_daxpy (-gamma, dx, u);
-			gsl_blas_dger (1./sTdgradient, u, dx, B);
-			gsl_blas_dger (1./sTdgradient, dx, u, B);
+			gsl_blas_dger (1./sTDGradient, u, dx, B);
+			gsl_blas_dger (1./sTDGradient, dx, u, B);
 		}
 		// Copy the value from xNew into the original x variable, and likewise for the gradient
 		gsl_vector_memcpy(x, xNew);
@@ -123,7 +123,7 @@ int quasiNewton(double f(gsl_vector* x), gsl_vector* x, double epsilon){
 	gsl_vector_free(u);
 	// Print the number of steps, the good steps, the bad steps and the fucntion value at the minimum
 	FILE* quasiNewtonFile = fopen("quasiNewtonPrints.txt", "w");
-	fprintf(quasiNewtonFile, "quasi_newton : steps = %i, good steps = %i, bad steps = %i\n", steps, good_steps, bad_steps); 
+	fprintf(quasiNewtonFile, "quasi_newton : steps = %i, good steps = %i, bad steps = %i\n", steps, goodSteps, badSteps); 
 	fprintf(quasiNewtonFile, "quasi_newton : function value at min %g \n", fx);
 	fclose(quasiNewtonFile);
 	

@@ -10,10 +10,10 @@ default: exerciseAPlot.png exerciseBPlot.png exerciseCPlot.png
 exerciseAPlot.png: exerciseAPlot.gpi xyPoints.txt exerciseA.txt 
 	pyxplot $<
 
-qplot.png: exerciseBPlot.gpi xyPoints.txt exerciseB.txt
+exerciseBPlot.png: exerciseBPlot.gpi xyPoints.txt exerciseB.txt
 	pyxplot $<
 
-cplot.png: exerciseCPlot.gpi xyPoints.txt exerciseC.txt
+exerciseCPlot.png: exerciseCPlot.gpi xyPoints.txt exerciseC.txt
 	pyxplot $<
 
 exerciseA.txt: main

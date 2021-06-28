@@ -102,6 +102,7 @@ int quasiNewton(double f(gsl_vector* x), gsl_vector* x, double epsilon){
 		gsl_blas_dgemv(CblasNoTrans, -1, B, dGradient, 1, u);
 		// Define new variables to keep dot product of gradients
 		double sTDGradient, uTDGradient;
+		gsl_blas_ddot(dx, dGradient, &sTDGradient);
 		if (fabs(sTDGradient) > 1e-12) {
 			gsl_blas_ddot(u, dGradient, &uTDGradient);
 			double gamma = uTDGradient/(2*sTDGradient);

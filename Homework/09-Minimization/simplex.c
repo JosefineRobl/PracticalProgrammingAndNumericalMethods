@@ -17,7 +17,7 @@ void simplexExpansion(double* highest, double* centroid, double* expanded, int d
 		expanded[i] = 3*centroid[i] - 2*highest[i];
 }
 
-void simplexReduction(double** simplex, int dim, int lo){
+void simplexReduction(double** simplex, int dim, int lowValIndex){
 	for (int i = 0; i < dim + 1; i++) {
 		if (i != lowValIndex) {
 			for(int j = 0; j < dim; j++) {
@@ -41,8 +41,8 @@ double simplexDistance(double* a, double* b, int dim){
 double simplexSize(double** simplex, int dim){
 	// Initialize and 
 	double s = 0;
-	for(int i = 1; i < dim + 1; j++){
-		double d = distance(simplex[0], simplex[i], dim);
+	for(int i = 1; i < dim + 1; i++){
+		double d = simplexDistance(simplex[0], simplex[i], dim);
 		if(d > s) {
 			s = d;
 		}
@@ -53,7 +53,7 @@ double simplexSize(double** simplex, int dim){
 /*
  * Updates simplex.
  */
-void simplexUpdate(int dim, double** simplex, double* f_val, int* highValIndex, int* lowValIndex, double* centroid){
+void simplexUpdate(int dim, double** simplex, double* fVal, int* highValIndex, int* lowValIndex, double* centroid){
 	*highValIndex = 0;
 	*lowValIndex = 0;
 	double fHigh = fVal[highValIndex];
@@ -69,7 +69,7 @@ void simplexUpdate(int dim, double** simplex, double* f_val, int* highValIndex, 
 		}
 		if (fx < fLow) {
 			fLow = fx;
-			*lowValIndx = i;
+			*lowValIndex = i;
 		}
 	}
 	//Finding centroid
@@ -113,7 +113,7 @@ int amoeba(int dim, double f(double*), double** simplex, double simplexSizeGoal)
 		}
 		// Perform reflection
 		simplexUpdate(dim, simplex, fVal, &highValIndex, &lowValIndex, centroid);
-		reflection(simplex[highValIndex], centroid, p1, dim);
+		simplexReflection(simplex[highValIndex], centroid, p1, dim);
 		double fReflection = f(p1); // Reflection variable
 		if (fReflection < fVal[lowValIndex]) {
 			// If the reflection was performed okay try then the expansion
@@ -153,8 +153,8 @@ int amoeba(int dim, double f(double*), double** simplex, double simplexSizeGoal)
 					}
 				} else {
 					// try reduction
-					simplexReduction(simplex, dim, lo);
-					simplexInitialize(dim, f, simplex, f_val, &hi, &lo, centroid);
+					simplexReduction(simplex, dim, lowValIndex);
+					simplexInitialize(dim, f, simplex, fVal, &highValIndex, &lowValIndex, centroid);
 				}
 			}
 		}

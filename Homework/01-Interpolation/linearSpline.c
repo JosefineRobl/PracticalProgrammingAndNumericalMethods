@@ -12,7 +12,7 @@
  *
  * Returns a double containing the spline.
  */
-double linearInterpolation(gsl_vector x, gsl_vector y, double z){
+double linearInterpolation(gsl_vector* x, gsl_vector* y, double z){
 	// Checks that the lengths of the two vectors are equal
 	assert(x->size == y->size);
 	// Finding the interval around z for the splice
@@ -34,7 +34,7 @@ double linearInterpolation(gsl_vector x, gsl_vector y, double z){
  *
  * Returns a double containing the result of the integration of the spline on x[0] to z.
  */
-double linearInterpolationIntegration(gsl_vector x, gsl_vector y, double z){
+double linearInterpolationIntegration(gsl_vector* x, gsl_vector* y, double z){
 	// Checks that the lengths of the two vectors are equal
 	assert(x->size == y->size);
 	// Checks that z is inside the range of x

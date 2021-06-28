@@ -2,6 +2,8 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include "rungeKutta23.h"
+
 /*
  * Stepper.
  * 

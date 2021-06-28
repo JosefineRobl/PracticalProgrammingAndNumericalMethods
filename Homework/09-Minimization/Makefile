@@ -29,6 +29,9 @@ exerciseB.txt: main
 exerciseC.txt: main
 	./$< > $@
 
+higgsMassData.txt: main
+	./$< > $@
+
 main.o: main.c quasiNewton.h simplex.h
 	$(CC) $(CFLAGS) -c $< -o $@
 

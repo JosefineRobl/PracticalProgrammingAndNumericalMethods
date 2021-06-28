@@ -68,7 +68,7 @@ double annDerivative(artificialNeuralNetwork* network, double x){
 /*
  *
  */
-double annIntegral(artificialNeuralNetwork* network, double x){
+double annIntegral(artificialNeuralNetwork* network, double x, double x0){
 	double sum = 0; 
 	// Initialization of weights
 	double a, b, w;
@@ -77,7 +77,7 @@ double annIntegral(artificialNeuralNetwork* network, double x){
 		a = network->params[3*i];
 		b = network->params[3*i + 1];
 		w = network->params[3*i + 2];
-		sum += network->F((x - a)/b)*w;
+		sum += network->F((x - a)/b)*w*b - network->F((x0 - a)/b)*w*b;
 	}
 	return sum; 
 }

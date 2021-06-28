@@ -218,7 +218,7 @@ void exerciseC(void){
 	lowValIndex = 0;
 	// Perform
 	int steps = amoeba(dim, HimmelblauC, Simplex, sizeGoal);
-	fprintf(ExcC, "=============== Himmelblau's function: ===============\n");
+	fprintf(ExcC, "\n=============== Himmelblau's function: ===============\n");
 	fprintf(ExcC, "Simplex size goal = %g\n", sizeGoal);
 	fprintf(ExcC, "Found minimum at  = (%g,%g)\n", Simplex[lowValIndex][0], Simplex[lowValIndex][1]);
 	fprintf(ExcC, "Number of steps   = %i\n", steps);

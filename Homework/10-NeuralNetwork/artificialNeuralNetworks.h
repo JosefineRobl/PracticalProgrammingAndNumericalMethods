@@ -48,7 +48,7 @@ double annDerivative(artificialNeuralNetwork* network, double x);
 /*
  *
  */
-double annIntegral(artificialNeuralNetwork* network, double x);
+double annIntegral(artificialNeuralNetwork* network, double x, double x0);
 
 /*
  * Train the artificial neural network on xs, ys.

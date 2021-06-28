@@ -30,7 +30,7 @@ double simplexDistance(double* a, double* b, int dim){
 	// Initialize variable and update it in for-loop
 	double s = 0;
 	for (int i = 0; i < dim; i++) {
-		s += pow(b[k] - a[k], 2);
+		s += pow(b[i] - a[i], 2);
 	return sqrt(s);
 }
 

@@ -11,6 +11,20 @@ double activationFunction(double x){
 }
 
 /*
+ * Derivative of activation function for the artificial neural network.
+ */
+double derivativeOfActivationFunction(double x){
+	return exp(-pos(x, 2))*(1 - 2*pow(x, 2)*exp(-pow(x, 2)));
+}
+
+/*
+ * Integrated activation function for the artificial neural network.
+ */
+double integralOfActivationFunction(double x){
+	return - 1.2/ * exp(-pow(x, 2));
+}
+
+/*
  * Function for the artificial neural network to hopefully learn.
  */
 double function(double x){
@@ -18,13 +32,13 @@ double function(double x){
 }
 
 /*
- * Exercise A.
+ * Main function.
  */
-void exerciseA(void){
+int main(void){	
 	// Number of neurons in the artificial neural network
 	int n = 6;
 	// Initialize the artificial neural network using the activation fucntion
-	artificialNeuralNetwork* network = annAlloc(n, activation_function); 
+	artificialNeuralNetwork* network = annAlloc(n, activation_function, derivativeOfActivationFunction, integralOfActivationFunction); 
 	// Initialize the interval on the x-axis
 	double xMin = -1, xMax = 1; 
 	// Initialize number of points
@@ -54,22 +68,9 @@ void exerciseA(void){
 	// Generate file with the data from the functions
 	FILE* data = fopen ("dataFunctions.txt", "w");
 	for (double d = xMin; d < xMax; d += 1./64) {
-		fprintf (data, "%g\t%g \n", d, annResponse(network, d)); 
+		fprintf(data, "%g\t%g\t%g\t%g\n", d, annResponse(network, d), annDerivative(network, d), annIntegral(network, d)); 
 	}
 	fclose(data);
-}
-
-/*
- * Exercise B.
- */
-void exerciseB(void){
-}
-
-/*
- * Main function.
- */
-int main(void){
-	exerciseA();
-	exerciseB();
+	
 	return 0;
 }

@@ -14,10 +14,10 @@ dataFunctions.txt generatedPoints.txt log.txt: main
 main: main.o artificialNeuralNetwork.o quasiNewton.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-main.o: main.c artificialNeauralNetwork.h
+main.o: main.c artificialNeuralNetwork.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-artificialNeauralNetwork.o: artificialNeauralNetwork.c artificialNeauralNetwork.h quasiNewton.h
+artificialNeuralNetwork.o: artificialNeuralNetwork.c artificialNeuralNetwork.h quasiNewton.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 quasiNewton.o: quasiNewton.c quasiNewton.h

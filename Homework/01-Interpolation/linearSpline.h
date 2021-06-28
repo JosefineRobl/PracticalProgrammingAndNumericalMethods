@@ -1,24 +1,30 @@
-#include <gsl/gsl_vector.h> // Gnu Scientific Library with vectors
-#include <assert.h> // For assertions throughtout the code
+#include <assert.h>
+#include <gsl/gsl_vetor.h>
+#include "binarySearch.h"
+
+typedef struct{
+	gsl_vector* x;
+	gsl_vector* y;
+	gsl_vector* b;
+	gsl_vector* c;
+} quadraticSpline;
+
+quadraticSpline* quadraticSplineAlloc(gsl_vector* x, gsl_vector* y);
 
 /*
- * ...
- *
- * x:
- * y:
- * z:
- *
- * Returns a double containing the spline.
+ * Evaulates interpolation in point z (see table in notes).
  */
-double linearInterpolation(gsl_vector x, gsl_vector y, double z);
+double quadraticSplineEval(quadraticSpline* s, double z);
 
 /*
- * ...
- *
- * x:
- * y:
- * z:
- *
- * Returns a double containing the result of the integration of the spline on x[0] to z.
+ * Function that evaluates the derivative in point z.
  */
-double linearInterpolationIntegration(gsl_vector x, gsl_vector y, double z);
+double quadraticSplineEval(quadraticSpline* s, double z);
+
+/*
+ * Function that evaluates integral from x[0] to z.
+ */
+double quadraticSplineEvalDerivative(quadraticSpline* s, double z);
+
+//Function for freeing allocated memory
+void quadraticSplineFree(quadraticSpline* s);

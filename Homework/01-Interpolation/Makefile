@@ -34,13 +34,13 @@ main.o: main.c linearSpline.h cubicSpline.h quadraticSpline.h
 main: main.o linearSpline.o cubicSpline.o quadraticSpline.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-linearSpline.o: linearSpline.c linearSpline.h
+linearSpline.o: linearSpline.c linearSpline.h binarySearch.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-cubicSpline.o: cubicSpline.c cubicSpline.h
+cubicSpline.o: cubicSpline.c cubicSpline.h binarySearch.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-quadraticSpline.o: quadraticSpline.c quadraticSpline.h
+quadraticSpline.o: quadraticSpline.c quadraticSpline.h binarySearch.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

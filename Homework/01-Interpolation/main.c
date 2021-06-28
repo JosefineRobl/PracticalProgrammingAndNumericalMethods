@@ -98,7 +98,7 @@ void exerciseB(void){
 		double interp_eval_gsl = gsl_interp_eval(cspline, xa, ya, z*fine, NULL);
 		double interp_der_gsl = gsl_interp_eval_deriv(cspline, xa, ya, z*fine, NULL);
 		double interp_integ_gsl = gsl_interp_eval_integ(cspline, xa, ya,xa[0], z*fine, NULL);
-		fprintf(cinterp_file, "%10g %10g %10g %10g %10g %10g %10g\n", z*fine, cubicSplineEval(s, z*fine), cubicSplineEvalDerivative(s, z*fine), cubicSplineIntegrate(s, z*fine), interp_eval_gsl, interp_der_gsl, interp_integ_gsl);
+		fprintf(cinterp_file, "%10g %10g %10g %10g %10g %10g %10g\n", z*fine, cubicSplineEvaluate(s, z*fine), cubicSplineEvaluateDerivative(s, z*fine), cubicSplineIntegrate(s, z*fine), interp_eval_gsl, interp_der_gsl, interp_integ_gsl);
 		z++;
 	}
 
@@ -111,7 +111,7 @@ void exerciseB(void){
 	gsl_vector_free(y);
 	gsl_interp_free(cspline);
 	// Freeing memory of cubic spline
-	cinterp_free(s);
+	cubicSplineFree(s);
 }
 
 /*

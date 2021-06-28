@@ -3,7 +3,7 @@ CFLAGS = -std=gnu11 -O -Wall
 CFLAGS += $(shell /usr/bin/gsl-config --cflags)
 LDLIBS += $(shell /usr/bin/gsl-config --libs)
 
-default: result.txt leastSquarePlot.png
+default: results.txt leastSquarePlot.png
 	cat $<
 	xdg-open leastSquarePlot.png
 

@@ -60,7 +60,7 @@ quadraticSpline* quadraticSplineAlloc(gsl_vector* x, gsl_vector* y){
 		double bi = pi - ci*hi;
 		gsl_vector_set(spline->b, i, bi);
 	}
-	return s;
+	return spline;
 }
 
 /*

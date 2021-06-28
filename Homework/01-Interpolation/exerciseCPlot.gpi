@@ -1,0 +1,16 @@
+set terminal png
+set output "exerciseCPlot.png"
+
+set key out;
+set ticks out;
+set width 8;
+
+set title "Quadratic interpolation";
+set xlabel "$x$";
+set ylabel "$y$";
+
+plot \
+"xyPoints.txt" using 1:2 with points pointtype 2 title "Tabulated data",\
+"exerciseC.txt" using 1:2 with line title "implemented quadratic interpolation",\
+"" using 1:3 with line title "implemented derivative",\
+"" using 1:4 with line title "implemented integral function";

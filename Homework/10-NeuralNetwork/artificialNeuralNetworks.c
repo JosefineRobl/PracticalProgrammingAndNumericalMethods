@@ -1,5 +1,6 @@
 #include <gsl/gsl_vector.h> // Implements vectors
 #include "artificialNeuralNetworks.h"
+#include "quasiNewton.h"
 
 /*
  *

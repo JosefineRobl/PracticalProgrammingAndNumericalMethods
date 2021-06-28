@@ -10,35 +10,6 @@
 #include <gsl/gsl_linalg.h>
 
 /*
- * Prints a given GSL matrix.
- */
-void printMatrix(gsl_matrix* A){
-	int n = A->size1; 
-	int m = A->size2; 
-	printf("\n");
-	for(int i = 0; i < n; i++){
-		for(int j = 0; j < m; j++){
-			double x = gsl_matrix_get(A, i, j);
-			printf("%9.3g ", x);
-		}
-		printf("\n");
-	}
-	printf("\n");
-}
-
-/*
- * Prints a given GSL matrix.
- */
-void printVector(gsl_vector* V){
-	int n = V->size;
-	printf("\n");
-	for(int i = 0; i < n; i++){
-		printf("%g\n", gsl_vector_get(V, i));
-	}
-	printf("\n");
-}
-
-/*
  * The dot product of two GSL vectors.
  */
 double cdot(gsl_vector* A, gsl_vector* B){

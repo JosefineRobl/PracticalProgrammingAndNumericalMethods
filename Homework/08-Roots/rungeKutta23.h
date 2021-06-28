@@ -19,4 +19,4 @@ void rungeKuttaStep23(void f(int n, double x, double* y, double* dydx), int n, d
  * Driver.
  * 
  */
-void rungeKuttaDrive23(void f(int n, double x, double* y, double* dydx), int n, double a, double b, double* ya, double* yb, double h, double delta, double epsilon, char* path)
+void rungeKuttaDrive23(void f(int n, double x, double* y, double* dydx), int n, double a, double b, double* ya, double* yb, double h, double delta, double epsilon, char* path);

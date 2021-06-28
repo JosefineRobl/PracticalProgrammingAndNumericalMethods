@@ -16,7 +16,7 @@ double linearInterpolation(gsl_vector* x, gsl_vector* y, double z){
 	// Checks that the lengths of the two vectors are equal
 	assert(x->size == y->size);
 	// Finding the interval around z for the splice
-	int i = binarySearch(x->size, x, z);
+	int i = binarySearch(x, z);
 	// Splice (eq. 5 and 6 in lecture notes)
 	double yi = gsl_vector_get(y, i);
 	double yiPlus1 = gsl_vector_get(y, i+1);

@@ -10,7 +10,8 @@
  *
  * Returns the integer i for which x[i] < z < x[i+1].
  */
-int binarySearch(int n, gsl_vector* x, double z){
+int binarySearch(gsl_vector* x, double z){
+	int n = (*x).size;
 	// Checks that z is in the interval given. Otherwise results in error
 	assert(gsl_vector_get(x, 0) <= z && z <= gsl_vector_get(x, n-1));
 	// Initialisation

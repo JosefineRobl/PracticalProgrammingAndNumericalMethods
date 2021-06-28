@@ -89,8 +89,8 @@ void exerciseA(void){
 	int steps = quasiNewton(Rosenbrock, x, acc);
 	fprintf(ExcA, "=============== Rosenbrock's valley function: ===============\n");
 	fprintf(ExcA, "Tolerance       = %g\n", acc);
-	fprintf(ExcA, "Initial guess   = (%g,%g)\n", gsl_vector_get(x0, 0), gsl_vector_get(x0, 1));
-	fprintf(ExcA, "Found minimum   = (%g,%g)\n", gsl_vector_get(x, 0), gsl_vector_get(x, 1));
+	fprintf(ExcA, "Initial guess   = (%g, %g)\n", gsl_vector_get(x0, 0), gsl_vector_get(x0, 1));
+	fprintf(ExcA, "Found minimum   = (%g, %g)\n", gsl_vector_get(x, 0), gsl_vector_get(x, 1));
 	fprintf(ExcA, "Value at min    = %g\n", Rosenbrock(x));
 	fprintf(ExcA, "Number of steps = %d\n", steps);
 	
@@ -111,8 +111,8 @@ void exerciseA(void){
 	steps = quasiNewton(Himmelblau, y, eps);
 	fprintf(ExcA, "\n=============== Himmelblau's function: ===============\n");
 	fprintf(ExcA, "Tolerance       = %g\n", eps);
-	fprintf(ExcA, "Initial guess   = (%g,%g)\n", gsl_vector_get(y0, 0), gsl_vector_get(y0, 1) );
-	fprintf(ExcA, "Found minimum   = (%g,%g)\n", gsl_vector_get(y, 0), gsl_vector_get(y, 1) );
+	fprintf(ExcA, "Initial guess   = (%g, %g)\n", gsl_vector_get(y0, 0), gsl_vector_get(y0, 1) );
+	fprintf(ExcA, "Found minimum   = (%g, %g)\n", gsl_vector_get(y, 0), gsl_vector_get(y, 1) );
 	fprintf(ExcA, "Value at min    = %g\n", Himmelblau(y));
 	fprintf(ExcA, "Number of steps = %i\n", steps);
 	
@@ -166,8 +166,8 @@ void exerciseB(void){
 	int nsteps = quasiNewton(deviation, param, tolerance);
 	fprintf(ExcB, "=============== Higgs Boson: ===============\n");
 	fprintf(ExcB, "Tolerance                     = %g\n", tolerance);
-	fprintf(ExcB, "Initial guess (m, Gamma, A)   = (%g,%g,%g)\n", gsl_vector_get(param0, 0), gsl_vector_get(param0, 1), gsl_vector_get(param0, 2));
-	fprintf(ExcB, "Estimate values (m, Gamma, A) = (%g,%g,%g)\n", gsl_vector_get(param, 0), gsl_vector_get(param, 1), gsl_vector_get(param, 2));
+	fprintf(ExcB, "Initial guess (m, Gamma, A)   = (%g, %g, %g)\n", gsl_vector_get(param0, 0), gsl_vector_get(param0, 1), gsl_vector_get(param0, 2));
+	fprintf(ExcB, "Estimate values (m, Gamma, A) = (%g, %g, %g)\n", gsl_vector_get(param, 0), gsl_vector_get(param, 1), gsl_vector_get(param, 2));
 	fprintf(ExcB, "Number of steps               = %i\n", nsteps);
 	
 	// For plot of Higgs mass
@@ -228,7 +228,7 @@ void exerciseC(void){
 	steps = amoeba(dim, HimmelblauC, Simplex, sizeGoal);
 	fprintf(ExcC, "\n=============== Himmelblau's function: ===============\n");
 	fprintf(ExcC, "Simplex size goal = %g\n", sizeGoal);
-	fprintf(ExcC, "Found minimum at  = (%g,%g)\n", Simplex[lowValIndex][0], Simplex[lowValIndex][1]);
+	fprintf(ExcC, "Found minimum at  = (%g, %g)\n", Simplex[lowValIndex][0], Simplex[lowValIndex][1]);
 	fprintf(ExcC, "Number of steps   = %i\n", steps);
 	
 	// Close file for writing

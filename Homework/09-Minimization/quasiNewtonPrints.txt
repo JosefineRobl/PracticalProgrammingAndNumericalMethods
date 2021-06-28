@@ -1,0 +1,2 @@
+quasi_newton : steps = 20, good steps = 19, bad steps = 0
+quasi_newton : function value at min 36.527 

@@ -10,14 +10,15 @@ default: higgsMassPlot.png exerciseA.txt exerciseB.txt exerciseC.txt
 higgsMassPlot.png: higgsDataAllTogether.txt higgsMassData.txt Makefile
 	echo '\
 	set terminal png;\
+	set output "$@";\
 	set key top right ;\
 	set tics out;\
-	set title "\textbf{Estimate of the mass of the Higgs boson}";\
+	set title "Estimate of the mass of the Higgs boson";\
 	set xlabel "Energy E [GeV]";\
 	set ylabel "Cross section $$\sigma(E)$$";\
 	plot \
 	"$<" using 1:2:3 with yerrorbars title "Data",\
-	"higgsMassData.txt" index 0 using 1:2 with lines title "Fit with $$m = 125.97218$$";\
+	"higgsMassData.txt" index 0 using 1:2 with lines title "Fit, $$m_H = 125.972$$";\
 	' | pyxplot
 
 exerciseA.txt: main

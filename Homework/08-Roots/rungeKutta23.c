@@ -70,7 +70,7 @@ void rungeKuttaDrive23(void f(int n, double x, double* y, double* dydx), int n, 
 			h = b - x;
 		}
 		// Perform step with stepper from above
-		rkstep23(f, n, x, y, h, yh, dy);
+		rungeKuttaStep23(f, n, x, y, h, yh, dy);
 		// Calculate the norm of y, the error and the tolerance
 		sumNorm = 0;
 		sumError = 0;

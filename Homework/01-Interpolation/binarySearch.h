@@ -10,4 +10,4 @@
  *
  * Returns the integer i for which x[i] < z < x[i+1].
  */
-int binarySearch(int n, gsl_vector* x, double z);
+int binarySearch(gsl_vector* x, double z);

@@ -21,7 +21,11 @@ int binarySearch(gsl_vector* x, double z){
 		// Finds center of interval
 		int mid = (i + j) / 2;
 		// Change the interval to upper og lower half depending on which part 
-		(z > gsl_vector_get(x, mid)) ? i = mid; : j = mid;
+		if (z > gsl_vector_get(x, mid)) {
+			i = mid;
+		} else {
+			j = mid;
+		}
 	}
 	return i;
 }

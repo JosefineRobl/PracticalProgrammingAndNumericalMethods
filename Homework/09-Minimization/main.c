@@ -108,7 +108,7 @@ void exerciseA(void){
 	// Copy the initial guess for one of the vectors to be used for update to found minimum
 	gsl_vector_memcpy(y, y0);
 	// Perform
-	int steps = quasiNewton(Himmelblau, y, eps);
+	steps = quasiNewton(Himmelblau, y, eps);
 	fprintf(ExcA, "\n=============== Himmelblau's function: ===============\n");
 	fprintf(ExcA, "Tolerance       = %g\n", eps);
 	fprintf(ExcA, "Initial guess   = (%g,%g)\n", gsl_vector_get(y0, 0), gsl_vector_get(y0, 1) );

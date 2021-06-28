@@ -35,7 +35,7 @@ void numericGradient(double f(gsl_vector* x), gsl_vector* x, gsl_vector* gradien
  * 
  * return the number of steps.
  */
-int quasiNewton(double F(gsl_vector* x), gsl_vector* x, double epsilon){
+int quasiNewton(double f(gsl_vector* x), gsl_vector* x, double epsilon){
 	// Initialization
 	int n = x->size; // Dimension of vector x
 	int steps = 0; // Steps taken all in all for finding the minimum

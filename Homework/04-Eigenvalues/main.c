@@ -32,13 +32,13 @@ int main(){
 	}
 	// Printing the relevant matrices
 	fprintf(jacobi_diag_file, "Random real symmetric matrix A:\n");
-	matrix_print(A, jacobi_diag_file);
+	printMatrixToFile(A, jacobi_diag_file);
 	
 	gsl_matrix* V = gsl_matrix_alloc(N,N);
 	gsl_matrix_set_identity(V); // See page 36 in notes
 	jacobi_diag(A, V); // Stores the diagonalmatrix in A
 	fprintf(jacobi_diag_file, "\nDiagonal matrix containing eigenvalues of A:\n");
-	matrix_print(A, jacobi_diag_file);
+	printMatrixToFile(A, jacobi_diag_file);
 	
 	// Now I check that VDV^T=A
 	gsl_matrix* VD = gsl_matrix_alloc(N,N);
@@ -46,7 +46,7 @@ int main(){
 	gsl_matrix* VDVT = gsl_matrix_alloc(N,N);
 	gsl_blas_dgemm(CblasNoTrans, CblasTrans, 1, VD, V, 0, VDVT);
 	fprintf(jacobi_diag_file, "\nThe product VDV^T, which shouldbe equal to original A:\n");
-	matrix_print(VDVT, jacobi_diag_file);
+	printMatrixToFile(VDVT, jacobi_diag_file);
 
 	gsl_matrix* VTV = gsl_matrix_alloc(N,N);
 	gsl_blas_dgemm(CblasTrans, CblasNoTrans, 1, V, V, 0, VTV);
@@ -54,9 +54,9 @@ int main(){
 	gsl_blas_dgemm(CblasNoTrans, CblasTrans, 1, V, V, 0, VVT);
 	
 	fprintf(jacobi_diag_file, "\nThe following matrices are the products V^T*V and VV^T. Both should be the identity:\n");
-	matrix_print(VTV, jacobi_diag_file);
+	printMatrixToFile(VTV, jacobi_diag_file);
 	fprintf(jacobi_diag_file, "\n \n");
-	matrix_print(VVT, jacobi_diag_file);
+	printMatrixToFile(VVT, jacobi_diag_file);
 	
 	
 	// Now the Quantum particle in box problem

@@ -7,7 +7,7 @@ default: out.txt results.txt leastSquarePlot.png
 	cat $<
 	xdg-open leastSquarePlot.png
 
-leastSquarePlot.png: results.txt
+leastSquarePlot.png: results.txt Makefile
 	echo '\
 	set terminal png;\
 	set output "$@";\

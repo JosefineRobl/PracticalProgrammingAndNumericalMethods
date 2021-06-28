@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <gsl/gsl_vetor.h>
 #include "binarySearch.h"
+#include "quadraticSpline.h"
 
 quadraticSpline* quadraticSplineAlloc(gsl_vector* x, gsl_vector* y){
 	// Initialize struct

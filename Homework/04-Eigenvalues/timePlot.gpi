@@ -8,7 +8,7 @@ set width 8;
 
 set title "Time complexity of Jacobi diagonalisations"
 set xlabel "Size of matrix"
-set ylabel "Runtime [s]$"
+set ylabel "Runtime [s]"
 
 a=1 ;\
 f(x)=a*x**3 ;\

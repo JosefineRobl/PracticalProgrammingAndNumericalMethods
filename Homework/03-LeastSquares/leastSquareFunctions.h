@@ -14,12 +14,25 @@
  */
 double cdot(gsl_vector* A, gsl_vector* B);
 
+
+/*
+ * Gram-Schmidt backsubstitution.
+ */
 void gramScmidtBackSub(gsl_matrix* R, gsl_vector* x);
 
+/*
+ * Gram-Schmidt solver.
+ */
 void gramSchmidtSolve(gsl_matrix* Q, gsl_matrix* R, gsl_vector* b, gsl_vector* x);
 
+/*
+ * Gram-Schmidt decomposition
+ */
 void gramSchmidtDecomp(gsl_matrix* A,gsl_matrix* R);
 
+/*
+ * Gram-Schmidt inversion of matrix.
+ */
 void gramSchmidtInverse(gsl_matrix* A,gsl_matrix* Inv);
 
 void matrixMultiplication(gsl_matrix* A, gsl_matrix* B,gsl_matrix* result);

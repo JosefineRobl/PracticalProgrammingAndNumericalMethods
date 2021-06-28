@@ -21,7 +21,9 @@ double cdot(gsl_vector* A, gsl_vector* B){
 	}
 	return result;
 }
-
+/*
+ * Gram-Schmidt backsubstitution.
+ */
 void gramScmidtBackSub(gsl_matrix* R, gsl_vector* x){
 	int m=R->size1;
 	for(int i = m - 1; i >= 0; i--){
@@ -32,11 +34,17 @@ void gramScmidtBackSub(gsl_matrix* R, gsl_vector* x){
 	}
 }
 
+/*
+ * Gram-Schmidt solver.
+ */
 void gramSchmidtSolve(gsl_matrix* Q, gsl_matrix* R, gsl_vector* b, gsl_vector* x){
 	gsl_blas_dgemv(CblasTrans, 1., Q, b, 0.,x);
 	gramScmidtBackSub(R,x);
 }
 
+/*
+ * Gram-Schmidt decomposition
+ */
 void gramSchmidtDecomp(gsl_matrix* A,gsl_matrix* R){
 	assert(A->size2 == R->size1);
 	int N = A->size1;
@@ -61,6 +69,10 @@ void gramSchmidtDecomp(gsl_matrix* A,gsl_matrix* R){
 	gsl_vector_free(aj);
 }
 
+
+/*
+ * Gram-Schmidt inversion of matrix.
+ */
 void gramSchmidtInverse(gsl_matrix* A,gsl_matrix* Inv){
 	int n = A->size2;
 	assert(n == A->size2);

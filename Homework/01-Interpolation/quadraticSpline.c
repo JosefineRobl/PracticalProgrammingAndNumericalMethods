@@ -72,7 +72,7 @@ quadraticSpline* quadraticSplineAlloc(gsl_vector* x, gsl_vector* y){
 /*
  * Evaulates interpolation in point z (see table in notes).
  */
-double qubicSplineEval(quadraticSpline* s, double z){
+double quadraticSplineEval(quadraticSpline* s, double z){
 	int i = binsearch(s->x, z);
 	double h = z-gsl_vector_get(s->x, i);
 	double yi = gsl_vector_get(s->y, i);
@@ -85,7 +85,7 @@ double qubicSplineEval(quadraticSpline* s, double z){
 /*
  * Function that evaluates the derivative in point z.
  */
-double qinterp_der(quadraticSpline* s, double z){
+double quadraticSplineEval(quadraticSpline* s, double z){
 	int i = binsearch(s->x, z);
 	double h = z - gsl_vector_get(s->x, i);
 	double bi = gsl_vector_get(s->b, i);
@@ -97,7 +97,7 @@ double qinterp_der(quadraticSpline* s, double z){
 /*
  * Function that evaluates integral from x[0] to z.
  */
-double qinterp_integ(quadraticSpline* s, double z){
+double quadraticSplineEvalDerivative(quadraticSpline* s, double z){
 	int j = binsearch(s->x, z);
 	double area = 0;
 	// Summing over all intervals except the last one, which is done outside the loop
@@ -118,7 +118,7 @@ double qinterp_integ(quadraticSpline* s, double z){
 }
 
 //Function for freeing allocated memory
-void qinterp_free(quadraticSpline* s){
+void quadraticSplineFree(quadraticSpline* s){
 	gsl_vector_free(s->x);
 	gsl_vector_free(s->y);
 	gsl_vector_free(s->b);

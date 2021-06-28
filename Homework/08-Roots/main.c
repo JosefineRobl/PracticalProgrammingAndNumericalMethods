@@ -10,13 +10,13 @@
 #include "rungeKutta23.h"
 #include "rootFinding.h"
 
-static int calls;
+static int ncalls;
 
 /*
  * Gradient of Rosenbrock's valley function for exercise A.
  */
 void RosenbrockGradient(gsl_vector* r, gsl_vector* Rr){
-	calls++;
+	ncalls++;
 	double x = gsl_vector_get(r, 0);
 	double y = gsl_vector_get(r, 1);
 	double Rx = 2*(x - 1) + 400*(pow(x, 2) - y)*x;
@@ -28,10 +28,10 @@ void RosenbrockGradient(gsl_vector* r, gsl_vector* Rr){
 /*
  * Schrödinger ODE to be solved, exercise B.
  */
-static double E; // energy
+static double e; // energy
 void schroedingerEquation(int n, double x, double* y, double* dydx) {
 	dydx[0] = y[1];
-	dydx[1] = -2*E*y[0] - 2./x * y[0];
+	dydx[1] = -2*e*y[0] - 2./x * y[0];
 }
 
 /*
@@ -40,7 +40,7 @@ void schroedingerEquation(int n, double x, double* y, double* dydx) {
 static double rMax=8;
 char* pathToFile;
 void solverForSchrodinger(gsl_vector* x, gsl_vector* M){
-	calls++;
+	ncalls++;
 	// The energy is the variable of M
 	E = gsl_vector_get(x,0);
 	// Second order ODE
@@ -80,7 +80,7 @@ void exerciseA(void){
 	gsl_vector_set(r, 0, x0);
 	gsl_vector_set(r, 1, y0);
 	// Initialize the calls variable
-	calls = 0;
+	ncalls = 0;
 	// Calculate
 	newton(RosenbrockGradient, r, epsilon);
 	// Print the result

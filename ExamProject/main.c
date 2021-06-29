@@ -51,8 +51,7 @@ void testAndPrintIntegrate(double f(double), char* functag, double a, double b, 
 	char* integrationType;
 	switch (integrator) {
 		case 1:
-			//Q = generalisedIntegratorTridivision(f, a, b, delta, epsilon);
-			Q = integrateTridivision(f, a, b, delta, epsilon, 0);
+			Q = generalisedIntegratorTridivision(f, a, b, delta, epsilon);
 			integrationType = "adaptive and recursive integration with bi-division";
 		case 2:
 			Q = generalisedIntegratorBidivision(f, a, b, delta, epsilon);
@@ -102,15 +101,15 @@ int main(void){
 	testAndPrintIntegrate(fun2, "4√(1-x²)", 0, 1, delta, epsilon, M_PI, 2);
 	// fun3
 	printExercise("Calculating integral of exp(-x) from 0 to infinity");
-	//testAndPrintIntegrate(fun3, "exp(-x)", 0, INFINITY, delta, epsilon, 1, 1);
+	testAndPrintIntegrate(fun3, "exp(-x)", 0, INFINITY, delta, epsilon, 1, 1);
 	testAndPrintIntegrate(fun3, "exp(-x)", 0, INFINITY, delta, epsilon, 1, 2);
 	// fun4
 	printExercise("Calculating integral of exp(x) from -infinity to 0");
-	//testAndPrintIntegrate(fun4, "exp(x)", -INFINITY, 0, delta, epsilon, 1, 1);
+	testAndPrintIntegrate(fun4, "exp(x)", -INFINITY, 0, delta, epsilon, 1, 1);
 	testAndPrintIntegrate(fun4, "exp(x)", -INFINITY, 0, delta, epsilon, 1, 2);
 	// fun5
 	printSubtext("Calculating integral of 1/(1+x²) from -infinity to infinity");
-	//testAndPrintIntegrate(fun5, "1/(1+x²)", -INFINITY, INFINITY, delta, epsilon, M_PI, 1);
+	testAndPrintIntegrate(fun5, "1/(1+x²)", -INFINITY, INFINITY, delta, epsilon, M_PI, 1);
 	testAndPrintIntegrate(fun5, "1/(1+x²)", -INFINITY, INFINITY, delta, epsilon, M_PI, 2);
 
 	printf("\n========================================\n");

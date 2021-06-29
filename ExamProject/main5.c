@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <gsl/gsl_integration.h>
 
-
-#include "integration_tri.h"
+#include "integrator5.h"
 
 void print_testResults(char* string, double integralVal, int numOfCalls){
     printf("\n%s  : %g\n", string, integralVal);

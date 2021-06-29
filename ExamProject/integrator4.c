@@ -164,5 +164,5 @@ double integrate(double f(double), double a, double b, double delta, double epsi
 	} else {
 		variableTransformationFormula = 0;
 	}
-	return integrate(f, a, b, delta, epsilon, variableTransformationFormula);
+	return integrateTridivision(f, a, b, delta, epsilon, variableTransformationFormula);
 }

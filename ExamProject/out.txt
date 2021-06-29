@@ -1,0 +1,65 @@
+
+
+My student number is 201706760, and mod(60, 22) = 16
+
+###################################
+# ------------------------------- #
+# ------- EXAM PROJECT 16 ------- #
+# ------------------------------- #
+###################################
+
+Title: Adaptive recursive integrator with subdivision into three subintervals.
+
+Description:
+Implement a (one-dimensional) adaptive recursive integrator (open or closed quadrature, at your choice) which at each iteration subdivides the interval not into two, but into three sub-intervals. Reuse points. Compare with the adaptive integrator from your homework.
+
+==================== Exercise Cauclating integral of √(x) from 0 to 1 ====================
+The integration of √(x) from 0 to 1 using adaptive and recursive integration with tri-division:
+	 delta = 0.0001, and epsilon = 0.0001.
+	 Found value     = 0.666709.
+	 Exact value     = 0.666667.
+	 Estimated error = 0.000166671.
+	 Actual error    = 4.20973e-05.
+	 Number of calls = 28.
+Test passed: Estimated error is larger than the actual error.
+==================== Exercise Cauclating integral of 4√(1-x²) from 0 to 1 ====================
+The integration of 4√(1-x²) from 0 to 1 using adaptive and recursive integration with tri-division:
+	 delta = 0.0001, and epsilon = 0.0001.
+	 Found value     = 3.14161.
+	 Exact value     = 3.14159.
+	 Estimated error = 0.000414161.
+	 Actual error    = 1.40442e-05.
+	 Number of calls = 60.
+Test passed: Estimated error is larger than the actual error.
+==================== Exercise Calculating integral of exp(-x) from 0 to infinity ====================
+The integration of exp(-x) from 0 to inf using adaptive and recursive integration with tri-division:
+	 delta = 0.0001, and epsilon = 0.0001.
+	 Found value     = 1.00001.
+	 Exact value     = 1.
+	 Estimated error = 0.000200001.
+	 Actual error    = 8.16678e-06.
+	 Number of calls = 52.
+Test passed: Estimated error is larger than the actual error.
+==================== Exercise Calculating integral of exp(x) from -infinity to 0 ====================
+The integration of exp(x) from -inf to 0 using adaptive and recursive integration with tri-division:
+	 delta = 0.0001, and epsilon = 0.0001.
+	 Found value     = 1.00001.
+	 Exact value     = 1.
+	 Estimated error = 0.000200001.
+	 Actual error    = 8.16678e-06.
+	 Number of calls = 52.
+Test passed: Estimated error is larger than the actual error.
+==================== Exercise Calculating integral of 1/(1+x²) from -infinity to infinity ====================
+The integration of 1/(1+x²) from -inf to inf using adaptive and recursive integration with tri-division:
+	 delta = 0.0001, and epsilon = 0.0001.
+	 Found value     = 3.1416.
+	 Exact value     = 3.14159.
+	 Estimated error = 0.00041416.
+	 Actual error    = 9.19915e-06.
+	 Number of calls = 96.
+Test passed: Estimated error is larger than the actual error.
+========================================
+
+Conclusion:
+
+The integration using tri-division uses less recursive calls in general compared to the integration with bi-division, thus it performs better overall.

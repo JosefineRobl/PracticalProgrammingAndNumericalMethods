@@ -62,7 +62,6 @@ void testAndPrintIntegrate(double f(double), char* functag, double a, double b, 
 	double estimatedError = delta + fabs(Q)*epsilon;
 	double actualError = fabs(Q - trueVal);
 	// Print the found values
-	printf("----------\n");
 	printf("The integration of %s from %g to %g using %s:\n", functag, a, b, integrationType);
 	printf("\t delta = %g, and epsilon = %g.\n", delta, epsilon);
 	printf("\t Found value     = %g.\n", Q);
@@ -78,7 +77,7 @@ void testAndPrintIntegrate(double f(double), char* functag, double a, double b, 
 }
 
 int main(void){
-	printf("\n\nMy student number is 201706760, and mod(60, 22) = 16\n");
+	printf("\n\nMy student number is 201706760, and mod(60, 22) = 16.\n");
 
 	printf("\n###################################");
 	printf("\n# ------------------------------- #");
@@ -94,11 +93,11 @@ int main(void){
 
 	// fun1
 	printExercise("Cauclating integral of √(x) from 0 to 1");
-	testAndPrintIntegrate(fun1, "√(x)", 0, 1, delta, epsilon, 2./3, 1);
+	//testAndPrintIntegrate(fun1, "√(x)", 0, 1, delta, epsilon, 2./3, 1);
 	testAndPrintIntegrate(fun1, "√(x)", 0, 1, delta, epsilon, 2./3, 2);
 	// fun2
 	printExercise("Cauclating integral of 4√(1-x²) from 0 to 1");
-	testAndPrintIntegrate(fun2, "4√(1-x²)", 0, 1, delta, epsilon, M_PI, 2);
+	//testAndPrintIntegrate(fun2, "4√(1-x²)", 0, 1, delta, epsilon, M_PI, 2);
 	testAndPrintIntegrate(fun2, "4√(1-x²)", 0, 1, delta, epsilon, M_PI, 2);
 	// fun3
 	printExercise("Calculating integral of exp(-x) from 0 to infinity");
@@ -109,12 +108,12 @@ int main(void){
 	//testAndPrintIntegrate(fun4, "exp(x)", -INFINITY, 0, delta, epsilon, 1, 1);
 	testAndPrintIntegrate(fun4, "exp(x)", -INFINITY, 0, delta, epsilon, 1, 2);
 	// fun5
-	printSubtext("Calculating integral of 1/(1+x²) from -infinity to infinity");
+	printExercise("Calculating integral of 1/(1+x²) from -infinity to infinity");
 	//testAndPrintIntegrate(fun5, "1/(1+x²)", -INFINITY, INFINITY, delta, epsilon, M_PI, 1);
 	testAndPrintIntegrate(fun5, "1/(1+x²)", -INFINITY, INFINITY, delta, epsilon, M_PI, 2);
 
-	printf("\n========================================\n");
-	printf("\n\nConclusion:\n");
+	printf("========================================\n");
+	printf("\nConclusion:\n");
 	printf("\nThe integration using tri-division uses less recursive calls in general compared to the integration with bi-division, thus it performs better overall.\n");
 	
 	return 0;

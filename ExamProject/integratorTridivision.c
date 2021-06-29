@@ -78,7 +78,6 @@ double recursiveIntegrateTridivision(double f(double), double a, double b, doubl
 	double error = fabs(Q - q);
 	// Assert
 	if (nrec <= 0) {
-		printf("Returned Q due to nrec");
 		return Q;
 	}
 	// Return value: Depending on the found error vs. the tolerance keep doing recursions or return the found integral value
@@ -140,7 +139,7 @@ double integrateTridivision(double f(double), double a, double b, double delta, 
 			f2 = f(xVal);
 	}
 	// Initialize the number of recursions
-	int nrec = (int) 5;
+	int nrec = (int) 100;
 	// Begin recursion
 	return recursiveIntegrateTridivision(f, a, b, delta, epsilon, f2, nrec, variableTransformationFormula);
 }

@@ -45,8 +45,8 @@ static double gBothLimitsInf(double f(double), double t){
  */
 double adaptiveRecursiveIntegrate(double f(double), double a, double b, double delta, double epsilon, double func2, int recursionLimit, int variableTransformationFormula){
 	// Initialization of the upper and lower x-values used in the surrounding functions below
- 	double xValLower = a + (b - a)/6,
- 	       xValUpper = a + 5*(b - a)/6;
+ 	double xValLowerLimit = a + (b - a)/6,
+ 	       xValUpperLimit = a + 5*(b - a)/6;
  	// Initialization of functions surrounding func2 as sain in README.md (like eq. 51 and 48 in the 'Numerical Integration' PDF)
 	double func1, func3;
 	switch (variableTransformationFormula) {

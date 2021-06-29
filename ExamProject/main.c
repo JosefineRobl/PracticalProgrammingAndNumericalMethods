@@ -2,7 +2,8 @@
 #include <math.h>
 #include <assert.h>
 
-#include "integrator.h"
+#include "integratorTridivision.h"
+#include "integratorBidivision.h"
 
 void printExercise(char* exercise){
 	printf("==================== Exercise %s ====================\n", exercise);

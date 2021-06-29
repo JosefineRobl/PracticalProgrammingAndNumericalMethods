@@ -23,7 +23,7 @@ for the integration function, and his is able to run on an Ubuntu computer, thus
 my examination project should also be able to. Only the part from the Homework 6
 have been tested and run on my own computer.
 The conclusion of the project in the out.txt file thus also stem from looking at
-similar projects and concluding from their numbers.
+similar projects and concluding from their numbers..
 
 
 --------------------------------------------------------------------------------

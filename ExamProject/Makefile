@@ -1,52 +1,25 @@
-CFLAGS +=  $(shell gsl-config --cflags)
-LDLIBS +=  $(shell gsl-config --libs)
-LDLIBS +=  -lm -Wall
+CC = gcc
+CFLAGS = -Wall -std=gnu11 -O
+LDLIBS = -lm
 
-CC   	=  gcc
-PIPE    =  cat
+default: out.txt
+	cat ./$<
 
-EXE   	=  main5
-OBJ  	=  main5.o integrator5.o # functions.o
-HDRS    =  integrator5.h #functions.h
-TXT     =  output.txt
+out.txt: main
+	./$< > $@
 
-.PHONEY: default
-default: print
+main: main.o integratorTridivision.o integratorBidivision.o
+	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-print: $(TXT)
-	$(PIPE) $<
+main.o: main.c integratorTridivision.h integratorBidivision.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(TXT) : $(EXE)
-	./$< 1> $(TXT)
+integratorTridivision.o: integratorTridivision.c integratorTridivision.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(EXE): $(OBJ) $(HDRS)
+integratorBidivision.o: integratorBidivision.c integratorBidivision.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(EXE) $(TXT) $(OBJ)
-
-
-
-#CC = gcc
-#CFLAGS = -std=gnu11 -O -Wall
-#LDLIBS = -lm
-
-#.PHONEY: default
-#default: out.txt
-#	cat ./$<
-
-#out.txt: main5
-#	./$< > $@
-
-#main5: main5.o integrator5.o
-#	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
-
-#main5.o: main5.c integrator5.h
-#	$(CC) $(CFLAGS) -c $< -o $@
-
-#integrator5.o: integrator5.c integrator5.h
-#	$(CC) $(CFLAGS) -c $< -o $@
-
-#.PHONEY: clean
-#clean:
-#	find -type f -executable -delete
-#	$(RM) *.o [Oo]ut*
+	find -type f -executable -delete
+	$(RM) *.o [Oo]ut*

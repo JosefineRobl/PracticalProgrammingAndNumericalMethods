@@ -108,7 +108,7 @@ int main(void){
 	testAndPrintIntegrate(fun4, "exp(x)", -INFINITY, 0, delta, epsilon, 1, 1);
 	testAndPrintIntegrate(fun4, "exp(x)", -INFINITY, 0, delta, epsilon, 1, 2);
 	// fun5
-	printSubtext("Calculating integral of 1/(1+x²) from -infinity to infinity");
+	printExercise("Calculating integral of 1/(1+x²) from -infinity to infinity");
 	testAndPrintIntegrate(fun5, "1/(1+x²)", -INFINITY, INFINITY, delta, epsilon, M_PI, 1);
 	testAndPrintIntegrate(fun5, "1/(1+x²)", -INFINITY, INFINITY, delta, epsilon, M_PI, 2);
 

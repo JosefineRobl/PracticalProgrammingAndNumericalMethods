@@ -42,7 +42,7 @@ static double gBothLimitsInf(double f(double), double t){
  * 
  * returns a double containing the recursively and adaptively integrated value of the function in the integration limit.
  */
-double recursiveIntegrate( double f(double),double a, double b, double delta, double epsilon, double f2, int nrec, int variableTransformationFormula){
+double recursiveIntegrateTridivision(double f(double), double a, double b, double delta, double epsilon, double f2, int nrec, int variableTransformationFormula){
 	// Initialization of the upper and lower x-values used in the surrounding functions below
 	double xValLowerLimit = a + (b - a)/6,
 	       xValUpperLimit = a + 5*(b - a)/6;
@@ -80,9 +80,9 @@ double recursiveIntegrate( double f(double),double a, double b, double delta, do
 		return Q;
 	} else {
 		double deltaNew = delta/sqrt(3);
-		double Q1 = recursiveIntegrate(f, a, a+(a+b)/3, deltaNew, epsilon, f1, nrec - 1, variableTransformationFormula);
-		double Q2 = recursiveIntegrate(f, a+(a+b)/3, a+2*(a+b)/3, deltaNew, epsilon, f2, nrec - 1, variableTransformationFormula);
-		double Q3 = recursiveIntegrate(f, 2*(a+b)/3, b, deltaNew, epsilon, f3, nrec - 1, variableTransformationFormula);
+		double Q1 = recursiveIntegrateTridivision(f, a, a+(a+b)/3, deltaNew, epsilon, f1, nrec - 1, variableTransformationFormula);
+		double Q2 = recursiveIntegrateTridivision(f, a+(a+b)/3, a+2*(a+b)/3, deltaNew, epsilon, f2, nrec - 1, variableTransformationFormula);
+		double Q3 = recursiveIntegrateTridivision(f, 2*(a+b)/3, b, deltaNew, epsilon, f3, nrec - 1, variableTransformationFormula);
 		return Q1 + Q2 + Q3;
 	}
 }
@@ -99,7 +99,7 @@ double recursiveIntegrate( double f(double),double a, double b, double delta, do
  * 
  * returns a double containing the recursively and adaptively integrated value of the function in the integration limit.
  */
-double integrate(double f(double), double a, double b, double delta, double epsilon, int variableTransformationFormula){
+double integrateTridivision(double f(double), double a, double b, double delta, double epsilon, int variableTransformationFormula){
 	// Initialize field-scope variables with the integration limits
 	A = a; B = b;
 	// Set new limits for use in the transformation formulas
@@ -136,7 +136,7 @@ double integrate(double f(double), double a, double b, double delta, double epsi
 	// Initialize the number of recursions
 	int nrec = (int) 1e6;
 	// Begin recursion
-	return recursiveIntegrate(f, a, b, delta, epsilon, f2, nrec, variableTransformationFormula);
+	return recursiveIntegrateTridivision(f, a, b, delta, epsilon, f2, nrec, variableTransformationFormula);
 }
 
 /*
@@ -150,7 +150,7 @@ double integrate(double f(double), double a, double b, double delta, double epsi
  * 
  * returns a double containing the recursively and adaptively integrated value of the function in the integration limit.
  */
-double generalisedIntegrator(double f(double), double a, double b, double delta, double epsilon){
+double generalisedIntegratorTridivision(double f(double), double a, double b, double delta, double epsilon){
 	int variableTransformationFormula;
 	if (isinf(a) != 0) {
 		if (isinf(b) != 0) {
@@ -163,5 +163,5 @@ double generalisedIntegrator(double f(double), double a, double b, double delta,
 	} else {
 		variableTransformationFormula = 0;
 	}
-	return integrate(f, a, b, delta, epsilon, variableTransformationFormula);
+	return integrateTridivision(f, a, b, delta, epsilon, variableTransformationFormula);
 }

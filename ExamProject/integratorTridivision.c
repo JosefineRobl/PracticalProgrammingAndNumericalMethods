@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <assert.h>
 #include "integratorTridivision.h"
 
 /*
@@ -46,7 +47,7 @@ double recursiveIntegrateTridivision(double f(double), double a, double b, doubl
 	// Initialization of the upper and lower x-values used in the surrounding functions below
 	double xValLowerLimit = a + (b - a)/6,
 	       xValUpperLimit = a + 5*(b - a)/6;
-	// Initialization of functions surrounding func2 and func3 using 'Numerical Integration' PDF eq. 51 and 48
+	// Initialization of functions surrounding f2 (like in 'Numerical Integration' PDF eq. 51)
 	double f1, f3;
 	switch (variableTransformationFormula) {
 		case 1:
@@ -75,8 +76,10 @@ double recursiveIntegrateTridivision(double f(double), double a, double b, doubl
 	// Initialization of the error and the tolerance
 	double tolerance = delta + epsilon*fabs(Q);
 	double error = fabs(Q - q);
+	// Assert
+	assert(nrec > 0);
 	// Return value: Depending on the found error vs. the tolerance keep doing recursions or return the found integral value
-	if ((error < tolerance) || (nrec == 0)) {
+	if (error < tolerance) { //((error < tolerance) || (nrec == 0)) {
 		return Q;
 	} else {
 		double deltaNew = delta/sqrt(3);
@@ -113,7 +116,7 @@ double integrateTridivision(double f(double), double a, double b, double delta, 
 		case 3:
 			a = 0; b = 1;
 	}
-	// Initialized func2 and func3 from eq. 51 and 48 in the 'Numerical Integration' PDF
+	// Initialized f2 (as from eq. 51 and 48 in the 'Numerical Integration' PDF)
 	double xVal = a + 3*(b - a)/6;
 	double f2;
 	switch (variableTransformationFormula) {

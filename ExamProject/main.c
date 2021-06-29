@@ -51,10 +51,10 @@ void testAndPrintIntegrate(double f(double), char* functag, double a, double b, 
 	char* integrationType;
 	switch (integrator) {
 		case 1:
-			Q = generalisedIntegrator(f, a, b, delta, epsilon);
+			Q = generalisedIntegratorTridivision(f, a, b, delta, epsilon);
 			integrationType = "adaptive and recursive integration with bi-division";
 		case 2:
-			Q = generalisedIntegratorHomework(f, a, b, delta, epsilon);
+			Q = generalisedIntegratorBidivision(f, a, b, delta, epsilon);
 			integrationType = "adaptive and recursive integration with tri-division";
 	}
 	// Calculate the estimated and actual error

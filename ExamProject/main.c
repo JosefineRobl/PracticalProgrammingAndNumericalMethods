@@ -96,7 +96,7 @@ int main(void){
 	testAndPrintIntegrate(fun1, "√(x)", 0, 1, delta, epsilon, 2./3, 2);
 	// fun2
 	printExercise("Cauclating integral of 4√(1-x²) from 0 to 1");
-	testAndPrintIntegrate(fun2, "4√(1-x²)", 0, 1, delta, epsilon, M_PI, 2);
+	testAndPrintIntegrate(fun2, "4√(1-x²)", 0, 1, delta, epsilon, M_PI, 1);
 	testAndPrintIntegrate(fun2, "4√(1-x²)", 0, 1, delta, epsilon, M_PI, 2);
 	// fun3
 	printExercise("Calculating integral of exp(-x) from 0 to infinity");

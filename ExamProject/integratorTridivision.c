@@ -76,12 +76,8 @@ double recursiveIntegrateTridivision(double f(double), double a, double b, doubl
 	// Initialization of the error and the tolerance
 	double tolerance = delta + epsilon*fabs(Q);
 	double error = fabs(Q - q);
-	// Assert
-	if (nrec <= 0) {
-		return Q;
-	}
 	// Return value: Depending on the found error vs. the tolerance keep doing recursions or return the found integral value
-	if (error < tolerance) { //((error < tolerance) || (nrec == 0)) {
+	if ((error < tolerance) || (nrec <= 0)) {
 		return Q;
 	} else {
 		double deltaNew = delta/sqrt(3);
@@ -139,7 +135,7 @@ double integrateTridivision(double f(double), double a, double b, double delta, 
 			f2 = f(xVal);
 	}
 	// Initialize the number of recursions
-	int nrec = (int) 100;
+	int nrec = 99;
 	// Begin recursion
 	return recursiveIntegrateTridivision(f, a, b, delta, epsilon, f2, nrec, variableTransformationFormula);
 }

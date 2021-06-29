@@ -139,7 +139,7 @@ double integrateTridivision(double f(double), double a, double b, double delta, 
 	// Initialize the number of recursions
 	int nrec = (int) 99;
 	// Begin recursion
-	return recursiveIntegrateTridivision(f, a, b, delta, epsilon, f2, nrec, variableTransformationFormula);
+	return recursiveIntegrateTridivision(f, a, b, 2*delta, 2*epsilon, f2, nrec, variableTransformationFormula);
 }
 
 /*

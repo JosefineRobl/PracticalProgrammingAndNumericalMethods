@@ -88,6 +88,8 @@ This folder (/ExamProject/) is the main folder of the exam project, it contains:
   - main.c: The code running and testing the tri-subinterval adaptive and
 	    recursive integration routine.
 
+  - Makefile: The file containing the make commands for running the main.c file.
+
   - README.md: This file.
 
   - integratorTridivision*

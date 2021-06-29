@@ -13,6 +13,27 @@ void print_whichTest(char* string, double exactVal){
     printf("\n%s %g", string, exactVal);
     printf("\n---------------------------------");
 }
+static int numOfCalls;
+
+double firstTestFunc ( double x ){
+	numOfCalls++;
+	return sqrt( x ) ;
+};
+
+double secondTestFunc ( double x ){
+	numOfCalls++;
+	return 4 * sqrt( 1 - x*x );
+};
+
+double fifthTestFunc( double x ){
+	numOfCalls++;
+	return exp(-x*x);
+}
+
+double sixthTestFunc( double x ){
+	numOfCalls++;
+	return 1/(1 + x*x);
+}
 
 
 int main(int argc, char* argv[]){
@@ -33,7 +54,7 @@ int main(int argc, char* argv[]){
     double absAcc       =   1e-6;
     double relAcc       =   1e-6;
 
-    int     numOfCalls          =   0;
+    numOfCalls          =   0;
     double  integrationError    =   0;
 
 
@@ -45,11 +66,6 @@ int main(int argc, char* argv[]){
     print_whichTest("∫_0^1 dx √(x) = 2/3 =", exactVal);
 
 
-    double firstTestFunc ( double x ){
-        numOfCalls++;
-        return sqrt( x ) ;
-    };
-
     double integralVal  =   integrate( firstTestFunc, leftEndPt, rightEndPt, absAcc, relAcc);
 
     print_testResults("Result of numerical integration", integralVal, numOfCalls);
@@ -59,11 +75,6 @@ int main(int argc, char* argv[]){
     double integralVal_old  =   integrate_old( firstTestFunc, leftEndPt, rightEndPt, absAcc, relAcc, &ptrDump);
     print_testResults("Result of numerical integration", integralVal_old, numOfCalls);
 
-
-    double secondTestFunc ( double x ){
-        numOfCalls++;
-        return 4 * sqrt( 1 - x*x );
-    };
 
 
     numOfCalls = 0;
@@ -81,10 +92,7 @@ int main(int argc, char* argv[]){
 
     double err = 0;
 
-    double fifthTestFunc( double x ){
-        numOfCalls++;
-        return exp(-x*x);
-    }
+    
     exactVal = sqrt(M_PI);
     print_whichTest("∫_-inf^inf dx exp(-x²) = √π =", exactVal);
     numOfCalls = 0;
@@ -98,11 +106,6 @@ int main(int argc, char* argv[]){
     print_testResults("Result of numerical integration", integralVal_old, numOfCalls);
 
 
-
-    double sixthTestFunc( double x ){
-        numOfCalls++;
-        return 1/(1 + x*x);
-    }
 
     exactVal = M_PI/2;
     print_whichTest("∫_0^inf dx 1/(1+x²) = π/2 =", exactVal);

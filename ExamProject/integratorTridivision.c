@@ -77,7 +77,7 @@ double recursiveIntegrateTridivision(double f(double), double a, double b, doubl
 	double tolerance = delta + epsilon*fabs(Q);
 	double error = fabs(Q - q);
 	// Assert
-	if (nrec !> 0) {
+	if (nrec <= 0) {
 		printf("Returned Q due to nrec");
 		return Q;
 	}

@@ -6,13 +6,13 @@ LDLIBS = -lm
 default: out.txt
 	cat ./$<
 
-out.txt: main2
+out.txt: main4
 	./$< > $@
 
-main2: main2.o integrator4.o
+main4: main4.o integrator4.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-main2.o: main2.c integrator4.h
+main4.o: main4.c integrator4.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 integrator4.o: integrator4.c integrator4.h

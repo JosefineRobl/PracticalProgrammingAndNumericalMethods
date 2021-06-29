@@ -1,7 +1,8 @@
+#ifndef haveIntegratorTridivision
+#define haveIntegratorTridivision
+
 #include <stdio.h>
 #include <math.h>
-
-double integrateTridivision(double f(double), double a, double b, double delta, double epsilon);
 
 /*
  * Integrates a function with one or more limits possibly being infinity, using three sub-divisions of the integration interval instead of two, and an adaptive and recursive technique.
@@ -14,4 +15,6 @@ double integrateTridivision(double f(double), double a, double b, double delta, 
  * 
  * returns a double containing the recursively and adaptively integrated value of the function in the integration limit.
  */
-//double generalisedIntegrator(double f(double), double a, double b, double delta, double epsilon);
+double generalisedIntegrator(double f(double), double a, double b, double delta, double epsilon);
+
+#endif

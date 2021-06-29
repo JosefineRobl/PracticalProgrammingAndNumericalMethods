@@ -135,7 +135,7 @@ double integrateTridivision(double f(double), double a, double b, double delta, 
  			func2 = f(xVal);
  	}
 	// Initialize the limit of recursions to 99 times - the 100th time should resolve in an error
- 	int recursionLimit = 99;
+ 	int recursionLimit = 1e4;
 	// Begin recursion
  	return adaptiveRecursiveIntegrate(f, a, b, delta, epsilon, func2, recursionLimit, variableTransformationFormula);
 }

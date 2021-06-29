@@ -13,4 +13,4 @@
  * 
  * returns a double containing the recursively and adaptively integrated value of the function in the integration limit.
  */
-double integrate(double f(double), double a, double b, double delta, double epsilon);
+double generalisedIntegrator(double f(double), double a, double b, double delta, double epsilon);

@@ -9,13 +9,13 @@ default: out.txt
 out.txt: main2
 	./$< > $@
 
-main2: main2.o integrator3.o
+main2: main2.o integrator4.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-main2.o: main2.c integrator3.h
+main2.o: main2.c integrator4.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-integrator3.o: integrator3.c integrator3.h
+integrator4.o: integrator4.c integrator4.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONEY: clean

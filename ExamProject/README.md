@@ -15,16 +15,6 @@ I feel that I have solved the examination project to the highest possible value
 (10/10). I have not only solved it for the normal integrator with limits being
 finite, but I have also made it possible to use infinite limits.
 
-Due to my use of a Windows computer and therefore WSL, it is not possible for me
-to actually run the code, but after completion of the examination project (and
-being frustrated it wouldn't run on my pc, I looked at the code of Marc, who
-also have this examination project, and I can see, that we have the same form
-for the integration function, and his is able to run on an Ubuntu computer, thus
-my examination project should also be able to. Only the part from the Homework 6
-have been tested and run on my own computer.
-The conclusion of the project in the out.txt file thus also stem from looking at
-similar projects and concluding from their numbers.
-
 
 --------------------------------------------------------------------------------
    16: Adaptive recursive integrator with subdivision into three subintervals
@@ -107,4 +97,3 @@ This folder (/ExamProject/) is the main folder of the exam project, it contains:
 	    integrator as that in Homework 6.
 
   - out.txt: Text document containing the results from the examination project.
-             (NOTE: Might not be there, see "Comments on examination project".)

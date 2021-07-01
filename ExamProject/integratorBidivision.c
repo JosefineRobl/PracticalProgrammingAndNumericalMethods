@@ -44,7 +44,7 @@ static double gBothLimitsInf(double f(double), double t){
  * 
  * returns a double containing the recursively and adaptively integrated value of the function in the integration limit.
  */
-double recursiveIntegrateBidivision( double f(double),double a, double b, double delta, double epsilon, double f2, double f3, int nrec, int variableTransformationFormula){//wrapper calls F(f,t)
+double recursiveIntegrateBidivision( double f(double),double a, double b, double delta, double epsilon, double f2, double f3, int nrec, int variableTransformationFormula){
 	// Initialization of the upper and lower x-values used in the surrounding functions below
 	double xValLowerLimit = a + (b - a)/6,
 	       xValUpperLimit = a + 5*(b - a)/6;
@@ -146,8 +146,8 @@ double integrateBidivision(double f(double), double a, double b, double delta, d
 	// Initialize the number of recursions
 	int nrec = 0;
 	// Begin recursion
-	return recursiveIntegrateBidivision(f, a, b, 2*delta, 2*epsilon, f2, f3, nrec, variableTransformationFormula);
-}	
+	return recursiveIntegrateBidivision(f, a, b, delta, epsilon, f2, f3, nrec, variableTransformationFormula);
+}
 
 /*
  * Integrates a function with one or more limits possibly being infinity, using two sub-divisions of the integration interval, and an adaptive and recursive technique.

@@ -81,9 +81,9 @@ double recursiveIntegrateTridivision(double f(double), double a, double b, doubl
 		return Q;
 	} else {
 		double deltaNew = delta/sqrt(3);
-		double Q1 = recursiveIntegrateTridivision(f, a, a+(a+b)/3, deltaNew, epsilon, f1, nrec - 1, variableTransformationFormula);
-		double Q2 = recursiveIntegrateTridivision(f, a+(a+b)/3, a+2*(a+b)/3, deltaNew, epsilon, f2, nrec - 1, variableTransformationFormula);
-		double Q3 = recursiveIntegrateTridivision(f, a+2*(a+b)/3, b, deltaNew, epsilon, f3, nrec - 1, variableTransformationFormula);
+		double Q1 = recursiveIntegrateTridivision(f, a, a+(b-a)/3, deltaNew, epsilon, f1, nrec - 1, variableTransformationFormula);
+		double Q2 = recursiveIntegrateTridivision(f, a+(b-a)/3, a+2*(b-a)/3, deltaNew, epsilon, f2, nrec - 1, variableTransformationFormula);
+		double Q3 = recursiveIntegrateTridivision(f, a+2*(b-a)/3, b, deltaNew, epsilon, f3, nrec - 1, variableTransformationFormula);
 		return Q1 + Q2 + Q3;
 	}
 }

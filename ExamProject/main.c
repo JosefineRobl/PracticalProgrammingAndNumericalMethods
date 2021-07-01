@@ -9,8 +9,8 @@ void printExercise(char* exercise){
 	printf("==================== Exercise %s ====================\n", exercise);
 }
 
-void printSubtext(char* subtext){
-	printf("---------- %s ----------\n", subtext);
+void printDashes(void){
+	printf("--------------------\n");
 }
 
 // Define functions
@@ -68,6 +68,13 @@ void testAndPrintIntegrate(double f(double), char* functag, double a, double b, 
 	printf("\t Estimated error = %g.\n", estimatedError);
 	printf("\t Actual error    = %g.\n", actualError);
 	printf("\t Number of calls = %d.\n", calls);
+	switch (integrator) {
+		case 1:
+			printf("\t Average depth   = %g.\n", log(calls)/log(3));
+			break;
+		case 2:
+			printf("\t Average depth   = %g.\n", log(calls)/log(2));
+	}
 	if (estimatedError > actualError) {
 		printf("Test passed: Estimated error is larger than the actual error.\n");
 	} else {
@@ -78,11 +85,11 @@ void testAndPrintIntegrate(double f(double), char* functag, double a, double b, 
 int main(void){
 	printf("\n\nMy student number is 201706760, and mod(60, 22) = 16.\n");
 
-	printf("\n###################################");
-	printf("\n# ------------------------------- #");
-	printf("\n# ------- EXAM PROJECT 16 ------- #");
-	printf("\n# ------------------------------- #");
-	printf("\n###################################\n");
+	printf("\n#######################################################");
+	printf("\n# --------------------------------------------------- #");
+	printf("\n# ----------------- EXAM PROJECT 16 ----------------- #");
+	printf("\n# --------------------------------------------------- #");
+	printf("\n#######################################################\n");
 	printf("\nTitle: Adaptive recursive integrator with subdivision into three subintervals.\n");
 	printf("\nDescription:\n");
 	printf("Implement a (one-dimensional) adaptive recursive integrator (open or closed quadrature, at your choice) which at each iteration subdivides the interval not into two, but into three sub-intervals. Reuse points. Compare with the adaptive integrator from your homework.\n\n");
@@ -93,27 +100,32 @@ int main(void){
 	// fun1
 	printExercise("Cauclating integral of √(x) from 0 to 1");
 	testAndPrintIntegrate(fun1, "√(x)", 0, 1, delta, epsilon, 2./3, 1);
+	printDashes();
 	testAndPrintIntegrate(fun1, "√(x)", 0, 1, delta, epsilon, 2./3, 2);
 	// fun2
 	printExercise("Cauclating integral of 4√(1-x²) from 0 to 1");
 	testAndPrintIntegrate(fun2, "4√(1-x²)", 0, 1, delta, epsilon, M_PI, 1);
+	printDashes();
 	testAndPrintIntegrate(fun2, "4√(1-x²)", 0, 1, delta, epsilon, M_PI, 2);
 	// fun3
 	printExercise("Calculating integral of exp(-x) from 0 to infinity");
 	testAndPrintIntegrate(fun3, "exp(-x)", 0, INFINITY, delta, epsilon, 1, 1);
+	printDashes();
 	testAndPrintIntegrate(fun3, "exp(-x)", 0, INFINITY, delta, epsilon, 1, 2);
 	// fun4
 	printExercise("Calculating integral of exp(x) from -infinity to 0");
 	testAndPrintIntegrate(fun4, "exp(x)", -INFINITY, 0, delta, epsilon, 1, 1);
+	printDashes();
 	testAndPrintIntegrate(fun4, "exp(x)", -INFINITY, 0, delta, epsilon, 1, 2);
 	// fun5
 	printExercise("Calculating integral of 1/(1+x²) from -infinity to infinity");
 	testAndPrintIntegrate(fun5, "1/(1+x²)", -INFINITY, INFINITY, delta, epsilon, M_PI, 1);
+	printDashes();
 	testAndPrintIntegrate(fun5, "1/(1+x²)", -INFINITY, INFINITY, delta, epsilon, M_PI, 2);
 
 	printf("========================================\n");
 	printf("\nConclusion:\n");
-	printf("\nThe integration using tri-division uses less recursive calls in general compared to the integration with bi-division, thus it performs better overall.\n");
+	printf("\nThe integration using tri-division uses in general more recursive calls compared to the integration with bi-division, which makes sense due to the integration using tridivision has a tree of function calls growing as 3^N, while it for bidivision only grows as 2^N. Thus it makes sense, that it uses more calls. Though if one looks at the average depth of the recusion for the integrators, then one notises that the average depth is much lower for the tridivition than for the bidivision, since the more calls go to the width of the tree and not the depth. Therefore it can be seen, that fewer recursions but a larger number of calls is needed, when the integration interval is split into more parts to be integrated.\n");
 	
 	return 0;
 }
